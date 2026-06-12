@@ -115,7 +115,7 @@ const Login = Vue.defineComponent({
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <input id="password" type="password" v-model="password" required placeholder="••••••••" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
+              <input id="password" type="password" v-model="password" required placeholder="********" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
             </div>
           </div>
 
