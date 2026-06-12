@@ -87,6 +87,9 @@ const Home = Vue.defineComponent({
   },
   mounted() {
     this.fetchData();
+    if (window.observeFadeSections) {
+      window.observeFadeSections();
+    }
   },
   template: `
   <div class="min-h-screen bg-white font-sans text-slate-900">

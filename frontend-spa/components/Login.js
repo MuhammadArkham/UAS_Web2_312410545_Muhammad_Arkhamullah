@@ -87,7 +87,7 @@ const Login = Vue.defineComponent({
         
         <form @submit.prevent="handleLogin" class="space-y-6">
           
-          <div v-if="error" class="bg-red-50 text-red-600 p-4 rounded-xl text-sm font-semibold border border-red-100 flex items-start gap-3 fade-in-section">
+          <div v-if="error" class="bg-red-50 text-red-600 p-4 rounded-xl text-sm font-semibold border border-red-100 flex items-start gap-3 animate-pulse">
              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
              <span>{{ error }}</span>
           </div>
