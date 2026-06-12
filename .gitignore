@@ -1,0 +1,6 @@
+extract*.py
+home_history.txt
+old_home.js
+backend-api/vendor/
+backend-api/writable/
+.env
