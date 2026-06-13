@@ -21,38 +21,38 @@ const AdminLayout = Vue.defineComponent({
     if(userData) this.user = JSON.parse(userData);
   },
   template: `
-  <div class="flex h-screen bg-slate-50 overflow-hidden text-slate-800 font-sans">
+  <div class="flex h-screen bg-[#F8FAFC] overflow-hidden text-slate-800 font-sans">
     <!-- Sidebar -->
-    <aside class="w-[260px] bg-primary text-white flex flex-col transition-all shrink-0">
-      <div class="h-20 flex items-center px-8">
+    <aside class="w-[240px] bg-[#0B3EA8] text-white flex flex-col transition-all shrink-0">
+      <div class="h-[72px] flex items-center px-6">
         <div class="flex items-center gap-3 font-bold text-xl tracking-tight text-white">
            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm p-0.5">
               <img src="assets/logo_uas.png" alt="Logo SiLapor" class="w-full h-full object-contain" />
            </div>
            <div>
              <div class="leading-none mb-1">SiLapor</div>
-             <div class="text-[9px] font-medium text-blue-200 font-inter">Sistem Pengaduan Masyarakat</div>
+             <div class="text-[9px] font-medium text-blue-200 font-inter">Sistem Pelaporan Pengaduan Masyarakat</div>
            </div>
         </div>
       </div>
-      <div class="flex-1 overflow-y-auto py-8">
+      <div class="flex-1 overflow-y-auto py-6">
         <nav class="px-4 space-y-2">
-          <button @click="$router.push('/dashboard')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/dashboard' ? 'bg-white text-blue-600 shadow-sm' : 'text-blue-100 hover:bg-primaryHover hover:text-white'">
-            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          <button @click="$router.push('/dashboard')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/dashboard' ? 'bg-white text-[#1D4ED8] shadow-sm' : 'text-blue-100 hover:bg-white/10 hover:text-white'">
+            <i class="ti ti-layout-dashboard text-lg shrink-0"></i>
             Dashboard
           </button>
-          <button @click="$router.push('/reports')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/reports' || $route.path === '/create' ? 'bg-white text-blue-600 shadow-sm' : 'text-blue-100 hover:bg-primaryHover hover:text-white'">
-            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          <button @click="$router.push('/reports')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/reports' || $route.path === '/create' ? 'bg-white text-[#1D4ED8] shadow-sm' : 'text-blue-100 hover:bg-white/10 hover:text-white'">
+            <i class="ti ti-file-text text-lg shrink-0"></i>
             Laporan
           </button>
-          <button @click="$router.push('/categories')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/categories' ? 'bg-white text-blue-600 shadow-sm' : 'text-blue-100 hover:bg-primaryHover hover:text-white'">
-            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          <button @click="$router.push('/categories')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/categories' ? 'bg-white text-[#1D4ED8] shadow-sm' : 'text-blue-100 hover:bg-white/10 hover:text-white'">
+            <i class="ti ti-folder text-lg shrink-0"></i>
             Kategori
           </button>
           
-          <div class="pt-8">
-            <button @click="logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-blue-100 hover:bg-primaryHover hover:text-white transition-colors">
-              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+          <div class="pt-6 mt-6 border-t border-white/10">
+            <button @click="logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-blue-100 hover:bg-white/10 hover:text-white transition-colors">
+              <i class="ti ti-logout text-lg shrink-0"></i>
               Logout
             </button>
           </div>
@@ -65,30 +65,29 @@ const AdminLayout = Vue.defineComponent({
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden relative">
       <!-- Topbar -->
-      <header class="bg-white border-b border-slate-200 flex flex-col md:flex-row md:items-center justify-between px-8 py-5 z-10 gap-4">
+      <header class="bg-white border-b border-[#E2E8F0] flex items-center justify-between px-8 h-[72px] z-10 shrink-0">
         <div>
-           <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">{{ title }}</h2>
-           <p v-if="subtitle" class="text-sm font-medium text-slate-500 mt-1">{{ subtitle }}</p>
+           <h2 class="text-xl font-semibold text-slate-900 tracking-tight">{{ title }}</h2>
         </div>
-        <div class="flex items-center gap-5">
+        <div class="flex items-center gap-5 cursor-pointer">
            <!-- Profile Pill -->
-           <div class="flex items-center gap-3 border border-slate-200 rounded-xl py-1.5 pl-1.5 pr-4 shadow-sm bg-white">
-              <div class="w-10 h-10 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-sm">
+           <div class="flex items-center gap-3 border border-[#E2E8F0] rounded-full py-1.5 pl-1.5 pr-4 shadow-sm bg-white hover:bg-slate-50 transition-colors">
+              <div class="w-9 h-9 rounded-full bg-[#2563EB] text-white flex items-center justify-center font-bold text-sm">
                 {{ user?.name ? user.name.charAt(0).toUpperCase() : 'A' }}
               </div>
               <div class="text-left hidden md:block">
-                 <div class="text-sm font-bold text-slate-900 leading-tight">{{ user?.name || 'Administrator' }}</div>
-                 <div class="text-xs font-medium text-slate-500">{{ user?.email || 'Administrator' }}</div>
+                 <div class="text-sm font-semibold text-[#0F172A] leading-tight">{{ user?.name || 'Administrator' }}</div>
+                 <div class="text-xs font-medium text-[#64748B]">{{ user?.email || 'admin@silapor.com' }}</div>
               </div>
-              <div class="ml-2 text-slate-400">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              <div class="ml-1 text-[#64748B]">
+                <i class="ti ti-chevron-down text-lg"></i>
               </div>
            </div>
         </div>
       </header>
 
       <!-- Page Content -->
-      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 p-8">
+      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-[#F8FAFC] p-8">
         <slot></slot>
       </main>
     </div>

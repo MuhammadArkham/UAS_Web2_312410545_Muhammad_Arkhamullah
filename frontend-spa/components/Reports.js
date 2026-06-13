@@ -124,39 +124,42 @@ const Reports = Vue.defineComponent({
   template: `
   <AdminLayout title="Semua Laporan" subtitle="Daftar seluruh laporan masyarakat beserta status penanganannya.">
     <!-- Filter Section -->
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 mb-8 flex flex-col md:flex-row gap-4 justify-between">
+    <div class="bg-white rounded-t-2xl border border-[#E2E8F0] shadow-sm px-6 py-5 flex flex-col md:flex-row gap-4 justify-between border-b-0">
        <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-          <div class="relative min-w-[250px]">
-             <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-             <input v-model="searchQuery" type="text" placeholder="Cari laporan berdasarkan judul..." class="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-slate-50 focus:bg-white" />
+          <div class="relative min-w-[280px]">
+             <i class="ti ti-search absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B] text-lg"></i>
+             <input v-model="searchQuery" type="text" placeholder="Cari judul laporan, lokasi, atau pelapor..." class="w-full pl-11 pr-4 py-2.5 border border-[#E2E8F0] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white text-[#0F172A] placeholder-[#64748B]" />
           </div>
-          <select v-model="filterCategory" class="px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-slate-50 focus:bg-white min-w-[200px] text-slate-600 font-medium">
-            <option value="">Semua Kategori</option>
-            <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
-          </select>
+          <div class="relative min-w-[200px]">
+            <select v-model="filterCategory" class="w-full pl-4 pr-10 py-2.5 border border-[#E2E8F0] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white text-[#0F172A] font-medium appearance-none">
+              <option value="">Semua Kategori</option>
+              <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+            </select>
+            <i class="ti ti-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none"></i>
+          </div>
        </div>
-       <router-link to="/create" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-primaryHover transition-colors shadow-sm">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-          Buat Laporan
+       <router-link to="/create" class="inline-flex items-center justify-center gap-2 bg-[#2563EB] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#1D4ED8] transition-colors shadow-sm">
+          <i class="ti ti-plus text-lg"></i>
+          Tambah Laporan
        </router-link>
     </div>
 
     <!-- Table Section -->
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+    <div class="bg-white rounded-b-2xl border border-[#E2E8F0] shadow-sm overflow-hidden mb-8">
       <div class="overflow-x-auto min-h-[400px]">
         <table class="w-full text-left border-collapse">
           <thead>
-            <tr class="bg-slate-50/50 text-slate-500 text-xs uppercase tracking-wider font-semibold border-b border-slate-100">
-              <th class="px-6 py-4">ID</th>
-              <th class="px-6 py-4">Judul</th>
+            <tr class="bg-[#F8FAFC] text-[#64748B] text-[12px] uppercase tracking-wide font-semibold border-b border-[#E2E8F0]">
+              <th class="px-6 py-4">ID Laporan</th>
+              <th class="px-6 py-4">Judul Laporan</th>
               <th class="px-6 py-4">Kategori</th>
               <th class="px-6 py-4">Lokasi</th>
               <th class="px-6 py-4 text-center">Status</th>
-              <th class="px-6 py-4">Tanggal Masuk</th>
+              <th class="px-6 py-4">Tanggal</th>
               <th class="px-6 py-4 text-center">Aksi</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100">
+          <tbody class="divide-y divide-[#E2E8F0]">
             <template v-if="isLoading">
               <tr v-for="i in 3" :key="i">
                 <td class="px-6 py-4"><div class="animate-pulse bg-gray-100 h-4 rounded w-16"></div></td>
@@ -169,20 +172,20 @@ const Reports = Vue.defineComponent({
               </tr>
             </template>
             <template v-else>
-              <tr v-for="(r, index) in paginatedReports" :key="r.id" class="hover:bg-slate-50/50 transition-colors group">
+              <tr v-for="(r, index) in paginatedReports" :key="r.id" class="hover:bg-[#F8FAFC] transition-colors group">
               <td class="px-6 py-4 align-middle">
-                 <span class="text-xs font-bold text-slate-600">#LP-{{ String(r.id).padStart(4, '0') }}</span>
+                 <span class="text-[14px] font-medium text-[#64748B]">#LP-{{ String(r.id).padStart(4, '0') }}</span>
               </td>
               <td class="px-6 py-4 align-middle max-w-xs">
-                 <span class="text-sm font-semibold text-slate-900 block truncate" :title="r.title">{{ r.title }}</span>
+                 <span class="text-[14px] font-medium text-[#0F172A] block truncate" :title="r.title">{{ r.title }}</span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="inline-flex text-[11px] font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-md">
+                 <span class="inline-flex text-[12px] font-medium text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-md">
                    {{ r.category?.name || 'Lainnya' }}
                  </span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="text-sm text-slate-600 truncate max-w-[150px] inline-block" :title="r.location">{{ r.location }}</span>
+                 <span class="text-[14px] font-medium text-[#64748B] truncate max-w-[150px] inline-block" :title="r.location">{{ r.location }}</span>
               </td>
               <td class="px-6 py-4 align-middle text-center">
                  <div v-if="editingStatusId === r.id" class="flex items-center gap-1 justify-center">
@@ -191,33 +194,35 @@ const Reports = Vue.defineComponent({
                       <option value="diproses">Diproses</option>
                       <option value="selesai">Selesai</option>
                     </select>
-                    <button @click="saveStatus(r.id)" class="text-emerald-600 p-1 bg-emerald-50 rounded"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></button>
+                    <button @click="saveStatus(r.id)" class="text-green-600 p-1 bg-green-50 rounded"><i class="ti ti-check text-xs"></i></button>
                  </div>
                  <div v-else class="cursor-pointer" @click="startEditStatus(r)" title="Klik untuk ubah status">
-                   <span class="inline-flex text-[11px] font-bold px-2.5 py-1 rounded-md capitalize" :class="statusBadge(r.status)">
+                   <span class="inline-flex items-center gap-1.5 text-[12px] font-semibold px-2.5 py-1 rounded-md capitalize" :class="statusBadge(r.status)">
+                     <i :class="r.status === 'selesai' ? 'ti ti-circle-check text-xs' : (r.status === 'diproses' ? 'ti ti-refresh text-xs' : 'ti ti-clock text-xs')"></i>
                      {{ r.status }}
                    </span>
                  </div>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="text-sm font-semibold text-slate-700" v-html="formatDate(r.created_at)"></span>
+                 <span class="text-[14px] font-medium text-[#64748B]" v-html="formatDate(r.created_at)"></span>
               </td>
               <td class="px-6 py-4 align-middle text-center">
                  <div class="flex items-center justify-center gap-2">
-                   <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-8 h-8 rounded border border-slate-200 bg-white text-blue-500 hover:bg-blue-50 hover:border-blue-200 flex items-center justify-center transition-colors">
-                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                   <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-10 h-10 rounded-lg text-[#64748B] hover:text-[#2563EB] hover:bg-blue-50 flex items-center justify-center transition-colors border border-transparent hover:border-blue-200">
+                     <i class="ti ti-eye text-lg"></i>
                    </router-link>
-                   <button @click="deleteReport(r.id)" title="Hapus Laporan" class="w-8 h-8 rounded border border-slate-200 bg-white text-rose-500 hover:bg-rose-50 hover:border-rose-200 flex items-center justify-center transition-colors">
-                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                   <button @click="deleteReport(r.id)" title="Hapus Laporan" class="w-10 h-10 rounded-lg text-[#64748B] hover:text-red-600 hover:bg-red-50 flex items-center justify-center transition-colors border border-transparent hover:border-red-200">
+                     <i class="ti ti-trash text-lg"></i>
                    </button>
                  </div>
               </td>
             </tr>
             <tr v-if="!isLoading && filteredReports.length === 0">
-               <td colspan="7" class="px-6 py-16 text-center">
+               <td colspan="7" class="px-6 py-20 text-center">
                   <div class="flex flex-col items-center justify-center">
-                     <svg class="w-12 h-12 text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                     <span class="text-slate-500 font-medium text-sm">Tidak ada laporan yang sesuai dengan kriteria pencarian Anda.</span>
+                     <i class="ti ti-inbox text-[64px] text-gray-300 mb-4"></i>
+                     <h3 class="text-xl font-bold text-[#0F172A] mb-2">Belum ada laporan tersedia</h3>
+                     <p class="text-[#64748B] font-medium text-sm">Tambahkan laporan baru untuk mulai mengelola pengaduan masyarakat.</p>
                   </div>
                </td>
             </tr>
@@ -227,22 +232,22 @@ const Reports = Vue.defineComponent({
       </div>
       
       <!-- Pagination / Footer Table -->
-      <div v-if="filteredReports.length > 0" class="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-sm text-slate-500 bg-slate-50/50">
-         <div>Menampilkan <span class="font-bold text-slate-800">{{ startIndex }}</span> - <span class="font-bold text-slate-800">{{ endIndex }}</span> dari <span class="font-bold text-slate-800">{{ filteredReports.length }}</span> laporan</div>
-         <div class="flex items-center gap-1">
-            <button @click="prevPage" :disabled="currentPage === 1" class="w-8 h-8 rounded border border-slate-200 bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg></button>
+      <div v-if="filteredReports.length > 0" class="px-6 py-4 border-t border-[#E2E8F0] flex flex-col md:flex-row gap-4 items-center justify-between text-sm text-[#64748B] bg-white">
+         <div>Menampilkan <span class="font-bold text-[#0F172A]">{{ startIndex }}</span> - <span class="font-bold text-[#0F172A]">{{ endIndex }}</span> dari <span class="font-bold text-[#0F172A]">{{ filteredReports.length }}</span> laporan</div>
+         <div class="flex items-center gap-2">
+            <button @click="prevPage" :disabled="currentPage === 1" class="w-8 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><i class="ti ti-chevron-left"></i></button>
             
             <template v-for="page in totalPages" :key="page">
               <button v-if="page === currentPage || page === currentPage - 1 || page === currentPage + 1 || page === 1 || page === totalPages" 
                       @click="goToPage(page)" 
-                      class="w-8 h-8 rounded border flex items-center justify-center font-bold text-xs transition-colors"
-                      :class="page === currentPage ? 'border-primary bg-primary text-white' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'">
+                      class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs transition-colors"
+                      :class="page === currentPage ? 'bg-[#2563EB] text-white shadow-sm' : 'border border-[#E2E8F0] bg-white text-[#64748B] hover:bg-slate-50'">
                 {{ page }}
               </button>
-              <span v-else-if="page === currentPage - 2 || page === currentPage + 2" class="px-1 text-slate-400">...</span>
+              <span v-else-if="page === currentPage - 2 || page === currentPage + 2" class="px-1 text-[#64748B]">...</span>
             </template>
 
-            <button @click="nextPage" :disabled="currentPage === totalPages" class="w-8 h-8 rounded border border-slate-200 bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></button>
+            <button @click="nextPage" :disabled="currentPage === totalPages" class="w-8 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><i class="ti ti-chevron-right"></i></button>
          </div>
       </div>
     </div>

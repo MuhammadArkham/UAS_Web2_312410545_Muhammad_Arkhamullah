@@ -97,80 +97,87 @@ const Dashboard = Vue.defineComponent({
     this.fetchDashboardData();
   },
   template: `
-  <AdminLayout title="Dashboard" subtitle="Kelola pengaduan masyarakat secara cepat dan transparan.">
+  <AdminLayout title="Dashboard" subtitle="Kelola pengaduan masyarakat secara cepat, transparan, dan akuntabel.">
+    
+    <!-- Welcome Section -->
+    <div class="bg-white border border-[#E2E8F0] rounded-2xl p-5 mb-8 flex flex-col md:flex-row md:items-center justify-between shadow-sm">
+      <div>
+        <h2 class="text-[20px] font-bold text-[#0F172A] mb-1">Selamat datang, Administrator 👋</h2>
+        <p class="text-sm text-[#64748B]">Pantau dan tindak lanjuti laporan masyarakat secara efisien.</p>
+      </div>
+      <div class="hidden md:flex items-center gap-3 bg-[#F8FAFC] border border-[#E2E8F0] px-4 py-2 rounded-xl text-sm font-medium text-[#64748B]">
+         <i class="ti ti-calendar text-lg text-[#2563EB]"></i>
+         <div>Hari ini<br><span class="text-xs font-normal">Sistem Pemantauan Aktif</span></div>
+      </div>
+    </div>
+
     <!-- KPI Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       
       <!-- Total Laporan -->
-      <div class="bg-white rounded-[20px] p-6 shadow-sm border border-slate-100 border-b-4 border-b-blue-600 flex flex-col justify-between hover:shadow-md transition-shadow">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-1">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          </div>
-          <div>
-            <p class="text-[13px] font-semibold text-slate-600 mb-0.5">Total Laporan</p>
-            <div v-if="isLoading" class="h-8 w-16 bg-gray-200 rounded animate-pulse mt-1"></div>
-            <h3 v-else class="text-4xl font-extrabold text-slate-900 tracking-tight">{{ stats.total }}</h3>
-          </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+           <div class="w-12 h-12 rounded-xl bg-blue-100 text-[#2563EB] flex items-center justify-center">
+             <i class="ti ti-file-text text-2xl"></i>
+           </div>
         </div>
-        <p class="text-[11px] text-slate-400 mt-4 font-medium">Semua laporan masuk</p>
+        <p class="text-sm font-medium text-[#64748B] mb-1">Total Laporan</p>
+        <div v-if="isLoading" class="h-8 w-16 bg-gray-200 rounded animate-pulse mb-2"></div>
+        <h3 v-else class="text-[36px] font-bold text-[#0F172A] leading-none mb-2">{{ stats.total }}</h3>
+        <p class="text-xs text-[#64748B]">Semua laporan masuk</p>
       </div>
 
       <!-- Pending -->
-      <div class="bg-white rounded-[20px] p-6 shadow-sm border border-slate-100 border-b-4 border-b-amber-500 flex flex-col justify-between hover:shadow-md transition-shadow">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center shrink-0 mt-1 transition-all duration-200 hover:scale-[1.02]">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          </div>
-          <div>
-            <p class="text-[13px] font-semibold text-slate-600 mb-0.5">Pending</p>
-            <div v-if="isLoading" class="h-8 w-16 bg-gray-200 rounded animate-pulse mt-1"></div>
-            <h3 v-else class="text-4xl font-extrabold text-slate-900 tracking-tight">{{ stats.pending }}</h3>
-          </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+           <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
+             <i class="ti ti-clock text-2xl"></i>
+           </div>
         </div>
-        <p class="text-[11px] text-slate-400 mt-4 font-medium">Menunggu ditindaklanjuti</p>
+        <p class="text-sm font-medium text-[#64748B] mb-1">Pending</p>
+        <div v-if="isLoading" class="h-8 w-16 bg-gray-200 rounded animate-pulse mb-2"></div>
+        <h3 v-else class="text-[36px] font-bold text-[#0F172A] leading-none mb-2">{{ stats.pending }}</h3>
+        <p class="text-xs text-[#64748B]">Menunggu tindak lanjut</p>
       </div>
 
       <!-- Diproses -->
-      <div class="bg-white rounded-[20px] p-6 shadow-sm border border-slate-100 border-b-4 border-b-blue-500 flex flex-col justify-between hover:shadow-md transition-shadow">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center shrink-0 mt-1 transition-all duration-200 hover:scale-[1.02]">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          </div>
-          <div>
-            <p class="text-[13px] font-semibold text-slate-600 mb-0.5">Diproses</p>
-            <div v-if="isLoading" class="h-8 w-16 bg-gray-200 rounded animate-pulse mt-1"></div>
-            <h3 v-else class="text-4xl font-extrabold text-slate-900 tracking-tight">{{ stats.diproses }}</h3>
-          </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+           <div class="w-12 h-12 rounded-xl bg-blue-100 text-[#2563EB] flex items-center justify-center">
+             <i class="ti ti-refresh text-2xl"></i>
+           </div>
         </div>
-        <p class="text-[11px] text-slate-400 mt-4 font-medium">Sedang dalam penanganan</p>
+        <p class="text-sm font-medium text-[#64748B] mb-1">Diproses</p>
+        <div v-if="isLoading" class="h-8 w-16 bg-gray-200 rounded animate-pulse mb-2"></div>
+        <h3 v-else class="text-[36px] font-bold text-[#0F172A] leading-none mb-2">{{ stats.diproses }}</h3>
+        <p class="text-xs text-[#64748B]">Sedang dalam penanganan</p>
       </div>
 
       <!-- Selesai -->
-      <div class="bg-white rounded-[20px] p-6 shadow-sm border border-slate-100 border-b-4 border-b-emerald-500 flex flex-col justify-between hover:shadow-md transition-shadow">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center shrink-0 mt-1 transition-all duration-200 hover:scale-[1.02]">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          </div>
-          <div>
-            <p class="text-[13px] font-semibold text-slate-600 mb-0.5">Selesai</p>
-            <div v-if="isLoading" class="h-8 w-16 bg-gray-200 rounded animate-pulse mt-1"></div>
-            <h3 v-else class="text-4xl font-extrabold text-slate-900 tracking-tight">{{ stats.selesai }}</h3>
-          </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+           <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
+             <i class="ti ti-circle-check text-2xl"></i>
+           </div>
         </div>
-        <p class="text-[11px] text-slate-400 mt-4 font-medium">Selesai ditindaklanjuti</p>
+        <p class="text-sm font-medium text-[#64748B] mb-1">Selesai</p>
+        <div v-if="isLoading" class="h-8 w-16 bg-gray-200 rounded animate-pulse mb-2"></div>
+        <h3 v-else class="text-[36px] font-bold text-[#0F172A] leading-none mb-2">{{ stats.selesai }}</h3>
+        <p class="text-xs text-[#64748B]">Laporan selesai ditangani</p>
       </div>
 
     </div>
 
     <!-- REPORT TABLE SECTION -->
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+    <div class="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden mb-8">
       <!-- Section Header -->
-      <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
-         <h3 class="text-lg font-bold text-slate-900">Semua Laporan</h3>
-         <router-link to="/create" class="inline-flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-primaryHover transition-colors shadow-sm">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-            Tambah Laporan
+      <div class="flex flex-col md:flex-row items-center justify-between px-6 py-5 border-b border-[#E2E8F0] gap-4">
+         <div>
+           <h3 class="text-lg font-semibold text-[#0F172A]">Daftar Laporan Terbaru</h3>
+           <p class="text-sm text-[#64748B]">Laporan yang baru saja masuk</p>
+         </div>
+         <router-link to="/reports" class="inline-flex items-center gap-2 bg-[#2563EB] text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-[#1D4ED8] transition-colors shadow-sm">
+            Lihat Semua Laporan
          </router-link>
       </div>
 
@@ -178,9 +185,9 @@ const Dashboard = Vue.defineComponent({
       <div class="overflow-x-auto min-h-[300px]">
         <table class="w-full text-left border-collapse">
           <thead>
-            <tr class="bg-slate-50/50 text-slate-500 text-xs uppercase tracking-wider font-semibold border-b border-slate-100">
+            <tr class="bg-[#F8FAFC] text-[#64748B] text-[12px] uppercase tracking-wide font-semibold border-b border-[#E2E8F0]">
               <th class="px-6 py-4">ID</th>
-              <th class="px-6 py-4">Judul</th>
+              <th class="px-6 py-4">Judul Laporan</th>
               <th class="px-6 py-4">Kategori</th>
               <th class="px-6 py-4">Lokasi</th>
               <th class="px-6 py-4 text-center">Status</th>
@@ -188,7 +195,7 @@ const Dashboard = Vue.defineComponent({
               <th class="px-6 py-4 text-center">Aksi</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100">
+          <tbody class="divide-y divide-[#E2E8F0]">
             <template v-if="isLoading">
               <tr v-for="i in 3" :key="i">
                 <td class="px-6 py-4"><div class="animate-pulse bg-gray-100 h-4 rounded w-16"></div></td>
@@ -201,63 +208,52 @@ const Dashboard = Vue.defineComponent({
               </tr>
             </template>
             <template v-else>
-              <tr v-for="(r, index) in paginatedReports" :key="r.id" class="hover:bg-slate-50/50 transition-colors group">
+              <tr v-for="(r, index) in paginatedReports" :key="r.id" class="hover:bg-[#F8FAFC] transition-colors group">
               <td class="px-6 py-4 align-middle">
-                 <span class="text-xs font-bold text-slate-600">#LP-{{ String(r.id).padStart(4, '0') }}</span>
+                 <span class="text-[14px] font-medium text-[#64748B]">#LP-{{ String(r.id).padStart(4, '0') }}</span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="text-sm font-semibold text-slate-900">{{ r.title }}</span>
+                 <span class="text-[14px] font-medium text-[#0F172A]">{{ r.title }}</span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="inline-flex text-[11px] font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-md">
+                 <span class="inline-flex text-[12px] font-medium text-[#64748B] bg-slate-100 px-2.5 py-1 rounded-md">
                    {{ r.category?.name || 'Infrastruktur' }}
                  </span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="text-sm text-slate-600 truncate max-w-[150px] inline-block" :title="r.location">{{ r.location }}</span>
+                 <span class="text-[14px] font-medium text-[#64748B] truncate max-w-[150px] inline-block" :title="r.location">{{ r.location }}</span>
               </td>
               <td class="px-6 py-4 align-middle text-center">
-                 <span class="inline-flex text-[11px] font-bold px-2.5 py-1 rounded-md capitalize" :class="statusBadge(r.status)">
+                 <span class="inline-flex text-[12px] font-semibold px-2.5 py-1 rounded-md capitalize" :class="statusBadge(r.status)">
                    {{ r.status }}
                  </span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="text-sm font-semibold text-slate-700" v-html="formatDate(r.created_at)"></span>
+                 <span class="text-[14px] font-medium text-[#64748B]" v-html="formatDate(r.created_at)"></span>
               </td>
               <td class="px-6 py-4 align-middle text-center">
                  <div class="flex items-center justify-center gap-2">
-                   <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-8 h-8 rounded border border-slate-200 bg-white text-slate-400 hover:text-blue-600 hover:border-blue-300 flex items-center justify-center transition-colors">
-                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                   <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-8 h-8 rounded-lg text-[#64748B] hover:text-[#2563EB] hover:bg-blue-50 flex items-center justify-center transition-colors">
+                     <i class="ti ti-eye text-lg"></i>
                    </router-link>
+                   <button class="w-8 h-8 rounded-lg text-[#64748B] hover:text-[#0F172A] hover:bg-slate-100 flex items-center justify-center transition-colors">
+                     <i class="ti ti-dots-vertical text-lg"></i>
+                   </button>
                  </div>
               </td>
             </tr>
             <tr v-if="!isLoading && paginatedReports.length === 0">
-               <td colspan="7" class="px-6 py-12 text-center text-slate-500 font-medium">Belum ada laporan yang terdaftar.</td>
+               <td colspan="7" class="px-6 py-16 text-center">
+                  <div class="flex flex-col items-center justify-center">
+                     <i class="ti ti-inbox text-5xl text-gray-300 mb-4"></i>
+                     <h3 class="text-lg font-semibold text-slate-900 mb-1">Belum ada laporan tersedia</h3>
+                     <p class="text-slate-500 font-medium text-sm">Tambahkan laporan baru untuk mulai mengelola pengaduan masyarakat.</p>
+                  </div>
+               </td>
             </tr>
             </template>
           </tbody>
         </table>
-      </div>
-      
-      <!-- Pagination / Footer Table -->
-      <div v-if="allReports.length > 0" class="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-sm text-slate-500 bg-slate-50/50">
-         <div>Menampilkan <span class="font-bold text-slate-800">{{ startIndex }}</span> - <span class="font-bold text-slate-800">{{ endIndex }}</span> dari <span class="font-bold text-slate-800">{{ stats.total }}</span> laporan</div>
-         <div class="flex items-center gap-1">
-            <button @click="prevPage" :disabled="currentPage === 1" class="w-8 h-8 rounded border border-slate-200 bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg></button>
-            
-            <template v-for="page in totalPages" :key="page">
-              <button v-if="page === currentPage || page === currentPage - 1 || page === currentPage + 1 || page === 1 || page === totalPages" 
-                      @click="goToPage(page)" 
-                      class="w-8 h-8 rounded border flex items-center justify-center font-bold text-xs transition-colors"
-                      :class="page === currentPage ? 'border-primary bg-primary text-white' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'">
-                {{ page }}
-              </button>
-              <span v-else-if="page === currentPage - 2 || page === currentPage + 2" class="px-1 text-slate-400">...</span>
-            </template>
-
-            <button @click="nextPage" :disabled="currentPage === totalPages" class="w-8 h-8 rounded border border-slate-200 bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></button>
-         </div>
       </div>
     </div>
   </AdminLayout>
