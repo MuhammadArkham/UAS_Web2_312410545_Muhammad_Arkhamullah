@@ -100,7 +100,7 @@ const Home = Vue.defineComponent({
         this.$nextTick(() => {
           this.renderChart();
           if (typeof AOS !== 'undefined') {
-            AOS.refresh();
+            AOS.refreshHard();
           }
         });
 
@@ -210,7 +210,7 @@ const Home = Vue.defineComponent({
             easing: 'ease-out-cubic',
             offset: 50,
         });
-        AOS.refresh();
+        AOS.refreshHard();
       }
     }, 100);
 
