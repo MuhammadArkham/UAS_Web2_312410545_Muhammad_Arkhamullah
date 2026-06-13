@@ -112,8 +112,8 @@
 </head>
 <body class="bg-background text-gray-800 antialiased font-sans">
     <div id="app">
-        <router-view v-slot="{ Component }">
-            <transition name="fade" mode="out-in">
+        <router-view v-slot="{ Component, route }">
+            <transition :name="route.meta.requiresAuth ? '' : 'fade'" mode="out-in">
                 <component :is="Component"></component>
             </transition>
         </router-view>
