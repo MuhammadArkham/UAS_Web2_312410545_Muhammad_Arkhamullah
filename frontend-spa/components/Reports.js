@@ -239,7 +239,7 @@ const Reports = Vue.defineComponent({
                  </span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="text-[14px] font-medium text-[#64748B] truncate max-w-[150px] inline-block" :title="r.location">{{ r.location }}</span>
+                 <span class="text-[14px] font-medium text-[#64748B] whitespace-normal line-clamp-2 min-w-[200px] leading-relaxed" :title="r.location">{{ r.location }}</span>
               </td>
               <td class="px-6 py-4 align-middle text-center">
                  <div v-if="editingStatusId === r.id" class="flex items-center gap-1 justify-center">
