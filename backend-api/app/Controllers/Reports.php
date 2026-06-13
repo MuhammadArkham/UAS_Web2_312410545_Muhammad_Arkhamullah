@@ -17,17 +17,17 @@ class Reports extends ResourceController
         $status = $this->request->getVar('status');
         $categoryId = $this->request->getVar('category_id');
 
-        $query = $this->model->select('reports.*, categories.name as category_name, users.name as user_name')
-                             ->join('categories', 'categories.id = reports.category_id', 'left')
-                             ->join('users', 'users.id = reports.user_id', 'left')
-                             ->orderBy('reports.created_at', 'DESC');
+        $query = $this->model->select('laporan.*, kategori.name as category_name, pengguna.name as user_name')
+                             ->join('kategori', 'kategori.id = laporan.category_id', 'left')
+                             ->join('pengguna', 'pengguna.id = laporan.user_id', 'left')
+                             ->orderBy('laporan.created_at', 'DESC');
 
         if ($status) {
-            $query->where('reports.status', $status);
+            $query->where('laporan.status', $status);
         }
 
         if ($categoryId) {
-            $query->where('reports.category_id', $categoryId);
+            $query->where('laporan.category_id', $categoryId);
         }
 
         $data = $query->findAll();
@@ -49,9 +49,9 @@ class Reports extends ResourceController
 
     public function show($id = null)
     {
-        $row = $this->model->select('reports.*, categories.name as category_name, users.name as user_name')
-                             ->join('categories', 'categories.id = reports.category_id', 'left')
-                             ->join('users', 'users.id = reports.user_id', 'left')
+        $row = $this->model->select('laporan.*, kategori.name as category_name, pengguna.name as user_name')
+                             ->join('kategori', 'kategori.id = laporan.category_id', 'left')
+                             ->join('pengguna', 'pengguna.id = laporan.user_id', 'left')
                              ->find($id);
 
         if (!$row) {
@@ -66,8 +66,8 @@ class Reports extends ResourceController
         unset($row['category_name'], $row['user_name']);
 
         $commentModel = new CommentModel();
-        $comments = $commentModel->select('comments.*, users.name as admin_name')
-                                 ->join('users', 'users.id = comments.admin_id', 'left')
+        $comments = $commentModel->select('komentar.*, pengguna.name as admin_name')
+                                 ->join('pengguna', 'pengguna.id = komentar.admin_id', 'left')
                                  ->where('report_id', $id)
                                  ->findAll();
         

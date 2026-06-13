@@ -61,7 +61,7 @@ class Auth extends BaseController
     {
         $rules = [
             'name'     => 'required|min_length[3]|max_length[100]',
-            'email'    => 'required|valid_email|is_unique[users.email]',
+            'email'    => 'required|valid_email|is_unique[pengguna.email]',
             'password' => 'required|min_length[6]',
             'role'     => 'in_list[admin,pelapor]'
         ];

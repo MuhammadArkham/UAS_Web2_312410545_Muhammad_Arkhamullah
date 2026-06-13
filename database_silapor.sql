@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: e_report
+-- Host: localhost    Database: silapor
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
 
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `categories`
+-- Table structure for table `kategori`
 --
 
-DROP TABLE IF EXISTS `categories`;
+DROP TABLE IF EXISTS `kategori`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `categories` (
+CREATE TABLE `kategori` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -32,44 +32,44 @@ CREATE TABLE `categories` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `categories`
+-- Dumping data for table `kategori`
 --
 
-LOCK TABLES `categories` WRITE;
-/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Infrastruktur','Jalan rusak, jembatan, fasilitas umum','2026-06-10 18:09:54'),(2,'Keamanan','Kriminalitas, gangguan ketertiban','2026-06-10 18:09:54'),(3,'Lingkungan','Sampah, polusi, banjir','2026-06-10 18:09:54'),(4,'Kesehatan','Fasilitas kesehatan, sanitasi','2026-06-10 18:09:54'),(5,'Pendidikan','Fasilitas pendidikan, pelayanan sekolah','2026-06-10 18:09:54'),(6,'Sosial','Pelayanan sosial dan kesejahteraan','2026-06-11 00:04:49');
-/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+LOCK TABLES `kategori` WRITE;
+/*!40000 ALTER TABLE `kategori` DISABLE KEYS */;
+INSERT INTO `kategori` VALUES (1,'Infrastruktur','Jalan rusak, jembatan, fasilitas umum','2026-06-10 18:09:54'),(2,'Keamanan','Kriminalitas, gangguan ketertiban','2026-06-10 18:09:54'),(3,'Lingkungan','Sampah, polusi, banjir','2026-06-10 18:09:54'),(4,'Kesehatan','Fasilitas kesehatan, sanitasi','2026-06-10 18:09:54'),(5,'Pendidikan','Fasilitas pendidikan, pelayanan sekolah','2026-06-10 18:09:54'),(6,'Sosial','Pelayanan sosial dan kesejahteraan','2026-06-11 00:04:49');
+/*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `comments`
+-- Table structure for table `komentar`
 --
 
-DROP TABLE IF EXISTS `comments`;
+DROP TABLE IF EXISTS `komentar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `comments` (
+CREATE TABLE `komentar` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `report_id` int(10) unsigned NOT NULL,
   `admin_id` int(10) unsigned NOT NULL,
   `body` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `comments_report_id_foreign` (`report_id`),
-  KEY `comments_admin_id_foreign` (`admin_id`),
-  CONSTRAINT `comments_admin_id_foreign` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `comments_report_id_foreign` FOREIGN KEY (`report_id`) REFERENCES `reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `komentar_laporan_id_foreign` (`report_id`),
+  KEY `komentar_admin_id_foreign` (`admin_id`),
+  CONSTRAINT `komentar_admin_id_foreign` FOREIGN KEY (`admin_id`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `komentar_laporan_id_foreign` FOREIGN KEY (`report_id`) REFERENCES `laporan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `comments`
+-- Dumping data for table `komentar`
 --
 
-LOCK TABLES `comments` WRITE;
-/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,1,1,'Laporan diterima. Kami akan segera berkoordinasi dengan dinas terkait untuk menindaklanjuti perbaikan jembatan.','2026-06-10 21:00:35');
-/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+LOCK TABLES `komentar` WRITE;
+/*!40000 ALTER TABLE `komentar` DISABLE KEYS */;
+INSERT INTO `komentar` VALUES (1,1,1,'Laporan diterima. Kami akan segera berkoordinasi dengan dinas terkait untuk menindaklanjuti perbaikan jembatan.','2026-06-10 21:00:35');
+/*!40000 ALTER TABLE `komentar` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -102,13 +102,13 @@ INSERT INTO `migrations` VALUES (1,'2026-06-11-010701','App\\Database\\Migration
 UNLOCK TABLES;
 
 --
--- Table structure for table `reports`
+-- Table structure for table `laporan`
 --
 
-DROP TABLE IF EXISTS `reports`;
+DROP TABLE IF EXISTS `laporan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `reports` (
+CREATE TABLE `laporan` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `category_id` int(10) unsigned NOT NULL,
@@ -120,31 +120,31 @@ CREATE TABLE `reports` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `reports_user_id_foreign` (`user_id`),
-  KEY `reports_category_id_foreign` (`category_id`),
-  CONSTRAINT `reports_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `reports_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `laporan_pengguna_id_foreign` (`user_id`),
+  KEY `laporan_kategori_id_foreign` (`category_id`),
+  CONSTRAINT `laporan_kategori_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `kategori` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `laporan_pengguna_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `reports`
+-- Dumping data for table `laporan`
 --
 
-LOCK TABLES `reports` WRITE;
-/*!40000 ALTER TABLE `reports` DISABLE KEYS */;
-INSERT INTO `reports` VALUES (1,2,1,'Jembatan Rusak di Desa Sukamaju','Jembatan penghubung antar desa mengalami keretakan parah pada pondasi utama, membahayakan warga yang melintas.',NULL,'Desa Sukamaju, RT 02/RW 03','diproses','2026-06-10 20:59:00','2026-06-11 00:08:51'),(2,2,1,'Jalan Rusak di Gang Damai','Jalanan di Gang Damai rusak parah dan berlubang. Saat hujan tergenang air dan membahayakan pengendara motor.',NULL,'Gang Damai RT 05 RW 01','pending','2026-06-11 00:10:08','2026-06-11 00:10:08');
-/*!40000 ALTER TABLE `reports` ENABLE KEYS */;
+LOCK TABLES `laporan` WRITE;
+/*!40000 ALTER TABLE `laporan` DISABLE KEYS */;
+INSERT INTO `laporan` VALUES (1,2,1,'Jembatan Rusak di Desa Sukamaju','Jembatan penghubung antar desa mengalami keretakan parah pada pondasi utama, membahayakan warga yang melintas.',NULL,'Desa Sukamaju, RT 02/RW 03','diproses','2026-06-10 20:59:00','2026-06-11 00:08:51'),(2,2,1,'Jalan Rusak di Gang Damai','Jalanan di Gang Damai rusak parah dan berlubang. Saat hujan tergenang air dan membahayakan pengendara motor.',NULL,'Gang Damai RT 05 RW 01','pending','2026-06-11 00:10:08','2026-06-11 00:10:08');
+/*!40000 ALTER TABLE `laporan` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
+-- Table structure for table `pengguna`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `pengguna`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
+CREATE TABLE `pengguna` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -158,13 +158,13 @@ CREATE TABLE `users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `pengguna`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Administrator','admin@silapor.com','$2y$10$Q/O0mzDZZ0FHP3wgKlOTruYo2HiVkT.vEEhGcgqs.07QbMHku7BBe','admin','3430656536633564383862313433636666336639343238363163646365366365','2026-06-10 18:09:54'),(2,'arkham','arkhamzx456@gmail.com','$2y$10$.N4yLFOVOrcEZmGC1xZLW.07Ib1KwS2ovuydvN.WkGImTBqNcmdBa','pelapor','e4a2023706e331883007d8e7afa597d4b56bae020a69caee2f8ac293f67d16bd','2026-06-10 20:01:23');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `pengguna` WRITE;
+/*!40000 ALTER TABLE `pengguna` DISABLE KEYS */;
+INSERT INTO `pengguna` VALUES (1,'Administrator','admin@silapor.com','$2y$10$Q/O0mzDZZ0FHP3wgKlOTruYo2HiVkT.vEEhGcgqs.07QbMHku7BBe','admin','3430656536633564383862313433636666336639343238363163646365366365','2026-06-10 18:09:54'),(2,'arkham','arkhamzx456@gmail.com','$2y$10$.N4yLFOVOrcEZmGC1xZLW.07Ib1KwS2ovuydvN.WkGImTBqNcmdBa','pelapor','e4a2023706e331883007d8e7afa597d4b56bae020a69caee2f8ac293f67d16bd','2026-06-10 20:01:23');
+/*!40000 ALTER TABLE `pengguna` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

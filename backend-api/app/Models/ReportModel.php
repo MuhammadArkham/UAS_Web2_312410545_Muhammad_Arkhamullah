@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class ReportModel extends Model
 {
-    protected $table            = 'reports';
+    protected $table            = 'laporan';
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
     protected $useTimestamps    = true;
