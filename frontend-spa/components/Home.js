@@ -146,12 +146,12 @@ const Home = Vue.defineComponent({
       const data = this.distribusiKategori.map(item => item.jumlah);
       
       const backgroundColors = [
-        '#0f172a', // slate-900
-        '#334155', // slate-700
-        '#64748b', // slate-500
-        '#94a3b8', // slate-400
-        '#cbd5e1', // slate-300
-        '#e2e8f0'  // slate-200
+        '#1e40af', // blue-800
+        '#2563eb', // blue-600
+        '#3b82f6', // blue-500
+        '#60a5fa', // blue-400
+        '#93c5fd', // blue-300
+        '#bfdbfe'  // blue-200
       ];
 
       this.chartInstance = new Chart(ctx, {
@@ -196,7 +196,7 @@ const Home = Vue.defineComponent({
       });
     },
     getChartColor(index) {
-      const colors = ['#0f172a', '#334155', '#64748b', '#94a3b8', '#cbd5e1', '#e2e8f0'];
+      const colors = ['#1e40af', '#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe'];
       return colors[index % colors.length];
     }
   },
@@ -359,44 +359,52 @@ const Home = Vue.defineComponent({
           <!-- Header -->
           <div class="px-6 py-5 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
              <div>
-               <h3 class="text-lg font-semibold text-gray-900">Tinjauan Data Pengaduan</h3>
+               <h3 class="text-xl font-bold text-gray-900">Tinjauan Data Pengaduan</h3>
                <p class="text-sm text-gray-500 mt-1">Status dan distribusi laporan masyarakat terkini</p>
              </div>
-             <div class="flex items-center gap-2 px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-md">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-gray-500"></span>
+             <div class="flex items-center gap-2.5 px-4 py-2 bg-blue-50/50 border border-blue-100 rounded-full cursor-help group transition-all duration-300 hover:bg-blue-50" title="Data disinkronisasi secara real-time dengan server">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                 </span>
-                <span class="text-xs font-medium text-gray-600">Sinkronisasi: {{ new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'}) }}</span>
+                <span class="text-xs font-semibold text-blue-800 tracking-wide">
+                  Live Sync <span class="text-blue-400 mx-1">•</span> {{ new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'}) }}
+                </span>
              </div>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
              
              <!-- Left Column: Key Metrics -->
-             <div class="lg:col-span-4 p-6 flex flex-col justify-center space-y-8 bg-gray-50/50">
-                <div>
-                   <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Total Laporan Masuk</p>
-                   <div class="flex items-end gap-3">
+             <div class="lg:col-span-4 p-6 flex flex-col justify-center space-y-8 bg-gray-50/30">
+                <div data-aos="fade-right" data-aos-delay="150">
+                   <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                     <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span> Total Laporan Masuk
+                   </p>
+                   <div class="flex items-end gap-3 pl-3.5">
                      <p v-if="isLoading" class="h-10 w-24 bg-gray-200 rounded animate-pulse"></p>
-                     <p v-else class="text-4xl font-bold text-gray-900">{{ stats.total }}</p>
+                     <p v-else class="text-5xl font-extrabold text-gray-900 tracking-tight">{{ stats.total }}</p>
                    </div>
                 </div>
-                <div>
-                   <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Sedang Diproses</p>
-                   <div class="flex items-end gap-3">
+                <div data-aos="fade-right" data-aos-delay="200">
+                   <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Sedang Diproses
+                   </p>
+                   <div class="flex items-end gap-3 pl-3.5">
                      <p v-if="isLoading" class="h-10 w-24 bg-gray-200 rounded animate-pulse"></p>
-                     <p v-else class="text-4xl font-bold text-gray-900">{{ stats.diproses }}</p>
+                     <p v-else class="text-5xl font-extrabold text-gray-900 tracking-tight">{{ stats.diproses }}</p>
                    </div>
                 </div>
-                <div>
-                   <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Telah Selesai</p>
-                   <div class="flex items-end gap-3">
+                <div data-aos="fade-right" data-aos-delay="250">
+                   <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Telah Selesai
+                   </p>
+                   <div class="flex items-end gap-3 pl-3.5">
                      <p v-if="isLoading" class="h-10 w-24 bg-gray-200 rounded animate-pulse"></p>
-                     <p v-else class="text-4xl font-bold text-gray-900">{{ stats.selesai }}</p>
-                     <span class="text-sm font-medium text-emerald-600 mb-1 flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-                        {{ resolutionRate }}% Penyelesaian
+                     <p v-else class="text-5xl font-extrabold text-gray-900 tracking-tight">{{ stats.selesai }}</p>
+                     <span class="text-sm font-bold text-emerald-600 mb-1.5 flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        {{ resolutionRate }}% <span class="hidden sm:inline">Penyelesaian</span>
                      </span>
                    </div>
                 </div>
