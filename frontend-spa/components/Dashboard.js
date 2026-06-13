@@ -78,13 +78,10 @@ const Dashboard = Vue.defineComponent({
       const min = date.getMinutes().toString().padStart(2, '0');
       return d + ' ' + m + ' ' + y + '<br><span class="text-xs text-slate-400 font-normal">' + h + ':' + min + '</span>';
     },
-    statusBadge(status) {
-      if(!status) return '';
+        statusBadge(status) {
+      if(!status) return 'bg-gray-100 text-gray-600';
       const s = status.toLowerCase();
-      if (s === 'pending') return 'bg-orange-50 text-orange-500 border border-orange-100';
-      if (s === 'diproses') return 'bg-blue-50 text-blue-500 border border-blue-100';
-      if (s === 'selesai') return 'bg-emerald-50 text-emerald-500 border border-emerald-100';
-      return 'bg-slate-50 text-slate-500 border border-slate-200';
+      return (window.APP_CONFIG.statusBadgeClass[s] || 'bg-gray-100 text-gray-600') + ' border-0 px-2.5 py-1 rounded-md text-xs font-semibold';
     },
     nextPage() {
       if (this.currentPage < this.totalPages) this.currentPage++;

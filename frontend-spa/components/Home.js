@@ -36,9 +36,14 @@ const Home = Vue.defineComponent({
     }
   },
   methods: {
+    getBadgeClass(status) {
+      if (!status) return 'bg-gray-100 text-gray-600';
+      const s = status.toLowerCase();
+      return window.APP_CONFIG.statusBadgeClass[s] + ' text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider' || 'bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider';
+    },
     warnaProgress(index) {
-      const colors = ['bg-blue-600', 'bg-emerald-500', 'bg-amber-500', 'bg-violet-500', 'bg-rose-500', 'bg-cyan-500'];
-      return colors[index % colors.length];
+      const shades = ['bg-blue-600', 'bg-blue-500', 'bg-blue-400', 'bg-blue-300', 'bg-blue-200', 'bg-blue-100'];
+      return shades[index] || 'bg-blue-100';
     },
     animateCounter(targetObj, key, finalValue, duration = 800) {
       if (finalValue === 0) {
@@ -276,7 +281,7 @@ const Home = Vue.defineComponent({
           <div v-if="isLoading" class="space-y-3">
             <div v-for="i in 3" :key="i" class="w-full h-8 bg-gray-100 rounded animate-pulse"></div>
           </div>
-          <p v-else-if="distribusiKategori.length === 0" class="text-sm text-gray-400 text-center py-2">
+          <p v-else-if="distribusiKategori.length === 0" class="text-sm text-gray-600 text-center py-2">
             Belum ada data distribusi kategori
           </p>
           <div v-else class="space-y-3">
