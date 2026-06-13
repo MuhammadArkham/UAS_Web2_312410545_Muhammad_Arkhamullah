@@ -9,7 +9,17 @@ const Reports = Vue.defineComponent({
       currentPage: 1,
       itemsPerPage: 10,
       editingStatusId: null,
-      newStatus: ''
+      newStatus: '',
+      filterStatus: '',
+      showEditModal: false,
+      editForm: {
+        id: null,
+        title: '',
+        category_id: null,
+        location: '',
+        description: '',
+        status: 'pending'
+      }
     }
   },
   computed: {
@@ -43,6 +53,10 @@ const Reports = Vue.defineComponent({
     },
     searchQuery() {
       this.currentPage = 1;
+    },
+    filterStatus() {
+      this.fetchReports();
+      this.currentPage = 1;
     }
   },
   methods: {
@@ -52,6 +66,9 @@ const Reports = Vue.defineComponent({
         let url = '/reports';
         if (this.filterCategory) {
           url += '?category_id=' + this.filterCategory;
+        }
+        if (this.filterStatus) {
+          url += (url.includes('?') ? '&' : '?') + 'status=' + this.filterStatus;
         }
         const res = await window.api.get(url);
         this.reports = res.data.data;
@@ -115,6 +132,33 @@ const Reports = Vue.defineComponent({
       } catch(e) {
         alert('Gagal mengupdate status');
       }
+    },
+    openEditModal(report) {
+      this.editForm = {
+        id: report.id,
+        title: report.title,
+        category_id: report.category_id,
+        location: report.location,
+        description: report.description,
+        status: report.status
+      };
+      this.showEditModal = true;
+    },
+    async submitEdit() {
+      try {
+        await window.api.put('/reports/' + this.editForm.id, {
+          title: this.editForm.title,
+          category_id: this.editForm.category_id,
+          location: this.editForm.location,
+          description: this.editForm.description,
+          status: this.editForm.status
+        });
+        this.showEditModal = false;
+        this.fetchReports();
+      } catch (e) {
+        console.error('Gagal update laporan:', e);
+        alert('Gagal menyimpan perubahan');
+      }
     }
   },
   mounted() {
@@ -134,6 +178,16 @@ const Reports = Vue.defineComponent({
             <select v-model="filterCategory" class="w-full pl-4 pr-10 py-2.5 border border-[#E2E8F0] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white text-[#0F172A] font-medium appearance-none">
               <option value="">Semua Kategori</option>
               <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+            </select>
+            <i class="ti ti-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none"></i>
+          </div>
+          <div class="relative min-w-[160px]">
+            <select v-model="filterStatus" class="w-full pl-4 pr-10 py-2.5 border border-[#E2E8F0] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white text-[#0F172A] font-medium appearance-none">
+              <option value="">Semua Status</option>
+              <option value="pending">Pending</option>
+              <option value="diproses">Diproses</option>
+              <option value="selesai">Selesai</option>
+              <option value="ditolak">Ditolak</option>
             </select>
             <i class="ti ti-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none"></i>
           </div>
@@ -211,6 +265,9 @@ const Reports = Vue.defineComponent({
                    <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-10 h-10 rounded-lg text-[#64748B] hover:text-[#2563EB] hover:bg-blue-50 flex items-center justify-center transition-colors border border-transparent hover:border-blue-200">
                      <i class="ti ti-eye text-lg"></i>
                    </router-link>
+                   <button @click="openEditModal(r)" title="Edit Laporan" class="w-10 h-10 rounded-lg text-[#64748B] hover:text-amber-600 hover:bg-amber-50 flex items-center justify-center transition-colors border border-transparent hover:border-amber-200">
+                     <i class="ti ti-pencil text-lg"></i>
+                   </button>
                    <button @click="deleteReport(r.id)" title="Hapus Laporan" class="w-10 h-10 rounded-lg text-[#64748B] hover:text-red-600 hover:bg-red-50 flex items-center justify-center transition-colors border border-transparent hover:border-red-200">
                      <i class="ti ti-trash text-lg"></i>
                    </button>
@@ -249,6 +306,65 @@ const Reports = Vue.defineComponent({
 
             <button @click="nextPage" :disabled="currentPage === totalPages" class="w-8 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><i class="ti ti-chevron-right"></i></button>
          </div>
+      </div>
+    </div>
+
+    <!-- Edit Laporan Modal -->
+    <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 p-4" v-if="showEditModal">
+      <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+        <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+          <h3 class="text-lg font-bold text-slate-900">Edit Laporan</h3>
+          <button @click="showEditModal = false" class="text-slate-400 hover:text-slate-600 transition-colors">
+            <i class="ti ti-x text-xl"></i>
+          </button>
+        </div>
+        
+        <div class="p-6 overflow-y-auto space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Judul Laporan</label>
+            <input v-model="editForm.title" type="text" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-1.5">Kategori</label>
+              <select v-model="editForm.category_id" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm bg-white">
+                <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+                  {{ cat.name }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-1.5">Status</label>
+              <select v-model="editForm.status" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm bg-white">
+                <option value="pending">Pending</option>
+                <option value="diproses">Diproses</option>
+                <option value="selesai">Selesai</option>
+                <option value="ditolak">Ditolak</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Lokasi Kejadian</label>
+            <input v-model="editForm.location" type="text" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Deskripsi Laporan</label>
+            <textarea v-model="editForm.description" rows="5" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm resize-y"></textarea>
+          </div>
+        </div>
+
+        <div class="px-6 py-4 border-t border-slate-100 flex justify-end gap-3 bg-slate-50 mt-auto">
+          <button @click="showEditModal = false" class="px-5 py-2.5 text-sm font-semibold border border-slate-300 rounded-xl text-slate-700 hover:bg-white transition-colors shadow-sm">
+            Batal
+          </button>
+          <button @click="submitEdit" class="px-5 py-2.5 text-sm font-semibold bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors shadow-sm flex items-center gap-2">
+            <i class="ti ti-device-floppy"></i>
+            Simpan Perubahan
+          </button>
+        </div>
       </div>
     </div>
   </AdminLayout>

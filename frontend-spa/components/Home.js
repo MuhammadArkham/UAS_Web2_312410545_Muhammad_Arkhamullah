@@ -510,9 +510,9 @@ const Home = Vue.defineComponent({
             </p>
           </div>
           <div class="md:w-1/3 flex justify-end w-full">
-            <a href="mailto:support@ereport.gov" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 w-full md:w-auto">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              Hubungi Kami
+            <a href="mailto:support@silapor.go.id" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 w-full md:w-auto">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              Hubungi Tim Kami
             </a>
           </div>
         </div>
@@ -627,7 +627,7 @@ const Home = Vue.defineComponent({
               </li>
               <li class="flex items-center gap-3">
                  <svg class="w-5 h-5 shrink-0 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-                 <a href="mailto:support@ereport.gov" class="hover:text-blue-600 transition-colors">support@ereport.gov</a>
+                 <a href="mailto:support@silapor.go.id" class="hover:text-blue-600 transition-colors">support@silapor.go.id</a>
               </li>
             </ul>
           </div>

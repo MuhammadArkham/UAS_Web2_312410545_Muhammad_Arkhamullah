@@ -10,7 +10,7 @@ class AdminSeeder extends Seeder
     {
         $data = [
             'name'       => 'Administrator',
-            'email'      => 'admin@ereport.com',
+            'email'      => 'admin@silapor.com',
             'password'   => password_hash('Admin123!', PASSWORD_BCRYPT),
             'role'       => 'admin',
             'created_at' => date('Y-m-d H:i:s'),
