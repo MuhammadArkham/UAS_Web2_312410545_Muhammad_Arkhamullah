@@ -312,116 +312,102 @@ const Home = Vue.defineComponent({
     <section id="statistik-section" class="bg-gray-50 py-12 md:py-16 fade-in-section scroll-mt-20">
       <div class="max-w-5xl mx-auto px-4 lg:px-8 space-y-6 md:space-y-8">
         
-        <!-- Header & Real-time Indicator -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6" data-aos="fade-down">
-          <div>
-            <h2 class="text-3xl lg:text-4xl font-display font-extrabold text-[#0f172a] mb-3">Ringkasan Statistik Laporan</h2>
-            <div class="w-16 h-1.5 bg-blue-600 rounded-full mb-4"></div>
-            <p class="text-slate-500 text-lg font-medium">Data interaktif laporan masyarakat yang masuk ke sistem SiLapor</p>
-          </div>
+        <!-- SAAS STATISTIC UNIFIED CARD (Matching Screenshot) -->
+        <div class="bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 md:p-10 relative" data-aos="fade-up" data-aos-delay="100">
           
-          <!-- Real-time Pill -->
-          <div class="inline-flex flex-col items-end bg-white border border-slate-200 px-5 py-3 rounded-2xl shadow-sm self-start md:self-auto">
-             <div class="flex items-center gap-2 mb-1">
-                <div class="relative flex h-3 w-3">
+          <!-- Top Right Info -->
+          <div class="absolute top-6 right-8 text-right hidden sm:block">
+             <div class="flex items-center justify-end gap-2 mb-1">
+                <div class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </div>
-                <span class="text-sm font-bold text-slate-700">Live Server Data</span>
+                <span class="text-xs font-bold text-slate-600">Data real-time</span>
              </div>
-             <p class="text-[11px] text-slate-400 font-medium">Diperbarui: {{ formatDate(new Date().toISOString()) }} {{ new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'}) }}</p>
+             <p class="text-[10px] text-slate-400">Terakhir diperbarui: {{ formatDate(new Date().toISOString()) }} {{ new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'}) }}</p>
           </div>
-        </div>
-        
-        <!-- SAAS STATISTIC FLOATING CARDS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12" data-aos="fade-up" data-aos-delay="100">
+
+          <!-- Main Stats -->
+          <div class="mt-8 sm:mt-12 mb-12">
+            <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-slate-100 gap-y-10 lg:gap-y-0">
+              
+              <!-- Total Laporan -->
+              <div class="flex items-center justify-center lg:justify-start gap-5 px-4 lg:px-8">
+                <div class="w-16 h-16 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 flex-shrink-0">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <div>
+                  <p v-if="isLoading" class="h-8 w-12 bg-slate-100 rounded animate-pulse mb-1"></p>
+                  <p v-else class="text-3xl lg:text-4xl font-display font-bold text-blue-600 mb-0.5">{{ stats.total }}</p>
+                  <p class="text-sm text-slate-500 font-medium">Total Laporan</p>
+                </div>
+              </div>
+
+              <!-- Sedang Diproses -->
+              <div class="flex items-center justify-center lg:justify-start gap-5 px-4 lg:px-8">
+                <div class="w-16 h-16 rounded-full bg-amber-50/80 flex items-center justify-center text-amber-500 flex-shrink-0">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                  <p v-if="isLoading" class="h-8 w-12 bg-slate-100 rounded animate-pulse mb-1"></p>
+                  <p v-else class="text-3xl lg:text-4xl font-display font-bold text-amber-500 mb-0.5">{{ stats.diproses }}</p>
+                  <p class="text-sm text-slate-500 font-medium">Diproses</p>
+                </div>
+              </div>
+
+              <!-- Telah Selesai -->
+              <div class="flex items-center justify-center lg:justify-start gap-5 px-4 lg:px-8">
+                <div class="w-16 h-16 rounded-full bg-emerald-50/80 flex items-center justify-center text-emerald-500 flex-shrink-0">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                  <p v-if="isLoading" class="h-8 w-12 bg-slate-100 rounded animate-pulse mb-1"></p>
+                  <p v-else class="text-3xl lg:text-4xl font-display font-bold text-emerald-500 mb-0.5">{{ stats.selesai }}</p>
+                  <p class="text-sm text-slate-500 font-medium">Selesai</p>
+                </div>
+              </div>
+
+              <!-- Kategori Tersedia -->
+              <div class="flex items-center justify-center lg:justify-start gap-5 px-4 lg:px-8">
+                <div class="w-16 h-16 rounded-full bg-purple-50/80 flex items-center justify-center text-purple-600 flex-shrink-0">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                </div>
+                <div>
+                  <p v-if="isLoading" class="h-8 w-12 bg-slate-100 rounded animate-pulse mb-1"></p>
+                  <p v-else class="text-3xl lg:text-4xl font-display font-bold text-purple-600 mb-0.5">{{ stats.totalKategori }}</p>
+                  <p class="text-sm text-slate-500 font-medium">Kategori</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="w-full h-px bg-slate-100 my-8"></div>
+
+          <!-- Kategori Pills Area -->
+          <div>
+             <h3 class="font-display font-bold text-slate-900 text-lg mb-6">Kategori Pengaduan</h3>
+             
+             <div v-if="isLoading" class="flex gap-4 overflow-x-auto pb-4">
+               <div v-for="i in 6" :key="i" class="h-14 w-40 bg-slate-100 rounded-xl animate-pulse shrink-0"></div>
+             </div>
+             
+             <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <a href="#laporan-section" @click.prevent="scrollToSection('laporan-section')" v-for="(cat, index) in allCategories" :key="cat.id" class="flex items-center justify-between px-4 py-3 rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-sm transition-all duration-300 group cursor-pointer bg-white" :data-aos="'fade-up'" :data-aos-delay="100 + (index * 50)">
+                   <div class="flex items-center gap-3">
+                      <div :class="getCategoryColor(cat.name)" v-html="getCategoryIcon(cat.name)"></div>
+                      <span class="font-bold text-slate-700 group-hover:text-slate-900 text-sm whitespace-nowrap">{{ cat.name }}</span>
+                   </div>
+                   <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                </a>
+             </div>
+             
+             <div class="mt-6 flex items-center gap-2 text-slate-400 text-xs sm:text-sm">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <p>Klik pada kategori untuk memfilter dan melihat laporan terkait di tabel laporan terbaru.</p>
+             </div>
+          </div>
           
-          <!-- Card Total Laporan -->
-          <div class="bg-white rounded-3xl p-6 xl:p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-            <!-- Background Decoration -->
-            <div class="absolute -right-6 -top-6 w-24 h-24 bg-blue-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-            
-            <div class="relative z-10">
-              <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6 shadow-sm border border-blue-100/50">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-              </div>
-              <p class="text-sm text-slate-500 font-bold tracking-wide uppercase mb-1">Total Laporan</p>
-              <div class="flex items-baseline gap-2">
-                <p v-if="isLoading" class="h-10 w-20 bg-slate-100 rounded animate-pulse"></p>
-                <p v-else class="text-4xl xl:text-5xl font-display font-extrabold text-slate-900">{{ stats.total }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card Diproses -->
-          <div class="bg-white rounded-3xl p-6 xl:p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-            <div class="absolute -right-6 -top-6 w-24 h-24 bg-amber-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-            <div class="relative z-10">
-              <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center mb-6 shadow-sm border border-amber-100/50">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              </div>
-              <p class="text-sm text-slate-500 font-bold tracking-wide uppercase mb-1">Diproses</p>
-              <div class="flex items-baseline gap-2">
-                <p v-if="isLoading" class="h-10 w-20 bg-slate-100 rounded animate-pulse"></p>
-                <p v-else class="text-4xl xl:text-5xl font-display font-extrabold text-slate-900">{{ stats.diproses }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card Selesai -->
-          <div class="bg-white rounded-3xl p-6 xl:p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-            <div class="absolute -right-6 -top-6 w-24 h-24 bg-emerald-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-            <div class="relative z-10">
-              <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-500 flex items-center justify-center mb-6 shadow-sm border border-emerald-100/50">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              </div>
-              <p class="text-sm text-slate-500 font-bold tracking-wide uppercase mb-1">Selesai</p>
-              <div class="flex items-baseline gap-2">
-                <p v-if="isLoading" class="h-10 w-20 bg-slate-100 rounded animate-pulse"></p>
-                <p v-else class="text-4xl xl:text-5xl font-display font-extrabold text-slate-900">{{ stats.selesai }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card Kategori -->
-          <div class="bg-white rounded-3xl p-6 xl:p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-            <div class="absolute -right-6 -top-6 w-24 h-24 bg-purple-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-            <div class="relative z-10">
-              <div class="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-6 shadow-sm border border-purple-100/50">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
-              </div>
-              <p class="text-sm text-slate-500 font-bold tracking-wide uppercase mb-1">Kategori</p>
-              <div class="flex items-baseline gap-2">
-                <p v-if="isLoading" class="h-10 w-20 bg-slate-100 rounded animate-pulse"></p>
-                <p v-else class="text-4xl xl:text-5xl font-display font-extrabold text-slate-900">{{ stats.totalKategori }}</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- SAAS CATEGORY FILTER SECTION -->
-        <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 md:p-10" data-aos="fade-up" data-aos-delay="200">
-           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-             <h3 class="font-display font-bold text-slate-900 text-xl">Pilih Kategori Pengaduan</h3>
-             <div class="flex items-center gap-2 text-slate-500 text-sm font-medium bg-slate-50 px-4 py-2 rounded-lg border border-slate-100">
-                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <p>Klik untuk filter tabel laporan</p>
-             </div>
-           </div>
-           
-           <div v-if="isLoading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-             <div v-for="i in 6" :key="i" class="h-16 w-full bg-slate-100 rounded-2xl animate-pulse"></div>
-           </div>
-           
-           <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              <a href="#laporan-section" @click.prevent="scrollToSection('laporan-section')" v-for="(cat, index) in allCategories" :key="cat.id" class="flex flex-col items-center justify-center text-center p-4 rounded-2xl border border-slate-200 bg-white hover:border-blue-400 hover:shadow-[0_8px_20px_rgb(59,130,246,0.12)] hover:-translate-y-1 transition-all duration-300 group cursor-pointer" :data-aos="'zoom-in'" :data-aos-delay="100 + (index * 50)">
-                 <div class="w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-slate-50 group-hover:bg-blue-50 transition-colors" :class="getCategoryColor(cat.name)">
-                    <div v-html="getCategoryIcon(cat.name)"></div>
-                 </div>
-                 <span class="font-bold text-slate-700 group-hover:text-blue-700 text-sm md:text-base">{{ cat.name }}</span>
-              </a>
-           </div>
         </div>
 
       </div>
