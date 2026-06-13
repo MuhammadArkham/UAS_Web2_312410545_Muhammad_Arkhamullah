@@ -520,62 +520,69 @@ const Home = Vue.defineComponent({
     </section>
 
     <!-- TENTANG KAMI SECTION -->
-    <section id="tentang-section" class="bg-white py-12 md:py-16 fade-in-section scroll-mt-20">
-      <div class="max-w-5xl mx-auto px-4">
-        <div class="text-center mb-10">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 mb-2">
+    <section id="tentang-section" class="bg-white pt-16 pb-24 md:pt-24 md:pb-32 fade-in-section scroll-mt-20">
+      <div class="max-w-5xl mx-auto px-6">
+        
+        <!-- Header -->
+        <div class="text-center mb-10 md:mb-12">
+          <h2 class="font-display font-bold text-3xl md:text-4xl text-slate-900 mb-4 tracking-tight">
             Tentang SiLapor
           </h2>
-          <div class="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-4"></div>
-          <p class="text-gray-600 text-sm md:text-base">
-            Platform digital untuk pelaporan dan pemantauan pengaduan masyarakat
+          <div class="w-16 h-1.5 bg-blue-600 rounded-full mx-auto mb-6"></div>
+          <p class="text-slate-500 font-semibold text-sm md:text-base tracking-widest uppercase">
+            Platform Digital Pengaduan Terpadu
           </p>
         </div>
 
-        <div class="max-w-2xl mx-auto text-center mb-10 space-y-3">
-          <p class="text-base text-gray-600 leading-relaxed">
-            SiLapor adalah sistem pengaduan masyarakat yang memudahkan warga memantau status penanganan laporan terkait infrastruktur, lingkungan, keamanan, dan pelayanan publik lainnya secara transparan.
+        <!-- Narrative -->
+        <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 space-y-5">
+          <p class="text-base md:text-lg text-slate-700 leading-relaxed md:leading-[1.8]">
+            SiLapor adalah sistem pengaduan masyarakat yang memudahkan warga memantau status penanganan laporan terkait <span class="text-blue-600 font-semibold">infrastruktur</span>, <span class="text-blue-600 font-semibold">lingkungan</span>, <span class="text-blue-600 font-semibold">keamanan</span>, dan pelayanan publik lainnya secara <span class="text-blue-600 font-semibold">transparan</span>.
           </p>
-          <p class="text-base text-gray-600 leading-relaxed">
+          <p class="text-base md:text-lg text-slate-700 leading-relaxed md:leading-[1.8]">
             Setiap laporan yang masuk akan diverifikasi, ditindaklanjuti, dan dipantau hingga selesai oleh petugas yang berwenang, dengan status yang dapat dilihat secara real-time oleh masyarakat.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 text-center mt-10 md:mt-12">
+        <!-- 3 Values -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 text-center">
           
+          <!-- Item 1 -->
           <div class="flex flex-col items-center">
-            <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-transform hover:scale-110 duration-200">
-              <i class="ti ti-eye text-blue-600" style="font-size: 24px;"></i>
+            <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-transform hover:-translate-y-1 duration-300">
+              <i class="ti ti-eye text-blue-600 text-[28px] leading-none"></i>
             </div>
-            <h3 class="font-display font-semibold text-base text-gray-900 mb-1">
+            <h3 class="font-display font-bold text-lg text-slate-900 mb-2">
               Transparan
             </h3>
-            <p class="text-sm text-gray-600 leading-relaxed max-w-[200px] mx-auto">
-              Status setiap laporan dapat dipantau secara terbuka oleh masyarakat
+            <p class="text-sm md:text-base text-slate-600 leading-relaxed max-w-[240px] mx-auto">
+              Status setiap laporan dapat dipantau secara terbuka oleh masyarakat.
             </p>
           </div>
 
+          <!-- Item 2 -->
           <div class="flex flex-col items-center">
-            <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-transform hover:scale-110 duration-200">
-              <i class="ti ti-bolt text-blue-600" style="font-size: 24px;"></i>
+            <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-transform hover:-translate-y-1 duration-300">
+              <i class="ti ti-bolt text-blue-600 text-[28px] leading-none"></i>
             </div>
-            <h3 class="font-display font-semibold text-base text-gray-900 mb-1">
+            <h3 class="font-display font-bold text-lg text-slate-900 mb-2">
               Responsif
             </h3>
-            <p class="text-sm text-gray-600 leading-relaxed max-w-[200px] mx-auto">
-              Laporan ditindaklanjuti secara cepat oleh petugas terkait
+            <p class="text-sm md:text-base text-slate-600 leading-relaxed max-w-[240px] mx-auto">
+              Laporan ditindaklanjuti secara cepat oleh petugas berwenang terkait.
             </p>
           </div>
 
+          <!-- Item 3 -->
           <div class="flex flex-col items-center">
-            <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-transform hover:scale-110 duration-200">
-              <i class="ti ti-clipboard-check text-blue-600" style="font-size: 24px;"></i>
+            <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-transform hover:-translate-y-1 duration-300">
+              <i class="ti ti-clipboard-check text-blue-600 text-[28px] leading-none"></i>
             </div>
-            <h3 class="font-display font-semibold text-base text-gray-900 mb-1">
+            <h3 class="font-display font-bold text-lg text-slate-900 mb-2">
               Akuntabel
             </h3>
-            <p class="text-sm text-gray-600 leading-relaxed max-w-[200px] mx-auto">
-              Setiap proses tercatat dan dapat dipertanggungjawabkan
+            <p class="text-sm md:text-base text-slate-600 leading-relaxed max-w-[240px] mx-auto">
+              Setiap tahapan proses tercatat dan dapat dipertanggungjawabkan.
             </p>
           </div>
 
