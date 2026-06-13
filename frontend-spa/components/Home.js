@@ -226,8 +226,8 @@ const Home = Vue.defineComponent({
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="flex flex-col lg:flex-row items-center gap-12">
           <!-- Left: 45% -->
-          <div class="w-full lg:w-[45%]">
-            <div class="inline-flex items-center gap-2 text-blue-100 font-bold text-sm mb-6 bg-white/10 border border-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
+          <div class="w-full lg:w-[45%]" data-aos="fade-right" data-aos-duration="1000">
+            <div class="inline-flex items-center gap-2 text-blue-100 font-bold text-sm mb-6 bg-white/10 border border-white/20 px-4 py-2 rounded-full backdrop-blur-sm" data-aos="fade-down" data-aos-delay="200">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
               <span>Portal Layanan Terpadu</span>
             </div>
@@ -251,7 +251,7 @@ const Home = Vue.defineComponent({
           </div>
 
           <!-- Right: 55% -->
-          <div class="w-full lg:w-[55%] flex justify-end">
+          <div class="w-full lg:w-[55%] flex justify-end" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
             <img src="assets/gambar%20desain.png?v=5" alt="Hero Illustration" loading="eager" decoding="async" class="w-full max-w-xl h-auto object-contain">
           </div>
         </div>
@@ -263,7 +263,7 @@ const Home = Vue.defineComponent({
       <div class="max-w-5xl mx-auto px-4 lg:px-8 space-y-6 md:space-y-8">
         
         <!-- STATISTIC SUMMARY CARD -->
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8">
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8" data-aos="fade-up" data-aos-delay="100">
           <div class="grid grid-cols-2 md:grid-cols-5 divide-x divide-y md:divide-y-0 divide-gray-100 gap-y-4 md:gap-y-0">
             
             <!-- Total Laporan -->
@@ -337,7 +337,7 @@ const Home = Vue.defineComponent({
         </div>
 
         <!-- DISTRIBUSI KATEGORI CARD -->
-        <div class="max-w-xl mx-auto bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6">
+        <div class="max-w-xl mx-auto bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6" data-aos="fade-up" data-aos-delay="300">
           <h3 class="font-display font-semibold text-base text-gray-900 mb-4">
             Distribusi Laporan per Kategori
           </h3>
@@ -374,14 +374,14 @@ const Home = Vue.defineComponent({
     <!-- PROCESS SECTION -->
     <section id="cara-kerja-section" class="bg-white py-24 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16" data-aos="fade-down">
           <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900">Alur Penyelesaian Laporan</h2>
         </div>
         
         <div class="relative max-w-4xl mx-auto">
           <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- Step 1 -->
-            <div class="relative flex flex-col items-center text-center w-full">
+            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="100">
               <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"/></svg>
               </div>
@@ -394,7 +394,7 @@ const Home = Vue.defineComponent({
               <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Warga melaporkan masalah atau usulan di lingkungan sekitar melalui sistem.</p>
             </div>
             <!-- Step 2 -->
-            <div class="relative flex flex-col items-center text-center w-full">
+            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="200">
               <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
               </div>
@@ -407,7 +407,7 @@ const Home = Vue.defineComponent({
               <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Petugas mengecek kejelasan informasi dan lokasi pasti dari laporan yang masuk.</p>
             </div>
             <!-- Step 3 -->
-            <div class="relative flex flex-col items-center text-center w-full">
+            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="300">
               <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
               </div>
@@ -420,7 +420,7 @@ const Home = Vue.defineComponent({
               <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Laporan diteruskan ke dinas atau petugas lapangan agar segera dibereskan.</p>
             </div>
             <!-- Step 4 -->
-            <div class="relative flex flex-col items-center text-center w-full">
+            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="400">
               <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
               </div>
@@ -436,7 +436,7 @@ const Home = Vue.defineComponent({
     <!-- LAPORAN TERBARU SECTION -->
     <section id="laporan-section" class="bg-slate-50 py-24 border-y border-slate-200 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
-        <div class="mb-12 text-center md:text-left">
+        <div class="mb-12 text-center md:text-left" data-aos="fade-right">
           <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900 mb-4">Laporan Publik</h2>
           <p class="text-slate-600 text-lg">Pantau laporan terkini dari masyarakat.</p>
         </div>
@@ -455,7 +455,7 @@ const Home = Vue.defineComponent({
            </div>
         </div>
         <div v-else-if="recentReports.length > 0" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div v-for="report in recentReports" :key="report.id" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-md group flex flex-col">
+          <div v-for="(report, index) in recentReports" :key="report.id" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-md group flex flex-col" :data-aos="'fade-up'" :data-aos-delay="index * 150">
             <!-- Image Area -->
             <div class="h-40 w-full relative bg-slate-100 overflow-hidden border-b border-slate-100">
                <img v-if="report.image" :src="getImageUrl(report.image)" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Lampiran Laporan">
@@ -502,7 +502,7 @@ const Home = Vue.defineComponent({
     <!-- CONTACT / HELPDESK SECTION -->
     <section class="bg-white py-20 fade-in-section">
       <div class="container mx-auto px-8 max-w-[1200px]">
-        <div class="bg-slate-900 rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10">
+        <div class="bg-slate-900 rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10" data-aos="zoom-in">
           <div class="md:w-2/3 text-left">
             <h2 class="text-3xl font-display font-bold text-white mb-4">Pusat Layanan & Bantuan</h2>
             <p class="text-slate-400 text-lg leading-relaxed max-w-xl">
@@ -524,7 +524,7 @@ const Home = Vue.defineComponent({
       <div class="max-w-5xl mx-auto px-6">
         
         <!-- Header -->
-        <div class="text-center mb-10 md:mb-12">
+        <div class="text-center mb-10 md:mb-12" data-aos="fade-down">
           <h2 class="font-display font-bold text-3xl md:text-4xl text-slate-900 mb-4 tracking-tight">
             Tentang SiLapor
           </h2>
@@ -535,7 +535,7 @@ const Home = Vue.defineComponent({
         </div>
 
         <!-- Narrative -->
-        <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 space-y-5">
+        <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 space-y-5" data-aos="fade-up" data-aos-delay="100">
           <p class="text-base md:text-lg text-slate-700 leading-relaxed md:leading-[1.8]">
             SiLapor adalah sistem pengaduan masyarakat yang memudahkan warga memantau status penanganan laporan terkait <span class="text-blue-600 font-semibold">infrastruktur</span>, <span class="text-blue-600 font-semibold">lingkungan</span>, <span class="text-blue-600 font-semibold">keamanan</span>, dan pelayanan publik lainnya secara <span class="text-blue-600 font-semibold">transparan</span>.
           </p>
@@ -548,7 +548,7 @@ const Home = Vue.defineComponent({
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 text-center">
           
           <!-- Item 1 -->
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center" data-aos="flip-left" data-aos-delay="100">
             <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-transform hover:-translate-y-1 duration-300">
               <i class="ti ti-eye text-blue-600 text-[28px] leading-none"></i>
             </div>
@@ -561,7 +561,7 @@ const Home = Vue.defineComponent({
           </div>
 
           <!-- Item 2 -->
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center" data-aos="flip-left" data-aos-delay="200">
             <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-transform hover:-translate-y-1 duration-300">
               <i class="ti ti-bolt text-blue-600 text-[28px] leading-none"></i>
             </div>
@@ -574,7 +574,7 @@ const Home = Vue.defineComponent({
           </div>
 
           <!-- Item 3 -->
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center" data-aos="flip-left" data-aos-delay="300">
             <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-transform hover:-translate-y-1 duration-300">
               <i class="ti ti-clipboard-check text-blue-600 text-[28px] leading-none"></i>
             </div>
