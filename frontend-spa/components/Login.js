@@ -33,11 +33,11 @@ const Login = Vue.defineComponent({
   template: `
   <div class="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans text-slate-900">
     <!-- Left Section: Branding -->
-    <div class="hidden md:flex md:w-5/12 bg-blue-700 p-12 flex-col justify-between relative overflow-hidden">
+    <div class="hidden md:flex md:w-5/12 bg-[#0B3EA8] p-12 flex-col justify-between relative overflow-hidden">
       <!-- Background Accents -->
-      <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-800 opacity-90"></div>
-      <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
-      <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-[#0B3EA8] to-[#072b7a] opacity-90"></div>
+      <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-[#2563EB] rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-[#1D4ED8] rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
 
       <div class="relative z-10">
         <div class="flex items-center gap-3 mb-16">
