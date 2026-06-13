@@ -222,29 +222,29 @@ const Home = Vue.defineComponent({
     </nav>
 
     <!-- HERO SECTION -->
-    <header id="hero-section" class="bg-white py-20 fade-in-section scroll-mt-20">
+    <header id="hero-section" class="bg-[#0B3EA8] py-20 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="flex flex-col lg:flex-row items-center gap-12">
           <!-- Left: 45% -->
           <div class="w-full lg:w-[45%]">
-            <div class="inline-flex items-center gap-2 text-blue-600 font-bold text-sm mb-6 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full">
+            <div class="inline-flex items-center gap-2 text-blue-100 font-bold text-sm mb-6 bg-white/10 border border-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
               <span>Portal Layanan Terpadu</span>
             </div>
             
-            <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-slate-900 leading-tight mb-6">
+            <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white leading-tight mb-6">
               Layanan Pengaduan Masyarakat
             </h1>
             
-            <p class="text-slate-600 text-lg leading-relaxed mb-10 max-w-lg">
+            <p class="text-blue-100 text-lg leading-relaxed mb-10 max-w-lg">
               Sampaikan aspirasi dan keluhan Anda secara langsung. Platform ini menjamin transparansi penyelesaian masalah di lingkungan Anda.
             </p>
             
             <div class="flex flex-wrap gap-4">
-              <button @click="scrollToSection('laporan-section')" class="bg-blue-600 text-white px-8 py-3.5 rounded-xl font-bold text-base hover:bg-blue-700 transition-colors">
+              <button @click="scrollToSection('laporan-section')" class="bg-white text-[#0B3EA8] px-8 py-3.5 rounded-xl font-bold text-base hover:bg-slate-50 shadow-lg transition-colors">
                 Lihat Laporan
               </button>
-              <button @click="scrollToSection('cara-kerja-section')" class="bg-white text-slate-700 border border-slate-300 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-slate-50 transition-colors">
+              <button @click="scrollToSection('cara-kerja-section')" class="bg-transparent text-white border border-white/30 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-white/10 transition-colors">
                 Cara Kerja
               </button>
             </div>
