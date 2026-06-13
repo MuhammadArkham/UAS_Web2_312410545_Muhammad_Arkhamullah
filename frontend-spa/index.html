@@ -112,24 +112,11 @@
 </head>
 <body class="bg-background text-gray-800 antialiased font-sans">
     <div id="app">
-        <!-- Persistent Layout for Admin Routes -->
-        <template v-if="$route.meta.layout === 'admin'">
-            <AdminLayout :title="$route.meta.title" :subtitle="$route.meta.subtitle">
-                <router-view v-slot="{ Component }">
-                    <transition name="fade" mode="out-in">
-                        <component :is="Component"></component>
-                    </transition>
-                </router-view>
-            </AdminLayout>
-        </template>
-        <!-- Standard Layout for Home/Login -->
-        <template v-else>
-            <router-view v-slot="{ Component }">
-                <transition name="fade" mode="out-in">
-                    <component :is="Component"></component>
-                </transition>
-            </router-view>
-        </template>
+        <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+                <component :is="Component"></component>
+            </transition>
+        </router-view>
     </div>
 
     <!-- Components -->

@@ -122,7 +122,7 @@ const Reports = Vue.defineComponent({
     this.fetchCategories();
   },
   template: `
-  <div>
+  <AdminLayout title="Semua Laporan" subtitle="Daftar seluruh laporan masyarakat beserta status penanganannya.">
     <!-- Filter Section -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 mb-8 flex flex-col md:flex-row gap-4 justify-between">
        <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
@@ -246,6 +246,6 @@ const Reports = Vue.defineComponent({
          </div>
       </div>
     </div>
-  </div>
+  </AdminLayout>
   `
 });

@@ -1,4 +1,4 @@
-const ReportDetail = Vue.defineComponent({
+﻿const ReportDetail = Vue.defineComponent({
   data() {
     return {
       report: null,
@@ -62,7 +62,7 @@ const ReportDetail = Vue.defineComponent({
     this.fetchReport();
   },
   template: `
-  <div>
+  <AdminLayout title="Detail Laporan" subtitle="Lihat informasi lengkap pengaduan masyarakat beserta tanggapannya.">
     <div class="max-w-4xl" v-if="!loading && report">
       <!-- Breadcrumb -->
       <div class="text-[13px] text-slate-500 mb-6 flex items-center gap-2 font-medium">
@@ -184,6 +184,6 @@ const ReportDetail = Vue.defineComponent({
     <div v-if="loading" class="flex items-center justify-center h-[60vh]">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
     </div>
-  </div>
+  </AdminLayout>
   `
 });
