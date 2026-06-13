@@ -118,7 +118,7 @@ const Dashboard = Vue.defineComponent({
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
            <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center">
-             <i class="ti ti-file-text text-[26px]"></i>
+             <i class="ti ti-file-text text-[32px]" style="-webkit-text-stroke: 1px;"></i>
            </div>
         </div>
         <p class="text-sm font-medium text-[#64748B] mb-1">Total Laporan</p>
@@ -131,7 +131,7 @@ const Dashboard = Vue.defineComponent({
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">
-             <i class="ti ti-clock text-[26px]"></i>
+             <i class="ti ti-clock text-[32px]" style="-webkit-text-stroke: 1px;"></i>
            </div>
         </div>
         <p class="text-sm font-medium text-[#64748B] mb-1">Pending</p>
@@ -144,7 +144,7 @@ const Dashboard = Vue.defineComponent({
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
            <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center">
-             <i class="ti ti-refresh text-[26px]"></i>
+             <i class="ti ti-refresh text-[32px]" style="-webkit-text-stroke: 1px;"></i>
            </div>
         </div>
         <p class="text-sm font-medium text-[#64748B] mb-1">Diproses</p>
@@ -157,7 +157,7 @@ const Dashboard = Vue.defineComponent({
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
            <div class="w-12 h-12 rounded-xl bg-green-50 text-emerald-500 flex items-center justify-center">
-             <i class="ti ti-circle-check text-[26px]"></i>
+             <i class="ti ti-circle-check text-[32px]" style="-webkit-text-stroke: 1px;"></i>
            </div>
         </div>
         <p class="text-sm font-medium text-[#64748B] mb-1">Selesai</p>
@@ -233,11 +233,11 @@ const Dashboard = Vue.defineComponent({
               </td>
               <td class="px-6 py-4 align-middle text-center">
                  <div class="flex items-center justify-center gap-2">
-                   <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-8 h-8 rounded-lg text-[#64748B] hover:text-[#2563EB] hover:bg-blue-50 flex items-center justify-center transition-colors">
-                     <i class="ti ti-eye text-lg"></i>
+                   <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-10 h-10 rounded-lg text-[#64748B] hover:text-[#2563EB] hover:bg-blue-50 flex items-center justify-center transition-colors border border-transparent hover:border-blue-200">
+                     <i class="ti ti-eye text-xl" style="-webkit-text-stroke: 0.5px;"></i>
                    </router-link>
-                   <button class="w-8 h-8 rounded-lg text-[#64748B] hover:text-[#0F172A] hover:bg-slate-100 flex items-center justify-center transition-colors">
-                     <i class="ti ti-dots-vertical text-lg"></i>
+                   <button class="w-10 h-10 rounded-lg text-[#64748B] hover:text-[#0F172A] hover:bg-slate-100 flex items-center justify-center transition-colors">
+                     <i class="ti ti-dots-vertical text-xl" style="-webkit-text-stroke: 0.5px;"></i>
                    </button>
                  </div>
               </td>
