@@ -247,7 +247,7 @@ const Dashboard = Vue.defineComponent({
                    {{ r.status }}
                  </span>
               </td>
-              <td class="px-6 py-4 align-middle">
+              <td class="px-6 py-4 align-middle whitespace-nowrap">
                  <span class="text-[14px] font-medium text-[#64748B]" v-html="formatDate(r.created_at)"></span>
               </td>
               <td class="px-6 py-4 align-middle text-center">
