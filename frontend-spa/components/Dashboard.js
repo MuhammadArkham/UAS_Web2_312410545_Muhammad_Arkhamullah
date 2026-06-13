@@ -97,7 +97,7 @@ const Dashboard = Vue.defineComponent({
     },
     updateTime() {
       const now = new Date();
-      const optionsDate = { day: 'numeric', month: 'short', year: 'numeric' };
+      const optionsDate = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
       this.currentDate = now.toLocaleDateString('id-ID', optionsDate);
       this.currentTime = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
     }
@@ -121,7 +121,7 @@ const Dashboard = Vue.defineComponent({
       </div>
       <div class="hidden md:flex items-center gap-3 bg-white border border-[#E2E8F0] px-4 py-2.5 rounded-xl shadow-sm">
          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-[#2563EB]">
-           <i class="ti ti-clock text-xl" style="-webkit-text-stroke: 0.5px;"></i>
+           <i class="ti ti-calendar text-xl" style="-webkit-text-stroke: 0.5px;"></i>
          </div>
          <div class="flex flex-col">
            <span class="text-[13px] font-bold text-[#0F172A] leading-tight">{{ currentDate }}</span>
