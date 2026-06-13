@@ -26,8 +26,8 @@ const AdminLayout = Vue.defineComponent({
     <aside class="w-[260px] bg-primary text-white flex flex-col transition-all shrink-0">
       <div class="h-20 flex items-center px-8">
         <div class="flex items-center gap-3 font-bold text-xl tracking-tight text-white">
-           <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
-              <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+           <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm p-0.5">
+              <img src="assets/logo_uas.png" alt="Logo SiLapor" class="w-full h-full object-contain" />
            </div>
            <div>
              <div class="leading-none mb-1">SiLapor</div>

@@ -41,8 +41,8 @@ const Login = Vue.defineComponent({
 
       <div class="relative z-10">
         <div class="flex items-center gap-3 mb-16">
-          <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-700 shadow-lg">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-700 shadow-lg p-0.5">
+            <img src="assets/logo_uas.png" alt="Logo SiLapor" class="w-full h-full object-contain" />
           </div>
           <span class="font-bold text-2xl text-white tracking-tight">SiLapor</span>
         </div>
@@ -74,8 +74,8 @@ const Login = Vue.defineComponent({
       <div class="max-w-md w-full mx-auto mt-12 md:mt-0">
         <!-- Mobile Logo -->
         <div class="md:hidden flex items-center gap-3 mb-10">
-          <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <div class="w-10 h-10 bg-transparent rounded-xl flex items-center justify-center text-white">
+            <img src="assets/logo_uas.png" alt="Logo SiLapor" class="w-10 h-10 object-contain drop-shadow-sm" />
           </div>
           <span class="font-bold text-xl text-slate-900 tracking-tight">SiLapor</span>
         </div>

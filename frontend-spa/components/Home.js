@@ -158,9 +158,7 @@ const Home = Vue.defineComponent({
         <!-- Logo -->
         <div class="flex items-center gap-2 cursor-pointer transition-transform duration-200 hover:scale-105" 
              @click="scrollToSection('hero-section')">
-          <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-sm">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
+          <img src="assets/logo_uas.png" alt="Logo SiLapor" class="w-10 h-10 object-contain drop-shadow-sm" />
           <span class="font-bold text-xl text-gray-900 tracking-tight">SiLapor</span>
         </div>
 
@@ -591,9 +589,7 @@ const Home = Vue.defineComponent({
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div class="md:col-span-1">
             <div class="flex items-center gap-3 mb-6">
-               <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-               </div>
+               <img src="assets/logo_uas.png" alt="Logo SiLapor" class="w-10 h-10 object-contain drop-shadow-sm" />
                <h2 class="text-xl font-bold text-slate-900 tracking-tight">SiLapor</h2>
             </div>
             <p class="text-slate-500 text-sm leading-relaxed">SiLapor: Platform pelaporan digital untuk menjembatani aspirasi masyarakat dengan instansi pemerintah.</p>
