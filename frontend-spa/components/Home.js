@@ -3,12 +3,30 @@ const Home = Vue.defineComponent({
     return {
       isLoading: true,
       recentReports: [],
+      allReports: [],
       stats: {
         total: 0,
         diproses: 0,
         selesai: 0,
         totalKategori: 0
       }
+    }
+  },
+  computed: {
+    distribusiKategori() {
+      const counts = {};
+      this.allReports.forEach(report => {
+        const nama = report.category?.name || 'Lainnya';
+        counts[nama] = (counts[nama] || 0) + 1;
+      });
+      const total = this.allReports.length;
+      return Object.entries(counts)
+        .map(([nama, jumlah]) => ({
+          nama,
+          jumlah,
+          persen: total > 0 ? Math.round((jumlah / total) * 100) : 0
+        }))
+        .sort((a, b) => b.jumlah - a.jumlah);
     }
   },
   methods: {
@@ -49,6 +67,7 @@ const Home = Vue.defineComponent({
         const selesai = allReports.filter(r => r.status === 'selesai').length;
         const totalKategori = allCategories.length;
 
+        this.allReports = allReports;
         this.recentReports = allReports.slice(0, 3);
         
         this.isLoading = false;
@@ -107,10 +126,10 @@ const Home = Vue.defineComponent({
 
         <!-- Center Menu -->
         <div class="hidden md:flex items-center gap-8">
-          <a href="#" @click.prevent="scrollToTop" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Beranda</a>
-          <a href="#cara-kerja" @click.prevent="scrollToSection('cara-kerja')" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Cara Kerja</a>
-          <a href="#laporan" @click.prevent="scrollToSection('laporan')" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Laporan</a>
-          <a href="#kontak" @click.prevent="scrollToSection('kontak')" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Kontak</a>
+          <a href="#hero-section" @click.prevent="scrollToTop" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Beranda</a>
+          <a href="#statistik-section" @click.prevent="scrollToSection('statistik-section')" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Statistik</a>
+          <a href="#cara-kerja-section" @click.prevent="scrollToSection('cara-kerja-section')" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Cara Kerja</a>
+          <a href="#laporan-section" @click.prevent="scrollToSection('laporan-section')" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Laporan</a>
         </div>
 
         <!-- Right Button -->
@@ -124,7 +143,7 @@ const Home = Vue.defineComponent({
     </nav>
 
     <!-- HERO SECTION -->
-    <header class="bg-white py-20 fade-in-section">
+    <header id="hero-section" class="bg-white py-20 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="flex flex-col lg:flex-row items-center gap-12">
           <!-- Left: 45% -->
@@ -143,10 +162,10 @@ const Home = Vue.defineComponent({
             </p>
             
             <div class="flex flex-wrap gap-4">
-              <button @click="scrollToSection('laporan')" class="bg-blue-600 text-white px-8 py-3.5 rounded-xl font-bold text-base hover:bg-blue-700 transition-colors">
+              <button @click="scrollToSection('laporan-section')" class="bg-blue-600 text-white px-8 py-3.5 rounded-xl font-bold text-base hover:bg-blue-700 transition-colors">
                 Lihat Laporan
               </button>
-              <button @click="scrollToSection('cara-kerja')" class="bg-white text-slate-700 border border-slate-300 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-slate-50 transition-colors">
+              <button @click="scrollToSection('cara-kerja-section')" class="bg-white text-slate-700 border border-slate-300 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-slate-50 transition-colors">
                 Cara Kerja
               </button>
             </div>
@@ -161,7 +180,7 @@ const Home = Vue.defineComponent({
     </header>
 
     <!-- STATISTICS SECTION -->
-    <section class="bg-slate-50 py-12 border-y border-slate-200 fade-in-section">
+    <section id="statistik-section" class="bg-slate-50 py-12 border-y border-slate-200 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-200">
           <div class="flex flex-col items-center justify-center p-4 text-center">
@@ -188,8 +207,41 @@ const Home = Vue.defineComponent({
       </div>
     </section>
 
+    
+    <!-- DISTRIBUSI KATEGORI SECTION -->
+    <section class="bg-white py-16 border-b border-slate-200 fade-in-section scroll-mt-20">
+      <div class="container mx-auto px-8 max-w-[800px]">
+        <h3 class="text-xl font-display font-bold text-slate-900 mb-8">Distribusi Laporan per Kategori</h3>
+        
+        <div v-if="isLoading" class="space-y-4">
+          <div v-for="i in 3" :key="i" class="w-full h-8 bg-slate-100 rounded animate-pulse"></div>
+        </div>
+        <div v-else-if="distribusiKategori.length === 0" class="text-slate-500 italic">
+          Belum ada data distribusi kategori
+        </div>
+        <div v-else class="flex flex-col gap-5">
+          <div v-for="(item, index) in distribusiKategori" :key="item.nama" class="w-full">
+            <div class="flex justify-between items-end mb-1.5">
+              <span class="text-sm font-semibold text-slate-800">{{ item.nama }}</span>
+              <span class="text-sm font-medium text-slate-500">{{ item.persen }}% ({{ item.jumlah }})</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-1000 ease-out" 
+                   :class="[
+                     index % 4 === 0 ? 'bg-blue-600' : 
+                     index % 4 === 1 ? 'bg-emerald-500' : 
+                     index % 4 === 2 ? 'bg-amber-500' : 'bg-violet-500'
+                   ]"
+                   :style="{ width: item.persen + '%' }">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- PROCESS SECTION -->
-    <section id="cara-kerja" class="bg-white py-24 fade-in-section">
+    <section id="cara-kerja-section" class="bg-white py-24 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="text-center mb-16">
           <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900">Alur Penyelesaian Laporan</h2>
@@ -235,7 +287,7 @@ const Home = Vue.defineComponent({
     </section>
 
     <!-- LAPORAN TERBARU SECTION -->
-    <section id="laporan" class="bg-slate-50 py-24 border-y border-slate-200 fade-in-section">
+    <section id="laporan-section" class="bg-slate-50 py-24 border-y border-slate-200 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="mb-12 text-center md:text-left">
           <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900 mb-4">Laporan Publik</h2>
@@ -338,8 +390,8 @@ const Home = Vue.defineComponent({
             <h4 class="font-bold text-slate-900 text-sm mb-6 uppercase tracking-wider">Tautan</h4>
             <ul class="space-y-4 text-sm font-medium">
               <li><a href="#" @click.prevent="scrollToTop" class="text-slate-500 hover:text-blue-600 transition-colors">Beranda</a></li>
-              <li><a href="#cara-kerja" @click.prevent="scrollToSection('cara-kerja')" class="text-slate-500 hover:text-blue-600 transition-colors">Cara Kerja</a></li>
-              <li><a href="#laporan" @click.prevent="scrollToSection('laporan')" class="text-slate-500 hover:text-blue-600 transition-colors">Laporan Publik</a></li>
+              <li><a href="#cara-kerja" @click.prevent="scrollToSection('cara-kerja-section')" class="text-slate-500 hover:text-blue-600 transition-colors">Cara Kerja</a></li>
+              <li><a href="#laporan" @click.prevent="scrollToSection('laporan-section')" class="text-slate-500 hover:text-blue-600 transition-colors">Laporan Publik</a></li>
             </ul>
           </div>
           
