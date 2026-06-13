@@ -97,7 +97,7 @@ const Dashboard = Vue.defineComponent({
     this.fetchDashboardData();
   },
   template: `
-  <AdminLayout title="Dashboard" subtitle="Kelola pengaduan masyarakat secara cepat dan transparan.">
+  <div>
     <!-- KPI Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       
@@ -260,6 +260,6 @@ const Dashboard = Vue.defineComponent({
          </div>
       </div>
     </div>
-  </AdminLayout>
+  </div>
   `
 });

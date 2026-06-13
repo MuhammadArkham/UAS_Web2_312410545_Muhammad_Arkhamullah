@@ -65,7 +65,7 @@ const Categories = Vue.defineComponent({
     this.fetchCategories();
   },
   template: `
-  <AdminLayout title="Kategori Laporan" subtitle="Kelola daftar kategori yang dapat digunakan oleh masyarakat untuk melaporkan aduan.">
+  <div>
     <!-- Header Section -->
     <div class="flex justify-end mb-8">
        <button @click="openModal()" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-primaryHover transition-colors shadow-sm">
@@ -156,6 +156,6 @@ const Categories = Vue.defineComponent({
         </form>
       </div>
     </div>
-  </AdminLayout>
+  </div>
   `
 });

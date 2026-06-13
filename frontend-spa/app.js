@@ -37,11 +37,11 @@ window.api.interceptors.response.use(response => {
 const routes = [
     { path: '/', component: Home },
     { path: '/login', component: Login, meta: { guestOnly: true } },
-    { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
-    { path: '/categories', component: Categories, meta: { requiresAuth: true } },
-    { path: '/reports', component: Reports, meta: { requiresAuth: true } },
-    { path: '/create', component: CreateReport, meta: { requiresAuth: true } },
-    { path: '/reports/:id', component: ReportDetail, meta: { requiresAuth: true } }
+    { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true, layout: 'admin', title: 'Dashboard', subtitle: 'Ringkasan statistik dan aktivitas sistem.' } },
+    { path: '/categories', component: Categories, meta: { requiresAuth: true, layout: 'admin', title: 'Kategori Laporan', subtitle: 'Kelola daftar kategori yang dapat digunakan oleh masyarakat untuk melaporkan aduan.' } },
+    { path: '/reports', component: Reports, meta: { requiresAuth: true, layout: 'admin', title: 'Semua Laporan', subtitle: 'Daftar seluruh laporan masyarakat beserta status penanganannya.' } },
+    { path: '/create', component: CreateReport, meta: { requiresAuth: true, layout: 'admin', title: 'Buat Laporan Baru', subtitle: '' } },
+    { path: '/reports/:id', component: ReportDetail, meta: { requiresAuth: true, layout: 'admin', title: 'Detail Laporan', subtitle: 'Lihat informasi lengkap pengaduan masyarakat beserta tanggapannya.' } }
 ];
 
 const router = createRouter({

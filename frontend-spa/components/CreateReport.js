@@ -68,7 +68,7 @@ const CreateReport = Vue.defineComponent({
     this.fetchCategories();
   },
   template: `
-  <AdminLayout title="Buat Laporan Baru">
+  <div>
     <div class="max-w-3xl">
       <div class="text-xs text-gray-500 mb-6 flex items-center gap-2 font-medium">
         <router-link to="/dashboard" class="hover:text-primary text-primary">Dashboard</router-link>
@@ -161,6 +161,6 @@ const CreateReport = Vue.defineComponent({
         </form>
       </div>
     </div>
-  </AdminLayout>
+  </div>
   `
 });
