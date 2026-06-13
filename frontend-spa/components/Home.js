@@ -375,61 +375,59 @@ const Home = Vue.defineComponent({
     <section id="cara-kerja-section" class="bg-white py-24 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900 mb-4">Alur Penyelesaian Laporan</h2>
-          <p class="text-slate-500 text-lg max-w-2xl mx-auto">Proses transparan dari awal Anda melapor hingga masalah selesai ditindaklanjuti.</p>
+          <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900">Alur Penyelesaian Laporan</h2>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-          <!-- Step 1 -->
-          <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 group relative overflow-hidden flex flex-col h-full">
-             <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-             <div class="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center mb-6 relative z-10 shadow-md shadow-blue-200 group-hover:-translate-y-1 transition-transform">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"/></svg>
-             </div>
-             <div class="flex items-center gap-3 mb-3 relative z-10">
-               <span class="text-3xl font-extrabold text-slate-100 group-hover:text-blue-100 transition-colors">01</span>
-               <h3 class="font-display font-bold text-lg text-slate-900">Pencatatan</h3>
-             </div>
-             <p class="text-sm text-slate-500 leading-relaxed relative z-10">Warga melaporkan masalah atau usulan di lingkungan sekitar melalui sistem form digital.</p>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 group relative overflow-hidden flex flex-col h-full">
-             <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-             <div class="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center mb-6 relative z-10 shadow-md shadow-blue-200 group-hover:-translate-y-1 transition-transform">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-             </div>
-             <div class="flex items-center gap-3 mb-3 relative z-10">
-               <span class="text-3xl font-extrabold text-slate-100 group-hover:text-blue-100 transition-colors">02</span>
-               <h3 class="font-display font-bold text-lg text-slate-900">Verifikasi</h3>
-             </div>
-             <p class="text-sm text-slate-500 leading-relaxed relative z-10">Petugas mengecek kejelasan informasi dan lokasi pasti dari laporan yang masuk secara teliti.</p>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 group relative overflow-hidden flex flex-col h-full">
-             <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-             <div class="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center mb-6 relative z-10 shadow-md shadow-blue-200 group-hover:-translate-y-1 transition-transform">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-             </div>
-             <div class="flex items-center gap-3 mb-3 relative z-10">
-               <span class="text-3xl font-extrabold text-slate-100 group-hover:text-blue-100 transition-colors">03</span>
-               <h3 class="font-display font-bold text-lg text-slate-900">Tindak Lanjut</h3>
-             </div>
-             <p class="text-sm text-slate-500 leading-relaxed relative z-10">Laporan diteruskan ke dinas atau petugas lapangan agar segera dibereskan dengan cepat.</p>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 group relative overflow-hidden flex flex-col h-full">
-             <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-             <div class="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center mb-6 relative z-10 shadow-md shadow-blue-200 group-hover:-translate-y-1 transition-transform">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
-             </div>
-             <div class="flex items-center gap-3 mb-3 relative z-10">
-               <span class="text-3xl font-extrabold text-slate-100 group-hover:text-blue-100 transition-colors">04</span>
-               <h3 class="font-display font-bold text-lg text-slate-900">Selesai</h3>
-             </div>
-             <p class="text-sm text-slate-500 leading-relaxed relative z-10">Masalah telah tuntas tertangani dan warga dapat melihat bukti penyelesaiannya langsung.</p>
+        <div class="relative max-w-4xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Step 1 -->
+            <div class="relative flex flex-col items-center text-center w-full">
+              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
+                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"/></svg>
+              </div>
+              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
+                <div class="flex-grow h-[2px] bg-slate-300"></div>
+                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
+              </div>
+              
+              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">1. Pencatatan</h3>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Warga melaporkan masalah atau usulan di lingkungan sekitar melalui sistem.</p>
+            </div>
+            <!-- Step 2 -->
+            <div class="relative flex flex-col items-center text-center w-full">
+              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
+                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              </div>
+              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
+                <div class="flex-grow h-[2px] bg-slate-300"></div>
+                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
+              </div>
+              
+              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">2. Verifikasi</h3>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Petugas mengecek kejelasan informasi dan lokasi pasti dari laporan yang masuk.</p>
+            </div>
+            <!-- Step 3 -->
+            <div class="relative flex flex-col items-center text-center w-full">
+              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
+                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
+                <div class="flex-grow h-[2px] bg-slate-300"></div>
+                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
+              </div>
+              
+              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">3. Tindak Lanjut</h3>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Laporan diteruskan ke dinas atau petugas lapangan agar segera dibereskan.</p>
+            </div>
+            <!-- Step 4 -->
+            <div class="relative flex flex-col items-center text-center w-full">
+              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
+                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <!-- No dashed line for the last step -->
+              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">4. Selesai</h3>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Masalah telah tuntas tertangani dan warga dapat melihat bukti penyelesaiannya.</p>
+            </div>
           </div>
         </div>
       </div>
