@@ -38,21 +38,21 @@ const AdminLayout = Vue.defineComponent({
       <div class="flex-1 overflow-y-auto py-6">
         <nav class="px-4 space-y-2">
           <button @click="$router.push('/dashboard')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/dashboard' ? 'bg-white text-[#1D4ED8] shadow-sm' : 'text-blue-100 hover:bg-white/10 hover:text-white'">
-            <i class="ti ti-layout-dashboard text-lg shrink-0"></i>
+            <i class="ti ti-layout-dashboard text-xl shrink-0"></i>
             Dashboard
           </button>
           <button @click="$router.push('/reports')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/reports' || $route.path === '/create' ? 'bg-white text-[#1D4ED8] shadow-sm' : 'text-blue-100 hover:bg-white/10 hover:text-white'">
-            <i class="ti ti-file-text text-lg shrink-0"></i>
+            <i class="ti ti-file-text text-xl shrink-0"></i>
             Laporan
           </button>
           <button @click="$router.push('/categories')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/categories' ? 'bg-white text-[#1D4ED8] shadow-sm' : 'text-blue-100 hover:bg-white/10 hover:text-white'">
-            <i class="ti ti-folder text-lg shrink-0"></i>
+            <i class="ti ti-folder text-xl shrink-0"></i>
             Kategori
           </button>
           
           <div class="pt-6 mt-6 border-t border-white/10">
             <button @click="logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-blue-100 hover:bg-white/10 hover:text-white transition-colors">
-              <i class="ti ti-logout text-lg shrink-0"></i>
+              <i class="ti ti-logout text-xl shrink-0"></i>
               Logout
             </button>
           </div>

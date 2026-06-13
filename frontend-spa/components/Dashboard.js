@@ -100,12 +100,12 @@ const Dashboard = Vue.defineComponent({
   <AdminLayout title="Dashboard" subtitle="Kelola pengaduan masyarakat secara cepat, transparan, dan akuntabel.">
     
     <!-- Welcome Section -->
-    <div class="bg-white border border-[#E2E8F0] rounded-2xl p-5 mb-8 flex flex-col md:flex-row md:items-center justify-between shadow-sm">
+    <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between">
       <div>
-        <h2 class="text-[20px] font-bold text-[#0F172A] mb-1">Selamat datang, Administrator 👋</h2>
+        <h2 class="text-[20px] font-bold text-[#0F172A] mb-1">Selamat datang, Administrator</h2>
         <p class="text-sm text-[#64748B]">Pantau dan tindak lanjuti laporan masyarakat secara efisien.</p>
       </div>
-      <div class="hidden md:flex items-center gap-3 bg-[#F8FAFC] border border-[#E2E8F0] px-4 py-2 rounded-xl text-sm font-medium text-[#64748B]">
+      <div class="hidden md:flex items-center gap-3 bg-white border border-[#E2E8F0] px-4 py-2 rounded-xl text-sm font-medium text-[#64748B] shadow-sm">
          <i class="ti ti-calendar text-lg text-[#2563EB]"></i>
          <div>Hari ini<br><span class="text-xs font-normal">Sistem Pemantauan Aktif</span></div>
       </div>
@@ -117,8 +117,8 @@ const Dashboard = Vue.defineComponent({
       <!-- Total Laporan -->
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
-           <div class="w-12 h-12 rounded-xl bg-blue-100 text-[#2563EB] flex items-center justify-center">
-             <i class="ti ti-file-text text-2xl"></i>
+           <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center">
+             <i class="ti ti-file-text text-[26px]"></i>
            </div>
         </div>
         <p class="text-sm font-medium text-[#64748B] mb-1">Total Laporan</p>
@@ -130,8 +130,8 @@ const Dashboard = Vue.defineComponent({
       <!-- Pending -->
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
-           <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
-             <i class="ti ti-clock text-2xl"></i>
+           <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">
+             <i class="ti ti-clock text-[26px]"></i>
            </div>
         </div>
         <p class="text-sm font-medium text-[#64748B] mb-1">Pending</p>
@@ -143,8 +143,8 @@ const Dashboard = Vue.defineComponent({
       <!-- Diproses -->
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
-           <div class="w-12 h-12 rounded-xl bg-blue-100 text-[#2563EB] flex items-center justify-center">
-             <i class="ti ti-refresh text-2xl"></i>
+           <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center">
+             <i class="ti ti-refresh text-[26px]"></i>
            </div>
         </div>
         <p class="text-sm font-medium text-[#64748B] mb-1">Diproses</p>
@@ -156,8 +156,8 @@ const Dashboard = Vue.defineComponent({
       <!-- Selesai -->
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
-           <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
-             <i class="ti ti-circle-check text-2xl"></i>
+           <div class="w-12 h-12 rounded-xl bg-green-50 text-emerald-500 flex items-center justify-center">
+             <i class="ti ti-circle-check text-[26px]"></i>
            </div>
         </div>
         <p class="text-sm font-medium text-[#64748B] mb-1">Selesai</p>
