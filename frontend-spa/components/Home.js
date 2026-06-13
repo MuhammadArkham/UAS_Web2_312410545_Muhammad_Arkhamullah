@@ -353,110 +353,113 @@ const Home = Vue.defineComponent({
     <section id="statistik-section" class="bg-gray-50 py-12 md:py-16 fade-in-section scroll-mt-20">
       <div class="max-w-5xl mx-auto px-4 lg:px-8 space-y-6 md:space-y-8">
         
-        <!-- Enterprise Dashboard Card -->
-        <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+        <!-- PUBLIC-FRIENDLY GOVTECH CARD -->
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-aos="fade-up" data-aos-delay="100">
           
-          <!-- Header -->
-          <div class="px-6 py-5 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <!-- Header Card -->
+          <div class="px-6 py-5 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50">
              <div>
-               <h3 class="text-xl font-bold text-gray-900">Tinjauan Data Pengaduan</h3>
-               <p class="text-sm text-gray-500 mt-1">Status dan distribusi laporan masyarakat terkini</p>
+               <h3 class="text-xl font-bold text-gray-900">Transparansi Data Pengaduan</h3>
+               <p class="text-sm text-gray-500 mt-1">Pantau status penanganan laporan masyarakat secara langsung.</p>
              </div>
-             <div class="flex items-center gap-2.5 px-4 py-2 bg-blue-50/50 border border-blue-100 rounded-full cursor-help group transition-all duration-300 hover:bg-blue-50" title="Data disinkronisasi secara real-time dengan server">
+             <!-- Status Update Berbahasa Indonesia -->
+             <div class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-sm cursor-help" title="Data statistik ini diperbarui secara otomatis setiap ada laporan baru">
                 <span class="relative flex h-2.5 w-2.5">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                 </span>
-                <span class="text-xs font-semibold text-blue-800 tracking-wide">
-                  Live Sync <span class="text-blue-400 mx-1">•</span> {{ new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'}) }}
+                <span class="text-xs font-semibold text-gray-700 tracking-wide">
+                  Diperbarui: <span class="font-bold text-blue-600">{{ new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'}) }}</span> WIB
                 </span>
              </div>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
+          <!-- Bagian Angka Statistik (4 Kolom) -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100 border-b border-gray-200">
              
-             <!-- Left Column: Key Metrics -->
-             <div class="lg:col-span-4 p-6 flex flex-col justify-center space-y-8 bg-gray-50/30">
-                <div data-aos="fade-right" data-aos-delay="150">
-                   <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
-                     <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span> Total Laporan Masuk
-                   </p>
-                   <div class="flex items-end gap-3 pl-3.5">
-                     <p v-if="isLoading" class="h-10 w-24 bg-gray-200 rounded animate-pulse"></p>
-                     <p v-else class="text-5xl font-extrabold text-gray-900 tracking-tight">{{ stats.total }}</p>
-                   </div>
+             <!-- Total Laporan -->
+             <div class="p-6 flex flex-col items-center text-center sm:items-start sm:text-left hover:bg-slate-50 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 </div>
-                <div data-aos="fade-right" data-aos-delay="200">
-                   <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
-                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Sedang Diproses
-                   </p>
-                   <div class="flex items-end gap-3 pl-3.5">
-                     <p v-if="isLoading" class="h-10 w-24 bg-gray-200 rounded animate-pulse"></p>
-                     <p v-else class="text-5xl font-extrabold text-gray-900 tracking-tight">{{ stats.diproses }}</p>
-                   </div>
+                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Total Laporan</p>
+                <p v-if="isLoading" class="h-10 w-20 bg-gray-200 rounded animate-pulse"></p>
+                <p v-else class="text-4xl font-extrabold text-gray-900">{{ stats.total }}</p>
+                <p class="text-xs text-gray-400 mt-2">Seluruh laporan masuk</p>
+             </div>
+
+             <!-- Sedang Diproses -->
+             <div class="p-6 flex flex-col items-center text-center sm:items-start sm:text-left hover:bg-slate-50 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center mb-4">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <div data-aos="fade-right" data-aos-delay="250">
-                   <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
-                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Telah Selesai
-                   </p>
-                   <div class="flex items-end gap-3 pl-3.5">
-                     <p v-if="isLoading" class="h-10 w-24 bg-gray-200 rounded animate-pulse"></p>
-                     <p v-else class="text-5xl font-extrabold text-gray-900 tracking-tight">{{ stats.selesai }}</p>
-                     <span class="text-sm font-bold text-emerald-600 mb-1.5 flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-                        {{ resolutionRate }}% <span class="hidden sm:inline">Penyelesaian</span>
-                     </span>
+                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Sedang Diproses</p>
+                <p v-if="isLoading" class="h-10 w-20 bg-gray-200 rounded animate-pulse"></p>
+                <p v-else class="text-4xl font-extrabold text-gray-900">{{ stats.diproses }}</p>
+                <p class="text-xs text-gray-400 mt-2">Ditindaklanjuti petugas</p>
+             </div>
+
+             <!-- Telah Selesai -->
+             <div class="p-6 flex flex-col items-center text-center sm:items-start sm:text-left hover:bg-slate-50 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Telah Selesai</p>
+                <p v-if="isLoading" class="h-10 w-20 bg-gray-200 rounded animate-pulse"></p>
+                <p v-else class="text-4xl font-extrabold text-gray-900">{{ stats.selesai }}</p>
+                <p class="text-xs text-gray-400 mt-2">Masalah telah terselesaikan</p>
+             </div>
+
+             <!-- Kategori Pengaduan -->
+             <div class="p-6 flex flex-col items-center text-center sm:items-start sm:text-left hover:bg-slate-50 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                </div>
+                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Kategori Layanan</p>
+                <p v-if="isLoading" class="h-10 w-20 bg-gray-200 rounded animate-pulse"></p>
+                <p v-else class="text-4xl font-extrabold text-gray-900">{{ stats.totalKategori }}</p>
+                <p class="text-xs text-gray-400 mt-2">Bidang pelaporan tersedia</p>
+             </div>
+
+          </div>
+
+          <!-- Bagian Visualisasi Grafik & Filter (2 Kolom) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12">
+             
+             <!-- Kiri: Grafik -->
+             <div class="lg:col-span-5 p-8 border-b lg:border-b-0 lg:border-r border-gray-200 flex flex-col items-center">
+                <h4 class="text-base font-bold text-gray-900 mb-6 text-center">Sebaran Kategori Laporan</h4>
+                
+                <div class="relative w-56 h-56 flex-shrink-0 mb-4">
+                   <div v-if="isLoading" class="w-full h-full rounded-full border-8 border-gray-100 animate-pulse"></div>
+                   <canvas v-else id="kategoriChart"></canvas>
+                   
+                   <div v-if="!isLoading" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                      <span class="text-sm font-bold text-emerald-600 mb-1 flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        {{ resolutionRate }}%
+                      </span>
+                      <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider text-center leading-tight">Tingkat<br>Penyelesaian</span>
                    </div>
                 </div>
              </div>
 
-             <!-- Right Column: Chart & Categories -->
-             <div class="lg:col-span-8 p-6 lg:p-8">
-                <p class="text-sm font-medium text-gray-900 mb-6">Distribusi Kategori Laporan</p>
+             <!-- Kanan: Penjelasan & Tombol Filter -->
+             <div class="lg:col-span-7 p-8">
+                <h4 class="text-base font-bold text-gray-900 mb-3">Pilih Kategori untuk Melihat Detail</h4>
+                <p class="text-sm text-gray-600 mb-6 leading-relaxed">
+                  Gunakan tombol di bawah ini untuk menyaring dan melihat daftar laporan terbaru berdasarkan bidang spesifik (misalnya: hanya melihat laporan tentang Infrastruktur).
+                </p>
                 
-                <div class="flex flex-col md:flex-row items-center gap-8">
-                   <!-- Doughnut Chart -->
-                   <div class="relative w-48 h-48 flex-shrink-0">
-                      <div v-if="isLoading" class="w-full h-full rounded-full border-8 border-gray-100 animate-pulse"></div>
-                      <canvas v-else id="kategoriChart"></canvas>
-                      
-                      <!-- Inner Text -->
-                      <div v-if="!isLoading" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                         <span class="text-3xl font-bold text-gray-900">{{ stats.totalKategori }}</span>
-                         <span class="text-[10px] font-medium text-gray-500 uppercase tracking-wider">Kategori</span>
-                      </div>
-                   </div>
-
-                   <!-- Custom Legend / Category List -->
-                   <div class="flex-1 w-full">
-                      <div v-if="isLoading" class="space-y-3">
-                         <div v-for="i in 4" :key="i" class="h-8 w-full bg-gray-100 rounded animate-pulse"></div>
-                      </div>
-                      <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-                         <div v-for="(cat, index) in distribusiKategori" :key="index" class="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
-                            <div class="flex items-center gap-3">
-                               <span class="w-2.5 h-2.5 rounded-full" :style="{ backgroundColor: getChartColor(index) }"></span>
-                               <span class="text-sm text-gray-600 font-medium">{{ cat.nama }}</span>
-                            </div>
-                            <span class="text-sm font-semibold text-gray-900">{{ cat.jumlah }}</span>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                
-                <!-- Filter Info -->
-                <div class="mt-8 pt-6 border-t border-gray-100">
-                   <div class="flex flex-wrap gap-2">
-                     <button v-for="(cat, index) in allCategories" :key="cat.id" @click.prevent="scrollToSection('laporan-section')" class="px-3 py-1.5 bg-white border border-gray-200 rounded-md text-xs font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors shadow-sm">
-                       {{ cat.name }}
-                     </button>
-                   </div>
-                   <p class="text-xs text-gray-400 mt-4 flex items-center gap-1.5">
-                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                     Klik pada badge kategori di atas untuk memfilter tabel laporan terbaru.
-                   </p>
+                <div class="flex flex-wrap gap-3">
+                  <button v-for="(cat, index) in allCategories" :key="cat.id" @click.prevent="scrollToSection('laporan-section')" class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 transition-all shadow-sm flex items-center gap-2 group">
+                    <span class="w-2.5 h-2.5 rounded-full" :style="{ backgroundColor: getChartColor(index) }"></span>
+                    {{ cat.name }}
+                    <svg class="w-4 h-4 text-gray-400 group-hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
                 </div>
              </div>
+
           </div>
         </div>
 
