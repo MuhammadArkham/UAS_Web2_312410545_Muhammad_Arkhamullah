@@ -9,7 +9,10 @@ const Home = Vue.defineComponent({
         diproses: 0,
         selesai: 0,
         totalKategori: 0
-      }
+      },
+      isScrolled: false,
+      activeSection: 'hero',
+      mobileMenuOpen: false
     }
   },
   computed: {
@@ -102,7 +105,11 @@ const Home = Vue.defineComponent({
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(dateString).toLocaleDateString('id-ID', options);
     },
+    handleScroll() {
+      this.isScrolled = window.scrollY > 10;
+    },
     scrollToSection(id) {
+      this.mobileMenuOpen = false;
       const el = document.getElementById(id);
       if(el) {
         el.scrollIntoView({ behavior: 'smooth' });
@@ -124,36 +131,95 @@ const Home = Vue.defineComponent({
     if (window.observeFadeSections) {
       window.observeFadeSections();
     }
+    window.addEventListener('scroll', this.handleScroll);
+    this.navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.activeSection = entry.target.id.replace('-section', '');
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('section[id], header[id]').forEach(el => {
+      this.navObserver.observe(el);
+    });
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.handleScroll);
+    if (this.navObserver) this.navObserver.disconnect();
   },
   template: `
   <div class="min-h-screen bg-white font-sans text-slate-900">
     
     <!-- NAVBAR -->
-    <nav class="bg-white border-b border-slate-200 h-20 sticky top-0 z-50">
-      <div class="container mx-auto px-8 h-full max-w-[1200px] flex items-center justify-between">
+    <nav class="sticky top-0 z-50 bg-white transition-shadow duration-300"
+         :class="{ 'shadow-md': isScrolled, 'border-b border-gray-200': !isScrolled }">
+      <div class="container mx-auto px-4 md:px-8 h-20 max-w-[1200px] flex items-center justify-between">
+        
         <!-- Logo -->
-        <div class="flex items-center gap-3 cursor-pointer" @click="$router.push('/')">
-          <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
+        <div class="flex items-center gap-2 cursor-pointer transition-transform duration-200 hover:scale-105" 
+             @click="scrollToSection('hero-section')">
+          <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-sm">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           </div>
-          <span class="font-bold text-xl text-slate-900 tracking-tight">E-Report</span>
+          <span class="font-bold text-xl text-gray-900 tracking-tight">E-Report</span>
         </div>
 
         <!-- Center Menu -->
         <div class="hidden md:flex items-center gap-8">
-          <a href="#hero-section" @click.prevent="scrollToTop" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Beranda</a>
-          <a href="#statistik-section" @click.prevent="scrollToSection('statistik-section')" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Statistik</a>
-          <a href="#cara-kerja-section" @click.prevent="scrollToSection('cara-kerja-section')" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Cara Kerja</a>
-          <a href="#laporan-section" @click.prevent="scrollToSection('laporan-section')" class="text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-200">Laporan</a>
+          <a href="#hero-section" 
+             class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
+             :class="{ 'text-blue-600 after:w-full': activeSection === 'hero' }"
+             @click.prevent="scrollToSection('hero-section')">
+            Beranda
+          </a>
+          <a href="#statistik-section" 
+             class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
+             :class="{ 'text-blue-600 after:w-full': activeSection === 'statistik' }"
+             @click.prevent="scrollToSection('statistik-section')">
+            Statistik
+          </a>
+          <a href="#cara-kerja-section" 
+             class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
+             :class="{ 'text-blue-600 after:w-full': activeSection === 'cara-kerja' }"
+             @click.prevent="scrollToSection('cara-kerja-section')">
+            Cara Kerja
+          </a>
+          <a href="#laporan-section" 
+             class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
+             :class="{ 'text-blue-600 after:w-full': activeSection === 'laporan' }"
+             @click.prevent="scrollToSection('laporan-section')">
+            Laporan
+          </a>
+          <a href="#tentang-section" 
+             class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
+             :class="{ 'text-blue-600 after:w-full': activeSection === 'tentang' }"
+             @click.prevent="scrollToSection('tentang-section')">
+            Tentang
+          </a>
         </div>
 
-        <!-- Right Button -->
-        <div class="flex items-center">
-          <router-link to="/login" class="text-blue-600 font-semibold border border-slate-200 px-5 py-2.5 rounded-lg text-sm hover:bg-slate-50 flex items-center gap-2 transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+        <!-- Right Button & Mobile Menu Toggle -->
+        <div class="flex items-center gap-3">
+          <router-link to="/login" class="text-blue-600 font-semibold border border-gray-200 px-4 md:px-5 py-2 md:py-2.5 rounded-lg text-sm hover:bg-gray-50 flex items-center gap-2 transition-all duration-200 hover:scale-[1.02] hover:shadow-md animate-[pulse_2s_ease-in-out_1]">
+            <svg class="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             Masuk Petugas
           </router-link>
+          
+          <!-- Mobile Hamburger -->
+          <button class="md:hidden p-2 text-gray-600 hover:text-blue-600 focus:outline-none" @click="mobileMenuOpen = !mobileMenuOpen">
+            <svg v-if="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
         </div>
+      </div>
+
+      <!-- Mobile Dropdown -->
+      <div v-show="mobileMenuOpen" class="md:hidden absolute top-full left-0 right-0 bg-white shadow-md flex flex-col p-4 gap-2 border-t border-gray-100">
+        <a href="#hero-section" @click.prevent="scrollToSection('hero-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'hero' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Beranda</a>
+        <a href="#statistik-section" @click.prevent="scrollToSection('statistik-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'statistik' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Statistik</a>
+        <a href="#cara-kerja-section" @click.prevent="scrollToSection('cara-kerja-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'cara-kerja' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Cara Kerja</a>
+        <a href="#laporan-section" @click.prevent="scrollToSection('laporan-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'laporan' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Laporan</a>
+        <a href="#tentang-section" @click.prevent="scrollToSection('tentang-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'tentang' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Tentang</a>
       </div>
     </nav>
 
@@ -451,6 +517,68 @@ const Home = Vue.defineComponent({
       </div>
     </section>
 
+    <!-- TENTANG KAMI SECTION -->
+    <section id="tentang-section" class="bg-white py-12 md:py-16 fade-in-section scroll-mt-20">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="text-center mb-10">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 mb-2">
+            Tentang E-Report
+          </h2>
+          <div class="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-4"></div>
+          <p class="text-gray-600 text-sm md:text-base">
+            Platform digital untuk pelaporan dan pemantauan pengaduan masyarakat
+          </p>
+        </div>
+
+        <div class="max-w-2xl mx-auto text-center mb-10 space-y-3">
+          <p class="text-gray-600 text-sm leading-relaxed">
+            E-Report adalah sistem pengaduan masyarakat yang memudahkan warga memantau status penanganan laporan terkait infrastruktur, lingkungan, keamanan, dan pelayanan publik lainnya secara transparan.
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Setiap laporan yang masuk akan diverifikasi, ditindaklanjuti, dan dipantau hingga selesai oleh petugas yang berwenang, dengan status yang dapat dilihat secara real-time oleh masyarakat.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div class="bg-gray-50 rounded-2xl p-5 md:p-6 text-center transition-all duration-200 hover:bg-blue-50 hover:-translate-y-0.5 border border-transparent hover:border-blue-100">
+            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mx-auto mb-3 shadow-sm text-blue-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <h3 class="font-display font-semibold text-sm text-gray-900 mb-1">
+              Transparan
+            </h3>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              Status setiap laporan dapat dipantau secara terbuka oleh masyarakat
+            </p>
+          </div>
+          
+          <div class="bg-gray-50 rounded-2xl p-5 md:p-6 text-center transition-all duration-200 hover:bg-blue-50 hover:-translate-y-0.5 border border-transparent hover:border-blue-100">
+            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mx-auto mb-3 shadow-sm text-blue-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <h3 class="font-display font-semibold text-sm text-gray-900 mb-1">
+              Responsif
+            </h3>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              Laporan ditindaklanjuti secara cepat oleh petugas terkait
+            </p>
+          </div>
+          
+          <div class="bg-gray-50 rounded-2xl p-5 md:p-6 text-center transition-all duration-200 hover:bg-blue-50 hover:-translate-y-0.5 border border-transparent hover:border-blue-100">
+            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mx-auto mb-3 shadow-sm text-blue-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+            </div>
+            <h3 class="font-display font-semibold text-sm text-gray-900 mb-1">
+              Akuntabel
+            </h3>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              Setiap proses tercatat dan dapat dipertanggungjawabkan
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- FOOTER -->
     <footer id="kontak" class="bg-slate-50 border-t border-slate-200 py-16">
       <div class="container mx-auto px-8 max-w-[1200px]">
@@ -468,9 +596,10 @@ const Home = Vue.defineComponent({
           <div>
             <h4 class="font-bold text-slate-900 text-sm mb-6 uppercase tracking-wider">Tautan</h4>
             <ul class="space-y-4 text-sm font-medium">
-              <li><a href="#" @click.prevent="scrollToTop" class="text-slate-500 hover:text-blue-600 transition-colors">Beranda</a></li>
-              <li><a href="#cara-kerja" @click.prevent="scrollToSection('cara-kerja-section')" class="text-slate-500 hover:text-blue-600 transition-colors">Cara Kerja</a></li>
-              <li><a href="#laporan" @click.prevent="scrollToSection('laporan-section')" class="text-slate-500 hover:text-blue-600 transition-colors">Laporan Publik</a></li>
+              <li><a href="#hero-section" @click.prevent="scrollToSection('hero-section')" class="text-gray-500 hover:text-blue-600 transition-colors">Beranda</a></li>
+              <li><a href="#cara-kerja-section" @click.prevent="scrollToSection('cara-kerja-section')" class="text-gray-500 hover:text-blue-600 transition-colors">Cara Kerja</a></li>
+              <li><a href="#laporan-section" @click.prevent="scrollToSection('laporan-section')" class="text-gray-500 hover:text-blue-600 transition-colors">Laporan Publik</a></li>
+              <li><a href="#tentang-section" @click.prevent="scrollToSection('tentang-section')" class="text-gray-500 hover:text-blue-600 transition-colors">Tentang Kami</a></li>
             </ul>
           </div>
           
