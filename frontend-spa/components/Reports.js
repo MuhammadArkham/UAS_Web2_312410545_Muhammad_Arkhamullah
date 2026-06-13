@@ -290,7 +290,7 @@ const Reports = Vue.defineComponent({
       
       <!-- Pagination / Footer Table -->
       <div v-if="filteredReports.length > 0" class="px-6 py-4 border-t border-[#E2E8F0] flex flex-col md:flex-row gap-4 items-center justify-between text-sm text-[#64748B] bg-white">
-         <div>Menampilkan <span class="font-bold text-[#0F172A]">{{ startIndex }}</span> - <span class="font-bold text-[#0F172A]">{{ endIndex }}</span> dari <span class="font-bold text-[#0F172A]">{{ filteredReports.length }}</span> laporan</div>
+         <div class="text-slate-500">Menampilkan <span class="font-semibold text-slate-700">{{ startIndex }}</span> hingga <span class="font-semibold text-slate-700">{{ endIndex }}</span> dari total <span class="font-semibold text-slate-700">{{ filteredReports.length }}</span> data</div>
          <div class="flex items-center gap-2">
             <button @click="prevPage" :disabled="currentPage === 1" class="w-8 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><i class="ti ti-chevron-left"></i></button>
             

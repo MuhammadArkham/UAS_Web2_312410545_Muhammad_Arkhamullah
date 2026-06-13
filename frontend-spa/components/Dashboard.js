@@ -255,9 +255,6 @@ const Dashboard = Vue.defineComponent({
                    <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-10 h-10 rounded-lg text-[#64748B] hover:text-[#2563EB] hover:bg-blue-50 flex items-center justify-center transition-colors border border-transparent hover:border-blue-200">
                      <i class="ti ti-eye text-xl" style="-webkit-text-stroke: 0.5px;"></i>
                    </router-link>
-                   <button class="w-10 h-10 rounded-lg text-[#64748B] hover:text-[#0F172A] hover:bg-slate-100 flex items-center justify-center transition-colors">
-                     <i class="ti ti-dots-vertical text-xl" style="-webkit-text-stroke: 0.5px;"></i>
-                   </button>
                  </div>
               </td>
             </tr>
