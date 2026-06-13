@@ -275,8 +275,8 @@ const Home = Vue.defineComponent({
               </div>
               <div>
                 <p v-if="isLoading" class="h-6 w-12 bg-gray-100 rounded animate-pulse mb-1"></p>
-                <p v-else class="text-xl font-display font-bold text-gray-900">{{ stats.total }}</p>
-                <p class="text-[11px] sm:text-xs text-gray-500">Total Laporan</p>
+                <p v-else class="text-2xl lg:text-3xl font-display font-bold text-gray-900">{{ stats.total }}</p>
+                <p class="text-xs lg:text-sm text-gray-500 font-medium">Total Laporan</p>
               </div>
             </div>
 
@@ -287,8 +287,8 @@ const Home = Vue.defineComponent({
               </div>
               <div>
                 <p v-if="isLoading" class="h-6 w-12 bg-gray-100 rounded animate-pulse mb-1"></p>
-                <p v-else class="text-xl font-display font-bold text-gray-900">{{ stats.diproses }}</p>
-                <p class="text-[11px] sm:text-xs text-gray-500">Sedang Diproses</p>
+                <p v-else class="text-2xl lg:text-3xl font-display font-bold text-gray-900">{{ stats.diproses }}</p>
+                <p class="text-xs lg:text-sm text-gray-500 font-medium">Sedang Diproses</p>
               </div>
             </div>
 
@@ -299,8 +299,8 @@ const Home = Vue.defineComponent({
               </div>
               <div>
                 <p v-if="isLoading" class="h-6 w-12 bg-gray-100 rounded animate-pulse mb-1"></p>
-                <p v-else class="text-xl font-display font-bold text-gray-900">{{ stats.selesai }}</p>
-                <p class="text-[11px] sm:text-xs text-gray-500">Telah Selesai</p>
+                <p v-else class="text-2xl lg:text-3xl font-display font-bold text-gray-900">{{ stats.selesai }}</p>
+                <p class="text-xs lg:text-sm text-gray-500 font-medium">Telah Selesai</p>
               </div>
             </div>
 
@@ -311,8 +311,8 @@ const Home = Vue.defineComponent({
               </div>
               <div>
                 <p v-if="isLoading" class="h-6 w-12 bg-gray-100 rounded animate-pulse mb-1"></p>
-                <p v-else class="text-xl font-display font-bold text-gray-900">{{ stats.totalKategori }}</p>
-                <p class="text-[11px] sm:text-xs text-gray-500">Kategori Tersedia</p>
+                <p v-else class="text-2xl lg:text-3xl font-display font-bold text-gray-900">{{ stats.totalKategori }}</p>
+                <p class="text-xs lg:text-sm text-gray-500 font-medium">Kategori Tersedia</p>
               </div>
             </div>
 
@@ -353,10 +353,10 @@ const Home = Vue.defineComponent({
           <div v-else class="space-y-3">
             <div v-for="(item, index) in distribusiKategori" :key="item.nama">
               <div class="flex justify-between items-center mb-1.5">
-                <span class="text-xs sm:text-sm font-medium text-gray-700">
+                <span class="text-sm font-medium text-gray-700">
                   {{ item.nama }}
                 </span>
-                <span class="text-xs text-gray-500">
+                <span class="text-sm font-medium text-gray-500">
                   {{ item.persen }}% ({{ item.jumlah }})
                 </span>
               </div>
@@ -535,10 +535,10 @@ const Home = Vue.defineComponent({
         </div>
 
         <div class="max-w-2xl mx-auto text-center mb-10 space-y-3">
-          <p class="text-gray-600 text-sm leading-relaxed">
+          <p class="text-base text-gray-600 leading-relaxed">
             E-Report adalah sistem pengaduan masyarakat yang memudahkan warga memantau status penanganan laporan terkait infrastruktur, lingkungan, keamanan, dan pelayanan publik lainnya secara transparan.
           </p>
-          <p class="text-gray-600 text-sm leading-relaxed">
+          <p class="text-base text-gray-600 leading-relaxed">
             Setiap laporan yang masuk akan diverifikasi, ditindaklanjuti, dan dipantau hingga selesai oleh petugas yang berwenang, dengan status yang dapat dilihat secara real-time oleh masyarakat.
           </p>
         </div>
@@ -549,10 +549,10 @@ const Home = Vue.defineComponent({
             <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-transform hover:scale-110 duration-200">
               <i class="ti ti-eye text-blue-600" style="font-size: 24px;"></i>
             </div>
-            <h3 class="font-display font-semibold text-sm text-gray-900 mb-1">
+            <h3 class="font-display font-semibold text-base text-gray-900 mb-1">
               Transparan
             </h3>
-            <p class="text-xs text-gray-600 leading-relaxed max-w-[200px]">
+            <p class="text-sm text-gray-600 leading-relaxed max-w-[200px] mx-auto">
               Status setiap laporan dapat dipantau secara terbuka oleh masyarakat
             </p>
           </div>
@@ -561,10 +561,10 @@ const Home = Vue.defineComponent({
             <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-transform hover:scale-110 duration-200">
               <i class="ti ti-bolt text-blue-600" style="font-size: 24px;"></i>
             </div>
-            <h3 class="font-display font-semibold text-sm text-gray-900 mb-1">
+            <h3 class="font-display font-semibold text-base text-gray-900 mb-1">
               Responsif
             </h3>
-            <p class="text-xs text-gray-600 leading-relaxed max-w-[200px]">
+            <p class="text-sm text-gray-600 leading-relaxed max-w-[200px] mx-auto">
               Laporan ditindaklanjuti secara cepat oleh petugas terkait
             </p>
           </div>
@@ -573,10 +573,10 @@ const Home = Vue.defineComponent({
             <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-transform hover:scale-110 duration-200">
               <i class="ti ti-clipboard-check text-blue-600" style="font-size: 24px;"></i>
             </div>
-            <h3 class="font-display font-semibold text-sm text-gray-900 mb-1">
+            <h3 class="font-display font-semibold text-base text-gray-900 mb-1">
               Akuntabel
             </h3>
-            <p class="text-xs text-gray-600 leading-relaxed max-w-[200px]">
+            <p class="text-sm text-gray-600 leading-relaxed max-w-[200px] mx-auto">
               Setiap proses tercatat dan dapat dipertanggungjawabkan
             </p>
           </div>
