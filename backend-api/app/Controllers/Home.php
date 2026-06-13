@@ -2,10 +2,16 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+use CodeIgniter\RESTful\ResourceController;
+
+class Home extends ResourceController
 {
-    public function index(): string
+    public function index()
     {
-        return view('welcome_message');
+        return $this->response->setJSON([
+            'status'  => 'success',
+            'message' => 'Welcome to SiLapor API',
+            'version' => '1.0.0'
+        ]);
     }
 }
