@@ -235,12 +235,12 @@ const Dashboard = Vue.defineComponent({
                  <span class="text-[14px] font-medium text-[#0F172A]">{{ r.title }}</span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="inline-flex text-[12px] font-medium text-[#64748B] bg-slate-100 px-2.5 py-1 rounded-md">
+                 <span class="inline-flex text-[12px] font-medium text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-md">
                    {{ r.category?.name || 'Infrastruktur' }}
                  </span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="text-[14px] font-medium text-[#64748B] truncate max-w-[150px] inline-block" :title="r.location">{{ r.location }}</span>
+                 <span class="text-[14px] font-medium text-[#64748B] whitespace-normal line-clamp-2 min-w-[200px] leading-relaxed" :title="r.location">{{ r.location }}</span>
               </td>
               <td class="px-6 py-4 align-middle text-center">
                  <span class="inline-flex text-[12px] font-semibold px-2.5 py-1 rounded-md capitalize" :class="statusBadge(r.status)">
