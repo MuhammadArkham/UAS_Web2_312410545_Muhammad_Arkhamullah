@@ -24,7 +24,7 @@ const Login = Vue.defineComponent({
         
         this.$router.push('/dashboard');
       } catch (err) {
-        this.error = err.response?.data?.message || 'Kredensial tidak valid. Silakan periksa kembali email dan kata sandi Anda.';
+        this.error = err.response?.data?.message || 'Email atau kata sandi yang Anda masukkan salah. Silakan coba lagi.';
       } finally {
         this.loading = false;
       }
@@ -48,10 +48,10 @@ const Login = Vue.defineComponent({
         </div>
         
         <h1 class="text-4xl lg:text-5xl font-display font-bold text-white leading-tight mb-6">
-          Sistem Terpadu<br>Layanan Publik
+          Sistem Pengelolaan<br>Aspirasi Warga
         </h1>
         <p class="text-blue-100 text-lg leading-relaxed max-w-md">
-          Portal administrasi khusus petugas dan instansi pemerintah. Seluruh aktivitas dalam sistem ini direkam dan diawasi secara ketat demi akuntabilitas publik.
+          Portal khusus bagi perangkat desa, kelurahan, dan admin daerah untuk menindaklanjuti laporan masyarakat dengan cepat dan transparan.
         </p>
       </div>
       
@@ -81,8 +81,8 @@ const Login = Vue.defineComponent({
         </div>
 
         <div class="mb-10">
-          <h2 class="text-3xl font-display font-extrabold text-slate-900 tracking-tight mb-2">Otentikasi Petugas</h2>
-          <p class="text-slate-500 text-base">Silakan masukkan kredensial akses Anda untuk masuk ke dasbor manajemen.</p>
+          <h2 class="text-3xl font-display font-extrabold text-slate-900 tracking-tight mb-2">Masuk Petugas</h2>
+          <p class="text-slate-500 text-base">Silakan masukkan email dan kata sandi Anda untuk mulai mengelola laporan.</p>
         </div>
         
         <form @submit.prevent="handleLogin" class="space-y-6">
@@ -93,14 +93,14 @@ const Login = Vue.defineComponent({
           </div>
 
           <div>
-            <label for="email" class="block text-sm font-bold text-slate-700 mb-2">Alamat Email Resmi</label>
+            <label for="email" class="block text-sm font-bold text-slate-700 mb-2">Alamat Email</label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                 </svg>
               </div>
-              <input id="email" type="email" v-model="email" required placeholder="admin@pemerintah.go.id" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
+              <input id="email" type="email" v-model="email" required placeholder="petugas@daerah.go.id" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
             </div>
           </div>
 
@@ -122,7 +122,7 @@ const Login = Vue.defineComponent({
           <div class="pt-4">
             <button type="submit" :disabled="loading" class="w-full flex justify-center py-4 px-4 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-all disabled:opacity-70 disabled:cursor-not-allowed group">
               <svg v-if="loading" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-              <span>{{ loading ? 'Memverifikasi...' : 'Masuk ke Sistem' }}</span>
+              <span>{{ loading ? 'Memeriksa Data...' : 'Masuk ke Dasbor' }}</span>
               <svg v-if="!loading" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
           </div>
