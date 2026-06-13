@@ -83,6 +83,15 @@
           visibility: visible;
           transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 0s;
         }
+        @keyframes flowLine {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+        .animate-flow {
+          background: linear-gradient(90deg, #f1f5f9 0%, #60a5fa 50%, #f1f5f9 100%);
+          background-size: 200% 100%;
+          animation: flowLine 2.5s infinite linear;
+        }
     </style>
 
     <!-- Konfigurasi Global Aplikasi -->
@@ -111,14 +120,14 @@
     </div>
 
     <!-- Components -->
-    <script src="components/AdminLayout.js?v=73"></script>
-    <script src="components/Home.js?v=73"></script>
-    <script src="components/CreateReport.js?v=73"></script>
-    <script src="components/Login.js?v=73"></script>
-    <script src="components/Dashboard.js?v=73"></script>
-    <script src="components/Categories.js?v=73"></script>
-    <script src="components/Reports.js?v=73"></script>
-    <script src="components/ReportDetail.js?v=73"></script>
+    <script src="components/AdminLayout.js?v=74"></script>
+    <script src="components/Home.js?v=74"></script>
+    <script src="components/CreateReport.js?v=74"></script>
+    <script src="components/Login.js?v=74"></script>
+    <script src="components/Dashboard.js?v=74"></script>
+    <script src="components/Categories.js?v=74"></script>
+    <script src="components/Reports.js?v=74"></script>
+    <script src="components/ReportDetail.js?v=74"></script>
     
     <script>
         // Custom Intersection Observer for fade-in-section
@@ -145,7 +154,7 @@
     </script>
     
     <!-- App Entry Point -->
-    <script src="app.js?v=73"></script>
+    <script src="app.js?v=74"></script>
     <!-- AOS Animation JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
