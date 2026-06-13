@@ -539,42 +539,44 @@ const Home = Vue.defineComponent({
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          <div class="bg-gray-50 rounded-2xl p-5 md:p-6 text-center transition-all duration-200 hover:bg-blue-50 hover:-translate-y-0.5 border border-transparent hover:border-blue-100">
-            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mx-auto mb-3 shadow-sm text-blue-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 text-center mt-10 md:mt-12">
+          
+          <div class="flex flex-col items-center">
+            <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-transform hover:scale-110 duration-200">
+              <i class="ti ti-eye text-blue-600" style="font-size: 24px;"></i>
             </div>
             <h3 class="font-display font-semibold text-sm text-gray-900 mb-1">
               Transparan
             </h3>
-            <p class="text-xs text-gray-600 leading-relaxed">
+            <p class="text-xs text-gray-600 leading-relaxed max-w-[200px]">
               Status setiap laporan dapat dipantau secara terbuka oleh masyarakat
             </p>
           </div>
-          
-          <div class="bg-gray-50 rounded-2xl p-5 md:p-6 text-center transition-all duration-200 hover:bg-blue-50 hover:-translate-y-0.5 border border-transparent hover:border-blue-100">
-            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mx-auto mb-3 shadow-sm text-blue-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+
+          <div class="flex flex-col items-center">
+            <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-transform hover:scale-110 duration-200">
+              <i class="ti ti-bolt text-blue-600" style="font-size: 24px;"></i>
             </div>
             <h3 class="font-display font-semibold text-sm text-gray-900 mb-1">
               Responsif
             </h3>
-            <p class="text-xs text-gray-600 leading-relaxed">
+            <p class="text-xs text-gray-600 leading-relaxed max-w-[200px]">
               Laporan ditindaklanjuti secara cepat oleh petugas terkait
             </p>
           </div>
-          
-          <div class="bg-gray-50 rounded-2xl p-5 md:p-6 text-center transition-all duration-200 hover:bg-blue-50 hover:-translate-y-0.5 border border-transparent hover:border-blue-100">
-            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mx-auto mb-3 shadow-sm text-blue-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+
+          <div class="flex flex-col items-center">
+            <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-transform hover:scale-110 duration-200">
+              <i class="ti ti-clipboard-check text-blue-600" style="font-size: 24px;"></i>
             </div>
             <h3 class="font-display font-semibold text-sm text-gray-900 mb-1">
               Akuntabel
             </h3>
-            <p class="text-xs text-gray-600 leading-relaxed">
+            <p class="text-xs text-gray-600 leading-relaxed max-w-[200px]">
               Setiap proses tercatat dan dapat dipertanggungjawabkan
             </p>
           </div>
+
         </div>
       </div>
     </section>
