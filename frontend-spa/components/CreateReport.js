@@ -69,7 +69,7 @@ const CreateReport = Vue.defineComponent({
   },
   template: `
   <AdminLayout title="Buat Laporan Baru" subtitle="Sampaikan laporan pengaduan dengan detail yang jelas dan akurat.">
-    <div class="max-w-4xl">
+    <div class="max-w-4xl mx-auto">
       <div v-if="success" class="mb-8 p-8 rounded-2xl bg-green-50 border border-green-200 text-center flex flex-col items-center shadow-sm">
         <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
           <i class="ti ti-circle-check text-4xl" style="-webkit-text-stroke: 1px;"></i>
