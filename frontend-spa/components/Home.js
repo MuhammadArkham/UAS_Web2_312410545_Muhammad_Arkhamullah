@@ -2,6 +2,7 @@ const Home = Vue.defineComponent({
   data() {
     return {
       isLoading: true,
+      chartInstance: null,
       recentReports: [],
       allReports: [],
       stats: {
@@ -96,6 +97,10 @@ const Home = Vue.defineComponent({
         this.animateCounter(this.stats, 'selesai', selesai);
         this.animateCounter(this.stats, 'totalKategori', totalKategori);
 
+        this.$nextTick(() => {
+          this.renderChart();
+        });
+
       } catch (error) {
         console.error("Error fetching data:", error);
         this.isLoading = false;
@@ -124,6 +129,67 @@ const Home = Vue.defineComponent({
       if (!path) return '';
       if (path.startsWith('http')) return path;
       return window.APP_CONFIG.IMAGE_BASE_URL + path;
+    },
+    renderChart() {
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+      }
+      const ctx = document.getElementById('kategoriChart');
+      if (!ctx) return;
+
+      const labels = this.distribusiKategori.map(item => item.nama);
+      const data = this.distribusiKategori.map(item => item.jumlah);
+      
+      const backgroundColors = [
+        'rgba(37, 99, 235, 0.8)',   // blue-600
+        'rgba(59, 130, 246, 0.8)',  // blue-500
+        'rgba(96, 165, 250, 0.8)',  // blue-400
+        'rgba(147, 197, 253, 0.8)', // blue-300
+        'rgba(191, 219, 254, 0.8)', // blue-200
+        'rgba(219, 234, 254, 0.8)'  // blue-100
+      ];
+
+      this.chartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: backgroundColors,
+            borderWidth: 1,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                font: {
+                  family: "'Inter', sans-serif",
+                  size: 12
+                },
+                usePointStyle: true,
+                padding: 20
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const label = context.label || '';
+                  const value = context.parsed || 0;
+                  const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
+                  const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                  return `${label}: ${value} (${percentage}%)`;
+                }
+              }
+            }
+          },
+          cutout: '65%'
+        }
+      });
     }
   },
   mounted() {
@@ -146,6 +212,9 @@ const Home = Vue.defineComponent({
   unmounted() {
     window.removeEventListener('scroll', this.handleScroll);
     if (this.navObserver) this.navObserver.disconnect();
+    if (this.chartInstance) {
+      this.chartInstance.destroy();
+    }
   },
   template: `
   <div class="min-h-screen bg-white font-sans text-slate-900">
@@ -348,23 +417,8 @@ const Home = Vue.defineComponent({
           <p v-else-if="distribusiKategori.length === 0" class="text-sm text-gray-600 text-center py-2">
             Belum ada data distribusi kategori
           </p>
-          <div v-else class="space-y-3">
-            <div v-for="(item, index) in distribusiKategori" :key="item.nama">
-              <div class="flex justify-between items-center mb-1.5">
-                <span class="text-sm font-medium text-gray-700">
-                  {{ item.nama }}
-                </span>
-                <span class="text-sm font-medium text-gray-500">
-                  {{ item.persen }}% ({{ item.jumlah }})
-                </span>
-              </div>
-              <div class="w-full bg-gray-100 rounded-full h-2">
-                <div class="h-2 rounded-full transition-all duration-700"
-                     :class="warnaProgress(index)"
-                     :style="{ width: item.persen + '%' }">
-                </div>
-              </div>
-            </div>
+          <div v-else class="relative h-64 w-full flex justify-center items-center">
+            <canvas id="kategoriChart"></canvas>
           </div>
         </div>
 
