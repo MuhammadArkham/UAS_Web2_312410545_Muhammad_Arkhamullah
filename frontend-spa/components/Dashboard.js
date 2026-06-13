@@ -119,9 +119,14 @@ const Dashboard = Vue.defineComponent({
         <h2 class="text-[20px] font-bold text-[#0F172A] mb-1">Selamat datang, Administrator</h2>
         <p class="text-sm text-[#64748B]">Pantau dan tindak lanjuti laporan masyarakat secara efisien.</p>
       </div>
-      <div class="hidden md:flex items-center gap-3 bg-white border border-[#E2E8F0] px-4 py-2 rounded-xl text-sm font-medium text-[#64748B] shadow-sm">
-         <i class="ti ti-calendar text-lg text-[#2563EB]"></i>
-         <div>{{ currentDate }}<br><span class="text-xs font-normal">{{ currentTime }} &bull; Sistem Pemantauan Aktif</span></div>
+      <div class="hidden md:flex items-center gap-3 bg-white border border-[#E2E8F0] px-4 py-2.5 rounded-xl shadow-sm">
+         <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-[#2563EB]">
+           <i class="ti ti-clock text-xl" style="-webkit-text-stroke: 0.5px;"></i>
+         </div>
+         <div class="flex flex-col">
+           <span class="text-[13px] font-bold text-[#0F172A] leading-tight">{{ currentDate }}</span>
+           <span class="text-[11px] font-bold text-[#2563EB] leading-tight mt-0.5">{{ currentTime }}</span>
+         </div>
       </div>
     </div>
 
