@@ -189,109 +189,103 @@ const Home = Vue.defineComponent({
       </div>
     </header>
 
-    <!-- STATISTICS SECTION -->
-    <section id="statistik-section" class="bg-white py-16 fade-in-section scroll-mt-20">
-      <div class="container mx-auto px-8 max-w-[1200px]">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          <!-- Card 1: Total Laporan -->
-          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-blue-50 text-blue-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            </div>
-            <div>
-              <div v-if="isLoading" class="h-8 w-16 bg-gray-100 rounded animate-pulse mb-1"></div>
-              <p v-else class="text-2xl font-display font-bold text-gray-900">{{ stats.total }}</p>
-              <p class="text-sm text-gray-500">Total Laporan</p>
-            </div>
-          </div>
-          
-          <!-- Card 2: Sedang Diproses -->
-          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-amber-50 text-amber-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </div>
-            <div>
-              <div v-if="isLoading" class="h-8 w-16 bg-gray-100 rounded animate-pulse mb-1"></div>
-              <p v-else class="text-2xl font-display font-bold text-gray-900">{{ stats.diproses }}</p>
-              <p class="text-sm text-gray-500">Sedang Diproses</p>
-            </div>
-          </div>
-          
-          <!-- Card 3: Telah Selesai -->
-          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-emerald-50 text-emerald-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </div>
-            <div>
-              <div v-if="isLoading" class="h-8 w-16 bg-gray-100 rounded animate-pulse mb-1"></div>
-              <p v-else class="text-2xl font-display font-bold text-gray-900">{{ stats.selesai }}</p>
-              <p class="text-sm text-gray-500">Telah Selesai</p>
-            </div>
-          </div>
-          
-          <!-- Card 4: Kategori Tersedia -->
-          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-violet-50 text-violet-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
-            </div>
-            <div>
-              <div v-if="isLoading" class="h-8 w-16 bg-gray-100 rounded animate-pulse mb-1"></div>
-              <p v-else class="text-2xl font-display font-bold text-gray-900">{{ stats.totalKategori }}</p>
-              <p class="text-sm text-gray-500">Kategori Tersedia</p>
-            </div>
-          </div>
-          
-          <!-- Card 5: Resolution Rate (Conic Gradient) -->
-          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 lg:col-span-1">
-            <div class="relative w-16 h-16 flex-shrink-0">
-              <div class="w-16 h-16 rounded-full transition-all duration-700" 
-                   :style="{
-                     background: 'conic-gradient(#1a56c4 0% ' + resolutionRate + '%, #e5e7eb ' + resolutionRate + '% 100%)'
-                   }">
-              </div>
-              <div class="absolute inset-1.5 bg-white rounded-full flex items-center justify-center">
-                <span class="text-sm font-bold text-gray-900">
-                  <span v-if="isLoading" class="inline-block w-6 h-4 bg-gray-100 animate-pulse rounded"></span>
-                  <span v-else>{{ resolutionRate }}%</span>
-                </span>
-              </div>
-            </div>
-            <div>
-              <p class="text-sm font-semibold text-gray-900 leading-tight mb-0.5">
-                Tingkat Penyelesaian
-              </p>
-              <p class="text-[11px] text-gray-500 leading-tight">
-                Laporan yang telah selesai
-              </p>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </section>
-
-    <!-- DISTRIBUSI KATEGORI SECTION -->
-    <section class="bg-gray-50 py-16 border-y border-slate-200 fade-in-section scroll-mt-20">
-      <div class="container mx-auto px-4 md:px-8 max-w-[1200px]">
+    <!-- STATISTICS & DISTRIBUTION SECTION -->
+    <section id="statistik-section" class="bg-gray-50 py-12 md:py-16 fade-in-section scroll-mt-20">
+      <div class="max-w-5xl mx-auto px-4 lg:px-8 space-y-6 md:space-y-8">
         
-        <div class="max-w-3xl mx-auto bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8">
-          <h3 class="font-display font-bold text-lg text-gray-900 mb-6">
+        <!-- STATISTIC SUMMARY CARD -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8">
+          <div class="grid grid-cols-2 md:grid-cols-5 divide-x divide-y md:divide-y-0 divide-gray-100 gap-y-4 md:gap-y-0">
+            
+            <!-- Total Laporan -->
+            <div class="flex items-center gap-3 px-2 md:px-4 py-3 md:py-0">
+              <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 text-blue-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              </div>
+              <div>
+                <p v-if="isLoading" class="h-6 w-12 bg-gray-100 rounded animate-pulse mb-1"></p>
+                <p v-else class="text-xl font-display font-bold text-gray-900">{{ stats.total }}</p>
+                <p class="text-[11px] sm:text-xs text-gray-500">Total Laporan</p>
+              </div>
+            </div>
+
+            <!-- Sedang Diproses -->
+            <div class="flex items-center gap-3 px-2 md:px-4 py-3 md:py-0">
+              <div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0 text-amber-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div>
+                <p v-if="isLoading" class="h-6 w-12 bg-gray-100 rounded animate-pulse mb-1"></p>
+                <p v-else class="text-xl font-display font-bold text-gray-900">{{ stats.diproses }}</p>
+                <p class="text-[11px] sm:text-xs text-gray-500">Sedang Diproses</p>
+              </div>
+            </div>
+
+            <!-- Telah Selesai -->
+            <div class="flex items-center gap-3 px-2 md:px-4 py-3 md:py-0">
+              <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0 text-emerald-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div>
+                <p v-if="isLoading" class="h-6 w-12 bg-gray-100 rounded animate-pulse mb-1"></p>
+                <p v-else class="text-xl font-display font-bold text-gray-900">{{ stats.selesai }}</p>
+                <p class="text-[11px] sm:text-xs text-gray-500">Telah Selesai</p>
+              </div>
+            </div>
+
+            <!-- Kategori Tersedia -->
+            <div class="flex items-center gap-3 px-2 md:px-4 py-3 md:py-0">
+              <div class="w-10 h-10 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 text-violet-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+              </div>
+              <div>
+                <p v-if="isLoading" class="h-6 w-12 bg-gray-100 rounded animate-pulse mb-1"></p>
+                <p v-else class="text-xl font-display font-bold text-gray-900">{{ stats.totalKategori }}</p>
+                <p class="text-[11px] sm:text-xs text-gray-500">Kategori Tersedia</p>
+              </div>
+            </div>
+
+            <!-- Resolution Rate -->
+            <div class="flex items-center gap-3 px-2 md:px-4 py-3 md:py-0 col-span-2 md:col-span-1">
+              <div class="relative w-10 h-10 flex-shrink-0">
+                <div class="w-10 h-10 rounded-full transition-all duration-700" 
+                     :style="{ background: 'conic-gradient(#1a56c4 0% ' + resolutionRate + '%, #e5e7eb ' + resolutionRate + '% 100%)' }">
+                </div>
+                <div class="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+                  <span class="text-[10px] font-bold text-gray-900">
+                    <span v-if="isLoading" class="inline-block w-4 h-3 bg-gray-100 animate-pulse rounded"></span>
+                    <span v-else>{{ resolutionRate }}%</span>
+                  </span>
+                </div>
+              </div>
+              <div>
+                <p class="text-[11px] sm:text-xs font-semibold text-gray-900 leading-tight">Tingkat Penyelesaian</p>
+                <p class="text-[10px] sm:text-[11px] text-gray-500">dari total laporan</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- DISTRIBUSI KATEGORI CARD -->
+        <div class="max-w-xl mx-auto bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6">
+          <h3 class="font-display font-semibold text-base text-gray-900 mb-4">
             Distribusi Laporan per Kategori
           </h3>
           
-          <div v-if="isLoading" class="space-y-4">
+          <div v-if="isLoading" class="space-y-3">
             <div v-for="i in 3" :key="i" class="w-full h-8 bg-gray-100 rounded animate-pulse"></div>
           </div>
-          <p v-else-if="distribusiKategori.length === 0" class="text-sm text-gray-400 text-center py-4">
+          <p v-else-if="distribusiKategori.length === 0" class="text-sm text-gray-400 text-center py-2">
             Belum ada data distribusi kategori
           </p>
-          <div v-else class="space-y-4">
+          <div v-else class="space-y-3">
             <div v-for="(item, index) in distribusiKategori" :key="item.nama">
               <div class="flex justify-between items-center mb-1.5">
-                <span class="text-sm font-medium text-gray-700">
+                <span class="text-xs sm:text-sm font-medium text-gray-700">
                   {{ item.nama }}
                 </span>
-                <span class="text-sm text-gray-500">
+                <span class="text-xs text-gray-500">
                   {{ item.persen }}% ({{ item.jumlah }})
                 </span>
               </div>
