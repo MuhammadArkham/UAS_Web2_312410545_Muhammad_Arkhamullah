@@ -5,7 +5,10 @@ const Dashboard = Vue.defineComponent({
       stats: { total: 0, pending: 0, diproses: 0, selesai: 0 },
       allReports: [],
       currentPage: 1,
-      itemsPerPage: 5
+      itemsPerPage: 5,
+      currentTime: '',
+      currentDate: '',
+      timer: null
     }
   },
   computed: {
@@ -91,10 +94,21 @@ const Dashboard = Vue.defineComponent({
     },
     goToPage(page) {
       this.currentPage = page;
+    },
+    updateTime() {
+      const now = new Date();
+      const optionsDate = { day: 'numeric', month: 'short', year: 'numeric' };
+      this.currentDate = now.toLocaleDateString('id-ID', optionsDate);
+      this.currentTime = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
     }
   },
   mounted() {
     this.fetchDashboardData();
+    this.updateTime();
+    this.timer = setInterval(this.updateTime, 1000);
+  },
+  beforeUnmount() {
+    if (this.timer) clearInterval(this.timer);
   },
   template: `
   <AdminLayout title="Dashboard" subtitle="Kelola pengaduan masyarakat secara cepat, transparan, dan akuntabel.">
@@ -107,7 +121,7 @@ const Dashboard = Vue.defineComponent({
       </div>
       <div class="hidden md:flex items-center gap-3 bg-white border border-[#E2E8F0] px-4 py-2 rounded-xl text-sm font-medium text-[#64748B] shadow-sm">
          <i class="ti ti-calendar text-lg text-[#2563EB]"></i>
-         <div>Hari ini<br><span class="text-xs font-normal">Sistem Pemantauan Aktif</span></div>
+         <div>{{ currentDate }}<br><span class="text-xs font-normal">{{ currentTime }} &bull; Sistem Pemantauan Aktif</span></div>
       </div>
     </div>
 
