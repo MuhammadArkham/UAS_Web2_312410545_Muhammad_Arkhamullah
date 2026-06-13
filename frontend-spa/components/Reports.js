@@ -203,7 +203,7 @@ const Reports = Vue.defineComponent({
       <div class="overflow-x-auto min-h-[400px]">
         <table class="w-full text-left border-collapse">
           <thead>
-            <tr class="bg-[#F8FAFC] text-[#64748B] text-[12px] uppercase tracking-wide font-semibold border-b border-[#E2E8F0]">
+            <tr class="bg-[#F8FAFC] text-[#64748B] text-[12px] uppercase tracking-wide font-semibold border-b border-[#E2E8F0] whitespace-nowrap">
               <th class="px-6 py-4">ID Laporan</th>
               <th class="px-6 py-4">Judul Laporan</th>
               <th class="px-6 py-4">Kategori</th>
