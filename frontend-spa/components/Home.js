@@ -99,6 +99,9 @@ const Home = Vue.defineComponent({
 
         this.$nextTick(() => {
           this.renderChart();
+          if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+          }
         });
 
       } catch (error) {
