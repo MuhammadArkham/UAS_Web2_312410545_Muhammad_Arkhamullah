@@ -161,7 +161,7 @@ const Home = Vue.defineComponent({
           <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-sm">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           </div>
-          <span class="font-bold text-xl text-gray-900 tracking-tight">E-Report</span>
+          <span class="font-bold text-xl text-gray-900 tracking-tight">SiLapor</span>
         </div>
 
         <!-- Center Menu -->
@@ -526,7 +526,7 @@ const Home = Vue.defineComponent({
       <div class="max-w-5xl mx-auto px-4">
         <div class="text-center mb-10">
           <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 mb-2">
-            Tentang E-Report
+            Tentang SiLapor
           </h2>
           <div class="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-4"></div>
           <p class="text-gray-600 text-sm md:text-base">
@@ -536,7 +536,7 @@ const Home = Vue.defineComponent({
 
         <div class="max-w-2xl mx-auto text-center mb-10 space-y-3">
           <p class="text-base text-gray-600 leading-relaxed">
-            E-Report adalah sistem pengaduan masyarakat yang memudahkan warga memantau status penanganan laporan terkait infrastruktur, lingkungan, keamanan, dan pelayanan publik lainnya secara transparan.
+            SiLapor adalah sistem pengaduan masyarakat yang memudahkan warga memantau status penanganan laporan terkait infrastruktur, lingkungan, keamanan, dan pelayanan publik lainnya secara transparan.
           </p>
           <p class="text-base text-gray-600 leading-relaxed">
             Setiap laporan yang masuk akan diverifikasi, ditindaklanjuti, dan dipantau hingga selesai oleh petugas yang berwenang, dengan status yang dapat dilihat secara real-time oleh masyarakat.
@@ -594,9 +594,9 @@ const Home = Vue.defineComponent({
                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                </div>
-               <h2 class="text-xl font-bold text-slate-900 tracking-tight">E-Report</h2>
+               <h2 class="text-xl font-bold text-slate-900 tracking-tight">SiLapor</h2>
             </div>
-            <p class="text-slate-500 text-sm leading-relaxed">Platform layanan terpadu yang menjembatani aspirasi masyarakat dengan instansi pemerintah.</p>
+            <p class="text-slate-500 text-sm leading-relaxed">SiLapor: Platform pelaporan digital untuk menjembatani aspirasi masyarakat dengan instansi pemerintah.</p>
           </div>
           
           <div>
@@ -638,7 +638,7 @@ const Home = Vue.defineComponent({
         </div>
         
         <div class="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 font-medium">
-          <div>&copy; 2026 E-Report. Seluruh Hak Cipta Dilindungi.</div>
+          <div>&copy; 2026 SiLapor &mdash; Sistem Pengaduan Masyarakat.</div>
           <div class="flex gap-6">
             <span>Otoritas</span>
             <span>Transparansi</span>

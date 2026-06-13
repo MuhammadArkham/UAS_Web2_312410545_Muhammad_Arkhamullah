@@ -1,4 +1,4 @@
-# 📋 Sistem Informasi E-Report (Pengaduan Masyarakat)
+# 📋 Sistem Informasi SiLapor (Pengaduan Masyarakat)
 
 **Ujian Akhir Semester — Pemrograman Web 2**
 
@@ -7,13 +7,13 @@
 | **Nama** | Muhammad Arkhamullah |
 | **NIM** | 312410545 |
 | **Mata Kuliah** | Pemrograman Web 2 |
-| **Tema** | Sistem Pelaporan Pengaduan Layanan Masyarakat (E-Report) |
+| **Tema** | Sistem Pelaporan Pengaduan Layanan Masyarakat (SiLapor) |
 
 ---
 
 ## 📖 Deskripsi Proyek
 
-E-Report adalah Sistem Informasi Pengaduan Masyarakat berbasis web dengan arsitektur **Decoupled (Terpisah)**. Sistem ini memisahkan secara penuh antara **Backend (REST API Server)** dan **Frontend (Single Page Application)**.
+SiLapor adalah Sistem Informasi Pengaduan Masyarakat berbasis web dengan arsitektur **Decoupled (Terpisah)**. Sistem ini memisahkan secara penuh antara **Backend (REST API Server)** dan **Frontend (Single Page Application)**.
 
 **Fitur Utama:**
 - 🏠 **Landing Page Publik** — Menampilkan ringkasan statistik pengaduan dan 5 laporan terbaru

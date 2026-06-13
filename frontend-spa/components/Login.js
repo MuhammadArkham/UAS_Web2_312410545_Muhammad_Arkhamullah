@@ -44,7 +44,7 @@ const Login = Vue.defineComponent({
           <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-700 shadow-lg">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           </div>
-          <span class="font-bold text-2xl text-white tracking-tight">E-Report</span>
+          <span class="font-bold text-2xl text-white tracking-tight">SiLapor</span>
         </div>
         
         <h1 class="text-4xl lg:text-5xl font-display font-bold text-white leading-tight mb-6">
@@ -57,7 +57,7 @@ const Login = Vue.defineComponent({
       
       <div class="relative z-10 text-blue-200 text-sm font-medium flex items-center gap-2">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z"></path></svg>
-        &copy; 2026 E-Report. Dilindungi oleh Enkripsi 256-bit.
+        &copy; 2026 SiLapor. Dilindungi oleh Enkripsi 256-bit.
       </div>
     </div>
 
@@ -77,7 +77,7 @@ const Login = Vue.defineComponent({
           <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           </div>
-          <span class="font-bold text-xl text-slate-900 tracking-tight">E-Report</span>
+          <span class="font-bold text-xl text-slate-900 tracking-tight">SiLapor</span>
         </div>
 
         <div class="mb-10">
@@ -138,7 +138,7 @@ const Login = Vue.defineComponent({
         <div class="mt-12 text-center md:hidden">
           <p class="text-xs text-slate-400 flex items-center justify-center gap-1">
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z"></path></svg>
-            &copy; 2026 E-Report. Terenkripsi 256-bit.
+            &copy; 2026 SiLapor. Terenkripsi 256-bit.
           </p>
         </div>
 
