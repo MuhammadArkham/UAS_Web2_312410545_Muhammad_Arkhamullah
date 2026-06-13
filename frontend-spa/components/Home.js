@@ -387,7 +387,12 @@ const Home = Vue.defineComponent({
               <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-6 h-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"/></svg>
               </div>
-              <div class="hidden md:block absolute top-[27px] left-[calc(50%+28px)] w-[calc(100%-56px)] h-[2px] bg-slate-100 z-0"></div>
+              <div class="hidden md:flex absolute top-[28px] -translate-y-1/2 left-[calc(50%+28px)] w-[calc(100%-56px)] items-center justify-center z-0">
+                <div class="absolute inset-x-0 h-[2px] bg-slate-200"></div>
+                <div class="relative z-10 bg-white px-1 text-slate-300">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+              </div>
               
               <h3 class="font-display font-semibold text-sm mb-1 text-slate-900">1. Pencatatan</h3>
               <p class="text-xs text-slate-500 leading-relaxed max-w-[200px] mx-auto">Laporan dari masyarakat dicatat oleh petugas ke dalam sistem.</p>
@@ -397,7 +402,12 @@ const Home = Vue.defineComponent({
               <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-6 h-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
               </div>
-              <div class="hidden md:block absolute top-[27px] left-[calc(50%+28px)] w-[calc(100%-56px)] h-[2px] bg-slate-100 z-0"></div>
+              <div class="hidden md:flex absolute top-[28px] -translate-y-1/2 left-[calc(50%+28px)] w-[calc(100%-56px)] items-center justify-center z-0">
+                <div class="absolute inset-x-0 h-[2px] bg-slate-200"></div>
+                <div class="relative z-10 bg-white px-1 text-slate-300">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+              </div>
               
               <h3 class="font-display font-semibold text-sm mb-1 text-slate-900">2. Verifikasi</h3>
               <p class="text-xs text-slate-500 leading-relaxed max-w-[200px] mx-auto">Admin memverifikasi kebenaran dan kategori laporan.</p>
@@ -407,7 +417,12 @@ const Home = Vue.defineComponent({
               <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-3 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-6 h-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
               </div>
-              <div class="hidden md:block absolute top-[27px] left-[calc(50%+28px)] w-[calc(100%-56px)] h-[2px] bg-slate-100 z-0"></div>
+              <div class="hidden md:flex absolute top-[28px] -translate-y-1/2 left-[calc(50%+28px)] w-[calc(100%-56px)] items-center justify-center z-0">
+                <div class="absolute inset-x-0 h-[2px] bg-slate-200"></div>
+                <div class="relative z-10 bg-white px-1 text-slate-300">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+              </div>
               
               <h3 class="font-display font-semibold text-sm mb-1 text-slate-900">3. Tindak Lanjut</h3>
               <p class="text-xs text-slate-500 leading-relaxed max-w-[200px] mx-auto">Instansi terkait melakukan tindakan di lapangan.</p>
