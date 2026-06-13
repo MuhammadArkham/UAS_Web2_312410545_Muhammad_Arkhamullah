@@ -197,6 +197,20 @@ const Home = Vue.defineComponent({
     if (window.observeFadeSections) {
       window.observeFadeSections();
     }
+    
+    // Re-initialize AOS on mount because SPA routing unmounts elements
+    setTimeout(() => {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+            once: true,
+            duration: 800,
+            easing: 'ease-out-cubic',
+            offset: 50,
+        });
+        AOS.refresh();
+      }
+    }, 100);
+
     window.addEventListener('scroll', this.handleScroll);
     this.navObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
