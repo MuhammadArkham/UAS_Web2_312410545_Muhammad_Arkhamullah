@@ -393,7 +393,7 @@ const Home = Vue.defineComponent({
               </div>
               
               <h3 class="font-display font-semibold text-base mb-1 text-slate-900">1. Pencatatan</h3>
-              <p class="text-sm text-slate-500 leading-relaxed max-w-[200px] mx-auto">Laporan dari masyarakat dicatat oleh petugas ke dalam sistem.</p>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Laporan keluhan atau aspirasi masyarakat diterima dan dicatat ke dalam sistem.</p>
             </div>
             <!-- Step 2 -->
             <div class="relative flex flex-col items-center text-center w-full">
@@ -406,7 +406,7 @@ const Home = Vue.defineComponent({
               </div>
               
               <h3 class="font-display font-semibold text-base mb-1 text-slate-900">2. Verifikasi</h3>
-              <p class="text-sm text-slate-500 leading-relaxed max-w-[200px] mx-auto">Admin memverifikasi kebenaran dan kategori laporan.</p>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Proses validasi kelengkapan data dan substansi laporan oleh petugas berwenang.</p>
             </div>
             <!-- Step 3 -->
             <div class="relative flex flex-col items-center text-center w-full">
@@ -419,7 +419,7 @@ const Home = Vue.defineComponent({
               </div>
               
               <h3 class="font-display font-semibold text-base mb-1 text-slate-900">3. Tindak Lanjut</h3>
-              <p class="text-sm text-slate-500 leading-relaxed max-w-[200px] mx-auto">Instansi terkait melakukan tindakan di lapangan.</p>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Laporan diteruskan ke instansi terkait untuk segera ditangani di lapangan.</p>
             </div>
             <!-- Step 4 -->
             <div class="relative flex flex-col items-center text-center w-full">
@@ -428,7 +428,7 @@ const Home = Vue.defineComponent({
               </div>
               <!-- No dashed line for the last step -->
               <h3 class="font-display font-semibold text-base mb-1 text-slate-900">4. Selesai</h3>
-              <p class="text-sm text-slate-500 leading-relaxed max-w-[200px] mx-auto">Laporan ditandai selesai setelah penanganan tuntas.</p>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Penanganan tuntas dan status laporan diperbarui agar dapat dipantau pengirim.</p>
             </div>
           </div>
         </div>
