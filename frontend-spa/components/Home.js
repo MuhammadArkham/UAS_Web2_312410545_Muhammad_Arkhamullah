@@ -387,11 +387,9 @@ const Home = Vue.defineComponent({
               <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"/></svg>
               </div>
-              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center justify-center z-0">
-                <div class="absolute inset-x-0 h-[4px] bg-slate-100 rounded-full"></div>
-                <div class="relative z-10 bg-white px-2 text-blue-400">
-                  <svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-                </div>
+              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
+                <div class="flex-grow h-[2px] bg-slate-300"></div>
+                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
               </div>
               
               <h3 class="font-display font-semibold text-base mb-1 text-slate-900">1. Pencatatan</h3>
@@ -402,11 +400,9 @@ const Home = Vue.defineComponent({
               <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
               </div>
-              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center justify-center z-0">
-                <div class="absolute inset-x-0 h-[4px] bg-slate-100 rounded-full"></div>
-                <div class="relative z-10 bg-white px-2 text-blue-400">
-                  <svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-                </div>
+              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
+                <div class="flex-grow h-[2px] bg-slate-300"></div>
+                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
               </div>
               
               <h3 class="font-display font-semibold text-base mb-1 text-slate-900">2. Verifikasi</h3>
@@ -417,11 +413,9 @@ const Home = Vue.defineComponent({
               <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
                  <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
               </div>
-              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center justify-center z-0">
-                <div class="absolute inset-x-0 h-[4px] bg-slate-100 rounded-full"></div>
-                <div class="relative z-10 bg-white px-2 text-blue-400">
-                  <svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-                </div>
+              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
+                <div class="flex-grow h-[2px] bg-slate-300"></div>
+                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
               </div>
               
               <h3 class="font-display font-semibold text-base mb-1 text-slate-900">3. Tindak Lanjut</h3>
