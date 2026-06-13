@@ -252,7 +252,7 @@ const Home = Vue.defineComponent({
 
           <!-- Right: 55% -->
           <div class="w-full lg:w-[55%] flex justify-end">
-            <img src="assets/gambar%20desain.png?v=4" alt="Hero Illustration" loading="eager" decoding="async" class="w-full max-w-xl h-auto object-contain">
+            <img src="assets/gambar%20desain.png?v=5" alt="Hero Illustration" loading="eager" decoding="async" class="w-full max-w-xl h-auto object-contain">
           </div>
         </div>
       </div>
