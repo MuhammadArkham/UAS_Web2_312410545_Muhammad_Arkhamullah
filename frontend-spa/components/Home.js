@@ -24,7 +24,9 @@ const Home = Vue.defineComponent({
         diproses: 'bg-amber-50 text-amber-700',
         selesai: 'bg-emerald-50 text-emerald-700',
         ditolak: 'bg-gray-100 text-gray-600'
-      }
+      },
+      currentPage: 1,
+      itemsPerPage: 6
     }
   },
   computed: {
@@ -48,7 +50,28 @@ const Home = Vue.defineComponent({
         const matchStatus = !this.filterStatus || l.status === this.filterStatus;
         return matchSearch && matchKategori && matchStatus;
       });
+    },
+    totalPages() {
+      return Math.ceil(this.laporanFiltered.length / this.itemsPerPage) || 1;
+    },
+    paginatedReports() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.laporanFiltered.slice(start, end);
+    },
+    visiblePages() {
+      const current = this.currentPage;
+      const total = this.totalPages;
+      if (total <= 5) return Array.from({ length: total }, (_, i) => i + 1);
+      if (current <= 3) return [1, 2, 3, 4, '...', total];
+      if (current >= total - 2) return [1, '...', total - 3, total - 2, total - 1, total];
+      return [1, '...', current - 1, current, current + 1, '...', total];
     }
+  },
+  watch: {
+    searchQuery() { this.currentPage = 1; },
+    filterKategori() { this.currentPage = 1; },
+    filterStatus() { this.currentPage = 1; }
   },
   methods: {
     getBadgeClass(status) {
@@ -174,10 +197,21 @@ const Home = Vue.defineComponent({
       this.searchQuery = '';
       this.filterKategori = '';
       this.filterStatus = '';
+      this.currentPage = 1;
     },
     filterByCategory(kategori) {
       this.filterKategori = kategori.id;
+      this.currentPage = 1;
       this.scrollToSection('laporan-section');
+    },
+    prevPage() {
+      if (this.currentPage > 1) this.currentPage--;
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) this.currentPage++;
+    },
+    goToPage(page) {
+      this.currentPage = page;
     }
   },
   mounted() {
@@ -738,15 +772,15 @@ const Home = Vue.defineComponent({
           </div>
 
           <p class="text-xs text-gray-400 mb-4">
-            Menampilkan {{ laporanFiltered.length }} dari 
-            {{ allReports.length }} laporan
+            Menampilkan {{ paginatedReports.length }} dari 
+            {{ laporanFiltered.length }} laporan yang sesuai
           </p>
         </div>
 
         <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-2 gap-8">
            <!-- Skeletons -->
-           <div v-for="i in 2" :key="i" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col h-[380px]">
-             <div class="h-40 w-full bg-slate-200 animate-pulse"></div>
+           <div v-for="i in 2" :key="i" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col h-[480px]">
+             <div class="h-[280px] w-full bg-slate-200 animate-pulse"></div>
              <div class="p-6 flex-1 flex flex-col gap-4">
                <div class="h-6 bg-slate-200 rounded animate-pulse w-3/4"></div>
                <div class="mt-auto space-y-3">
@@ -756,17 +790,18 @@ const Home = Vue.defineComponent({
              </div>
            </div>
         </div>
-        <div v-else-if="laporanFiltered.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div v-for="(laporan, index) in laporanFiltered" :key="laporan.id" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-md group flex flex-col animate-[fade-in_0.5s_ease-out]">
-            <!-- Image Area -->
-            <div class="h-40 w-full relative bg-slate-100 overflow-hidden border-b border-slate-100">
-               <img v-if="laporan.image" :src="getImageUrl(laporan.image)" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Lampiran Laporan">
-               <div v-else class="w-full h-full flex flex-col items-center justify-center text-slate-400">
+        <div v-else-if="paginatedReports.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div v-for="(laporan, index) in paginatedReports" :key="laporan.id" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-md group flex flex-col animate-[fade-in_0.5s_ease-out]">
+            <!-- Image Area: Improved Aspect Ratio and Object Fit to prevent aggressive cropping -->
+            <div class="h-[260px] sm:h-[280px] w-full relative bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
+               <img v-if="laporan.image" :src="getImageUrl(laporan.image)" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90" alt="Lampiran Laporan">
+               <div v-if="laporan.image" class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+               <div v-else class="w-full h-full flex flex-col items-center justify-center bg-slate-100 text-slate-400">
                  <svg class="w-10 h-10 mb-2 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                </div>
                
                <!-- Status Badge -->
-               <div class="absolute top-4 right-4">
+               <div class="absolute top-4 right-4 z-10">
                  <span v-if="laporan.status === 'selesai'" class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider">SELESAI</span>
                  <span v-else-if="laporan.status === 'diproses'" class="bg-blue-50 text-blue-600 border border-blue-100 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider">DIPROSES</span>
                  <span v-else class="bg-slate-50 text-slate-600 border border-slate-200 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider">PENDING</span>
@@ -795,8 +830,43 @@ const Home = Vue.defineComponent({
             </div>
           </div>
         </div>
+
+        <!-- Pagination Controls -->
+        <div v-if="!isLoading && laporanFiltered.length > itemsPerPage" class="mt-12 flex justify-center">
+          <div class="flex items-center gap-1 bg-white px-2 py-2 rounded-xl shadow-sm border border-slate-200">
+            <!-- Prev -->
+            <button @click="prevPage" :disabled="currentPage === 1" 
+                    class="h-10 w-10 flex items-center justify-center rounded-lg bg-transparent text-[22px] leading-none pb-[2px] text-[#64748B] hover:bg-[#F1F5F9] hover:text-[#0F172A] disabled:opacity-50 disabled:hover:bg-transparent disabled:cursor-not-allowed transition-colors">
+              &lsaquo;
+            </button>
+            
+            <!-- Desktop Pages -->
+            <div class="hidden sm:flex items-center gap-1">
+              <template v-for="(page, index) in visiblePages" :key="index">
+                <button v-if="page !== '...'" 
+                        @click="goToPage(page)" 
+                        class="min-w-[40px] h-10 px-2 flex items-center justify-center rounded-lg text-[15px] font-medium transition-colors"
+                        :class="page === currentPage ? 'bg-blue-600 text-white shadow-sm' : 'bg-transparent text-[#64748B] hover:bg-[#F1F5F9] hover:text-[#0F172A]'">
+                  {{ page }}
+                </button>
+                <span v-else class="w-10 h-10 flex items-center justify-center text-[#64748B] font-medium text-[15px]">...</span>
+              </template>
+            </div>
+            
+            <!-- Mobile Info -->
+            <div class="sm:hidden h-10 px-4 flex items-center justify-center text-[15px] font-medium text-[#64748B]">
+              {{ currentPage }} / {{ totalPages }}
+            </div>
+            
+            <!-- Next -->
+            <button @click="nextPage" :disabled="currentPage === totalPages" 
+                    class="h-10 w-10 flex items-center justify-center rounded-lg bg-transparent text-[22px] leading-none pb-[2px] text-[#64748B] hover:bg-[#F1F5F9] hover:text-[#0F172A] disabled:opacity-50 disabled:hover:bg-transparent disabled:cursor-not-allowed transition-colors">
+              &rsaquo;
+            </button>
+          </div>
+        </div>
         
-        <div v-else class="text-center py-16">
+        <div v-else-if="!isLoading && laporanFiltered.length === 0" class="text-center py-16">
           <i class="ti ti-search-off block mx-auto mb-3 
                     text-gray-300" 
              style="font-size: 40px;"></i>
