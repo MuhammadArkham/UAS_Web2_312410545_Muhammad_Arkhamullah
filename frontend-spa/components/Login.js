@@ -4,10 +4,7 @@ const Login = Vue.defineComponent({
       email: '',
       password: '',
       loading: false,
-      error: '',
-      isForgotPasswordMode: false,
-      resetEmail: '',
-      resetSent: false
+      error: ''
     }
   },
   methods: {
@@ -31,24 +28,6 @@ const Login = Vue.defineComponent({
       } finally {
         this.loading = false;
       }
-    },
-    forgotPassword() {
-      this.isForgotPasswordMode = true;
-      this.error = '';
-    },
-    async handleResetPassword() {
-      if (!this.resetEmail) return;
-      this.loading = true;
-      // Simulate network request
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      this.loading = false;
-      this.resetSent = true;
-    },
-    backToLogin() {
-      this.isForgotPasswordMode = false;
-      this.resetSent = false;
-      this.resetEmail = '';
-      this.error = '';
     }
   },
   template: `
@@ -101,108 +80,53 @@ const Login = Vue.defineComponent({
           <span class="font-bold text-xl text-slate-900 tracking-tight">SiLapor</span>
         </div>
 
-        <!-- ======================= LOGIN FORM ======================= -->
-        <div v-if="!isForgotPasswordMode">
-          <div class="mb-10">
-            <h2 class="text-3xl font-display font-extrabold text-slate-900 tracking-tight mb-2">Masuk Petugas</h2>
-            <p class="text-slate-500 text-base">Silakan masukkan email dan kata sandi Anda untuk mulai mengelola laporan.</p>
-          </div>
-          
-          <form @submit.prevent="handleLogin" class="space-y-6">
-            
-            <div v-if="error" class="bg-red-50 text-red-600 p-4 rounded-xl text-sm font-semibold border border-red-100 flex items-start gap-3 animate-pulse">
-               <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-               <span>{{ error }}</span>
-            </div>
-
-            <div>
-              <label for="email" class="block text-sm font-bold text-slate-700 mb-2">Alamat Email</label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                  <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                  </svg>
-                </div>
-                <input id="email" type="email" v-model="email" required placeholder="admin@silapor.com" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
-              </div>
-            </div>
-
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <label for="password" class="block text-sm font-bold text-slate-700">Kata Sandi</label>
-                <a href="#" @click.prevent="forgotPassword" class="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">Lupa Sandi?</a>
-              </div>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                  <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                </div>
-                <input id="password" type="password" v-model="password" required placeholder="********" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
-              </div>
-            </div>
-
-            <div class="pt-4">
-              <button type="submit" :disabled="loading" class="w-full flex justify-center py-4 px-4 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-all disabled:opacity-70 disabled:cursor-not-allowed group">
-                <svg v-if="loading" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                <span>{{ loading ? 'Memverifikasi...' : 'Akses Sistem' }}</span>
-                <svg v-if="!loading" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-              </button>
-            </div>
-            
-          </form>
+        <div class="mb-10">
+          <h2 class="text-3xl font-display font-extrabold text-slate-900 tracking-tight mb-2">Masuk Petugas</h2>
+          <p class="text-slate-500 text-base">Silakan masukkan email dan kata sandi Anda untuk mulai mengelola laporan.</p>
         </div>
-
-        <!-- ======================= FORGOT PASSWORD FORM ======================= -->
-        <div v-else>
-          <!-- Back button -->
-          <button @click="backToLogin" class="mb-6 inline-flex items-center text-sm font-semibold text-slate-500 hover:text-blue-600 transition-colors">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            Kembali ke Login
-          </button>
-
-          <div v-if="!resetSent">
-            <div class="mb-8">
-              <h2 class="text-3xl font-display font-extrabold text-slate-900 tracking-tight mb-2">Reset Sandi</h2>
-              <p class="text-slate-500 text-base">Masukkan alamat email yang terdaftar. Kami akan mengirimkan instruksi pemulihan kata sandi Anda.</p>
-            </div>
-            
-            <form @submit.prevent="handleResetPassword" class="space-y-6">
-              <div>
-                <label for="resetEmail" class="block text-sm font-bold text-slate-700 mb-2">Alamat Email Terdaftar</label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                    </svg>
-                  </div>
-                  <input id="resetEmail" type="email" v-model="resetEmail" required placeholder="admin@silapor.com" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
-                </div>
-              </div>
-
-              <div class="pt-2">
-                <button type="submit" :disabled="loading" class="w-full flex justify-center py-4 px-4 rounded-xl text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-lg shadow-slate-900/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 transition-all disabled:opacity-70 disabled:cursor-not-allowed">
-                  <svg v-if="loading" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                  <span>{{ loading ? 'Mengirim Instruksi...' : 'Kirim Link Reset Sandi' }}</span>
-                </button>
-              </div>
-            </form>
+        
+        <form @submit.prevent="handleLogin" class="space-y-6">
+          
+          <div v-if="error" class="bg-red-50 text-red-600 p-4 rounded-xl text-sm font-semibold border border-red-100 flex items-start gap-3 animate-pulse">
+             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+             <span>{{ error }}</span>
           </div>
 
-          <!-- Success Message State -->
-          <div v-else class="text-center py-8">
-            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+          <div>
+            <label for="email" class="block text-sm font-bold text-slate-700 mb-2">Alamat Email</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+              </div>
+              <input id="email" type="email" v-model="email" required placeholder="admin@silapor.com" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
             </div>
-            <h2 class="text-2xl font-bold text-slate-900 mb-3">Periksa Email Anda</h2>
-            <p class="text-slate-500 mb-8 leading-relaxed">
-              Jika email <span class="font-bold text-slate-700">{{ resetEmail }}</span> terdaftar di sistem, instruksi pemulihan telah dikirim. Harap periksa folder kotak masuk atau Spam.
-            </p>
-            <button @click="backToLogin" class="w-full flex justify-center py-4 px-4 rounded-xl text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors">
-              Kembali ke Halaman Login
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label for="password" class="block text-sm font-bold text-slate-700">Kata Sandi</label>
+            </div>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <input id="password" type="password" v-model="password" required placeholder="********" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
+            </div>
+          </div>
+
+          <div class="pt-4">
+            <button type="submit" :disabled="loading" class="w-full flex justify-center py-4 px-4 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-all disabled:opacity-70 disabled:cursor-not-allowed group">
+              <svg v-if="loading" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+              <span>{{ loading ? 'Memverifikasi...' : 'Akses Sistem' }}</span>
+              <svg v-if="!loading" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
           </div>
-        </div>
+          
+        </form>
 
         <div class="mt-8 text-center sm:hidden">
           <router-link to="/" class="text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors">
