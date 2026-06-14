@@ -836,11 +836,11 @@ const Home = Vue.defineComponent({
               </li>
               <li class="flex items-center gap-3">
                  <i class="ti ti-brand-linkedin text-blue-600 text-xl"></i>
-                 <a href="https://linkedin.com/in/muhammad-arkhamullah" target="_blank" class="hover:text-blue-600 transition-colors">Muhammad Arkhamullah</a>
+                 <a href="https://www.linkedin.com/in/muhammad-arkhamullah-rifai-asshidiq" target="_blank" class="hover:text-blue-600 transition-colors">Muhammad Arkhamullah Rifai Asshidiq</a>
               </li>
               <li class="flex items-center gap-3">
                  <i class="ti ti-mail text-blue-600 text-xl"></i>
-                 <a href="mailto:muhammadarkhamullah@gmail.com" class="hover:text-blue-600 transition-colors">muhammadarkhamullah@gmail.com</a>
+                 <a href="mailto:arkhammulloh123@gmail.com" class="hover:text-blue-600 transition-colors">arkhammulloh123@gmail.com</a>
               </li>
             </ul>
           </div>
