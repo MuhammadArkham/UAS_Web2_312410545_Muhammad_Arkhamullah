@@ -4,6 +4,8 @@
 
 **NIM:** 312410545
 
+**Kelas:**	I241E
+
 **Mata Kuliah:** Pemrograman Web 2
 
 **Tugas:** Ujian Akhir Semester (UAS)
