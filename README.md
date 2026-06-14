@@ -19,7 +19,7 @@ Berikut adalah struktur relasi tabel database yang diambil dari Desainer phpMyAd
 ## 3. Uji Coba Tembak API Gagal (Error 401 Unauthorized)
 Berikut adalah hasil pengujian keamanan endpoint REST API melalui aplikasi Postman. Pengujian dilakukan dengan mengakses endpoint yang diproteksi tanpa menyertakan *Bearer Token* yang valid, sehingga sistem mengembalikan status *Error 401 Unauthorized*.
 
-![Error 401 Postman](screenshots/postman_error_401.png)
+![Error 401 Postman](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah/blob/master/Screenshots/SS%20postman%20401.png?raw=true)
 
 ## 4. Antarmuka Aplikasi (User Interface)
 Berikut adalah dokumentasi antarmuka pengguna dari sistem SiLapor:
