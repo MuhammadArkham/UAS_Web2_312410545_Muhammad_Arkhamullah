@@ -1,4 +1,4 @@
-﻿const ReportDetail = Vue.defineComponent({
+const ReportDetail = Vue.defineComponent({
   data() {
     return {
       report: null,
@@ -161,23 +161,26 @@
             <div v-if="comments.length === 0" class="text-center py-12 border-2 border-dashed border-slate-200 rounded-2xl">
                 <p class="text-slate-500 font-medium">Belum ada tanggapan dari instansi terkait.</p>
             </div>
+        </div>
 
-            <div class="mt-8 pt-8 border-t border-slate-100">
-                <form @submit.prevent="addComment" class="flex gap-4 items-start">
-                    <div class="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center font-bold shrink-0 shadow-sm">
-                        {{ user?.name ? user.name.charAt(0).toUpperCase() : 'A' }}
+        <!-- Footer (Add Comment Form) -->
+        <div class="bg-slate-50 border-t border-slate-200 px-6 md:px-8 py-6">
+            <form @submit.prevent="addComment" class="flex gap-4 items-start">
+                <div class="hidden md:flex w-12 h-12 rounded-full bg-[#2563EB] text-white items-center justify-center font-bold shrink-0 shadow-sm border-2 border-white ring-2 ring-slate-100">
+                    {{ user?.name ? user.name.charAt(0).toUpperCase() : 'A' }}
+                </div>
+                <div class="flex-1 flex flex-col">
+                    <div class="relative">
+                       <textarea v-model="newComment" required rows="3" class="w-full px-5 py-4 border border-[#E2E8F0] rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#2563EB] text-sm bg-white transition-all placeholder-[#94A3B8] resize-y shadow-sm" placeholder="Ketik tanggapan resmi atau instruksi tindak lanjut di sini..."></textarea>
                     </div>
-                    <div class="flex-1">
-                        <textarea v-model="newComment" required rows="3" class="w-full px-5 py-4 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-[15px] bg-slate-50 focus:bg-white transition-all placeholder:text-slate-400 resize-y mb-3" placeholder="Tulis tanggapan atau instruksi tindak lanjut..."></textarea>
-                        <div class="flex justify-end">
-                            <button type="submit" class="bg-primary hover:bg-primaryHover text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors flex items-center gap-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                                Kirim Tanggapan
-                            </button>
-                        </div>
+                    <div class="flex justify-end mt-4">
+                        <button type="submit" class="h-11 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-8 rounded-xl text-sm font-bold shadow-sm transition-colors flex items-center justify-center gap-2">
+                            <i class="ti ti-send text-lg"></i>
+                            Kirim Tanggapan
+                        </button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
       </div>
     </div>
