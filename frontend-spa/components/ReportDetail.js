@@ -63,7 +63,7 @@ const ReportDetail = Vue.defineComponent({
   },
   template: `
   <AdminLayout title="Detail Laporan" subtitle="Lihat informasi lengkap pengaduan masyarakat beserta tanggapannya.">
-    <div class="max-w-4xl" v-if="!loading && report">
+    <div class="max-w-4xl mx-auto" v-if="!loading && report">
       <!-- Breadcrumb -->
       <div class="text-[13px] text-slate-500 mb-6 flex items-center gap-2 font-medium">
         <router-link to="/dashboard" class="hover:text-blue-600 transition-colors">Dashboard</router-link>
