@@ -291,60 +291,62 @@ const Dashboard = Vue.defineComponent({
         </table>
       </div>
       <!-- Pagination Footer -->
-      <div v-if="allReports.length > 0" class="px-6 py-4 border-t border-[#E5E7EB] bg-white flex flex-col xl:flex-row gap-4 items-center justify-between">
-        <!-- Left: Info -->
-        <div class="text-[14px] font-medium text-[#64748B]">
-          Menampilkan <span class="font-semibold text-slate-900">{{ startIndex }}</span>–<span class="font-semibold text-slate-900">{{ endIndex }}</span> dari <span class="font-semibold text-slate-900">{{ allReports.length }}</span> laporan
-        </div>
+      <div v-if="allReports.length > 0" class="px-6 py-4 border-t border-[#E5E7EB] bg-white flex flex-col gap-4">
         
-        <!-- Right Container: Rows Per Page & Pagination -->
-        <div class="flex flex-col sm:flex-row items-center gap-6">
+        <!-- Top Row: Info and Page Size -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <!-- Left: Info -->
+          <div class="text-sm font-medium text-[#475569]">
+            <div>Menampilkan <span class="font-semibold text-slate-900">{{ startIndex }}</span>–<span class="font-semibold text-slate-900">{{ endIndex }}</span> dari <span class="font-semibold text-slate-900">{{ allReports.length }}</span> laporan</div>
+            <div class="text-xs text-slate-500 mt-0.5">Halaman {{ currentPage }} dari {{ totalPages }}</div>
+          </div>
           
-          <!-- Rows Per Page -->
-          <div class="flex items-center gap-2 text-[14px] font-medium text-[#64748B]">
-            <span>Baris per halaman:</span>
-            <select v-model="itemsPerPage" class="h-[36px] px-3 rounded-[10px] border border-[#E5E7EB] bg-white text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer appearance-none">
+          <!-- Right: Rows Per Page -->
+          <div class="flex items-center gap-2 text-sm font-medium text-[#475569]">
+            <label for="itemsPerPageDashboard">Baris per halaman:</label>
+            <select id="itemsPerPageDashboard" v-model="itemsPerPage" class="h-8 px-2 py-1 rounded-md border border-[#E5E7EB] bg-white text-slate-900 font-medium focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
               <option :value="5">5</option>
               <option :value="10">10</option>
               <option :value="25">25</option>
               <option :value="50">50</option>
             </select>
           </div>
+        </div>
 
-          <!-- Pagination Controls -->
-          <div class="flex items-center gap-1.5">
-            <!-- Prev Button -->
-            <button @click="prevPage" :disabled="currentPage === 1" 
-                    class="h-[36px] px-3.5 flex items-center gap-1.5 justify-center rounded-[10px] bg-white text-[14px] font-semibold text-[#64748B] hover:bg-[#F8FAFC] hover:text-slate-900 hover:-translate-y-[1px] transition-all duration-200 ease-out disabled:opacity-50 disabled:hover:bg-white disabled:hover:translate-y-0 disabled:cursor-not-allowed">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-              <span class="hidden sm:inline">Sebelumnya</span>
-            </button>
+        <!-- Bottom Row: Navigation Controls -->
+        <div class="flex items-center justify-center sm:justify-end gap-1 border-t border-dashed border-slate-200 pt-4 sm:border-none sm:pt-0">
+          
+          <!-- Prev Button -->
+          <button @click="prevPage" :disabled="currentPage === 1" 
+                  class="h-8 px-3 flex items-center gap-1 rounded-md bg-transparent text-sm font-medium text-[#475569] hover:bg-[#F8FAFC] hover:text-slate-900 disabled:opacity-50 disabled:hover:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none">
+            <span class="text-lg leading-none">&lsaquo;</span>
+            <span>Sebelumnya</span>
+          </button>
 
-            <!-- Mobile Page Indicator -->
-            <div class="sm:hidden h-[36px] px-3 flex items-center justify-center rounded-[10px] bg-white text-[14px] font-semibold text-slate-900 border border-[#E5E7EB]">
-              {{ currentPage }} / {{ totalPages }}
-            </div>
-
-            <!-- Desktop Page Numbers -->
-            <div class="hidden sm:flex items-center gap-1.5">
-              <template v-for="(page, index) in visiblePages" :key="index">
-                <button v-if="page !== '...'" 
-                        @click="goToPage(page)" 
-                        class="min-w-[36px] h-[36px] px-2 flex items-center justify-center rounded-[10px] text-[14px] font-semibold transition-all duration-200 ease-out"
-                        :class="page === currentPage ? 'bg-[#2563EB] text-white shadow-[0_4px_12px_rgba(37,99,235,0.25)]' : 'bg-transparent text-[#64748B] hover:bg-[#F8FAFC] hover:text-slate-900 hover:-translate-y-[1px]'">
-                  {{ page }}
-                </button>
-                <span v-else class="w-[36px] h-[36px] flex items-center justify-center text-[#64748B] font-semibold">...</span>
-              </template>
-            </div>
-
-            <!-- Next Button -->
-            <button @click="nextPage" :disabled="currentPage === totalPages" 
-                    class="h-[36px] px-3.5 flex items-center gap-1.5 justify-center rounded-[10px] bg-white text-[14px] font-semibold text-[#64748B] hover:bg-[#F8FAFC] hover:text-slate-900 hover:-translate-y-[1px] transition-all duration-200 ease-out disabled:opacity-50 disabled:hover:bg-white disabled:hover:translate-y-0 disabled:cursor-not-allowed">
-              <span class="hidden sm:inline">Selanjutnya</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
-            </button>
+          <!-- Mobile Page Indicator -->
+          <div class="sm:hidden h-8 px-3 flex items-center justify-center text-sm font-medium text-slate-900">
+            Halaman {{ currentPage }} dari {{ totalPages }}
           </div>
+
+          <!-- Desktop Page Numbers -->
+          <div class="hidden sm:flex items-center gap-1">
+            <template v-for="(page, index) in visiblePages" :key="index">
+              <button v-if="page !== '...'" 
+                      @click="goToPage(page)" 
+                      class="min-w-[32px] h-8 px-2 flex items-center justify-center rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none"
+                      :class="page === currentPage ? 'bg-[#2563EB] text-white font-semibold' : 'bg-transparent text-[#475569] font-medium hover:bg-[#F8FAFC] hover:text-slate-900'">
+                {{ page }}
+              </button>
+              <span v-else class="w-8 h-8 flex items-center justify-center text-[#475569] font-medium">...</span>
+            </template>
+          </div>
+
+          <!-- Next Button -->
+          <button @click="nextPage" :disabled="currentPage === totalPages" 
+                  class="h-8 px-3 flex items-center gap-1 rounded-md bg-transparent text-sm font-medium text-[#475569] hover:bg-[#F8FAFC] hover:text-slate-900 disabled:opacity-50 disabled:hover:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none">
+            <span>Selanjutnya</span>
+            <span class="text-lg leading-none">&rsaquo;</span>
+          </button>
         </div>
       </div>
     </div>
