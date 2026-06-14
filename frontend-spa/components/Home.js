@@ -533,175 +533,98 @@ const Home = Vue.defineComponent({
     </section>
 
     <!-- STATISTICS & DISTRIBUTION SECTION -->
-    <section id="statistik-section" 
-             class="bg-white py-12 md:py-16 fade-in-section 
-                    scroll-mt-20">
+    <section id="statistik-section" class="bg-white py-16 md:py-24 fade-in-section scroll-mt-20">
       <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
 
-    <div class="text-center mb-8 md:mb-10">
-      <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
-        Transparansi Data Pengaduan
-      </h2>
-      <div class="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-3"></div>
-      <p class="text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
-        Pantau status penanganan laporan masyarakat secara langsung
-      </p>
-    </div>
-
-    <div class="bg-white rounded-2xl border 
-                border-gray-100 shadow-sm p-6 
-                md:p-8 relative">
-
-      <!-- Live indicator -->
-      <div class="absolute top-4 right-4 flex 
-                  items-center gap-1.5 text-xs 
-                  text-gray-400">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute 
-                       inline-flex h-full w-full 
-                       rounded-full bg-emerald-400 
-                       opacity-75"></span>
-          <span class="relative inline-flex 
-                       rounded-full h-2 w-2 
-                       bg-emerald-500"></span>
-        </span>
-        Diperbarui: {{ jamSekarang }} WIB
-      </div>
-
-      <!-- 4 STAT — icon KIRI, angka KANAN -->
-      <div class="grid grid-cols-2 md:grid-cols-4 
-                  divide-x divide-y md:divide-y-0 
-                  divide-gray-100 mb-6">
-
-        <div class="flex items-center gap-3 
-                    px-4 py-4 group">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 
-                      flex items-center justify-center 
-                      flex-shrink-0 transition-transform 
-                      duration-200 
-                      group-hover:scale-110">
-            <i class="ti ti-file-text text-blue-600" 
-               style="font-size: 22px;"></i>
-          </div>
-          <div>
-            <p class="text-2xl font-display font-bold 
-                      text-gray-900 leading-tight">
-              {{ totalLaporan }}
-            </p>
-            <p class="text-xs text-gray-500 mt-0.5">
-              Total Laporan
-            </p>
-          </div>
+        <!-- HEADER SECTION -->
+        <div class="text-center mb-16" data-aos="fade-down">
+          <h2 class="font-display font-bold text-3xl md:text-4xl text-gray-900 leading-tight mb-4">
+            Transparansi Data Pengaduan
+          </h2>
+          <div class="w-16 h-1 bg-blue-600 rounded-full mx-auto mb-4"></div>
+          <p class="text-base text-gray-500 max-w-2xl mx-auto">
+            Pantau status penanganan laporan masyarakat secara langsung
+          </p>
         </div>
 
-        <div class="flex items-center gap-3 
-                    px-4 py-4 group">
-          <div class="w-12 h-12 rounded-xl 
-                      bg-amber-50 flex items-center 
-                      justify-center flex-shrink-0 
-                      transition-transform duration-200 
-                      group-hover:scale-110">
-            <i class="ti ti-clock text-amber-600" 
-               style="font-size: 22px;"></i>
+        <div class="bg-white rounded-2xl border border-gray-200 p-8 md:p-10 relative shadow-sm">
+          
+          <!-- STATISTIK UTAMA -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+            <!-- Total Laporan -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-center h-full">
+              <div class="flex items-center gap-3 mb-3">
+                <i class="ti ti-file-text text-blue-600 text-xl"></i>
+                <p class="text-sm text-gray-500 font-medium">Total Laporan</p>
+              </div>
+              <p class="text-4xl font-display font-bold text-gray-900">{{ totalLaporan }}</p>
+            </div>
+            <!-- Sedang Diproses -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-center h-full">
+              <div class="flex items-center gap-3 mb-3">
+                <i class="ti ti-clock text-amber-500 text-xl"></i>
+                <p class="text-sm text-gray-500 font-medium">Sedang Diproses</p>
+              </div>
+              <p class="text-4xl font-display font-bold text-gray-900">{{ totalDiproses }}</p>
+            </div>
+            <!-- Telah Selesai -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-center h-full">
+              <div class="flex items-center gap-3 mb-3">
+                <i class="ti ti-circle-check text-emerald-600 text-xl"></i>
+                <p class="text-sm text-gray-500 font-medium">Telah Selesai</p>
+              </div>
+              <p class="text-4xl font-display font-bold text-gray-900">{{ totalSelesai }}</p>
+            </div>
+            <!-- Kategori -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-center h-full">
+              <div class="flex items-center gap-3 mb-3">
+                <i class="ti ti-tag text-purple-600 text-xl"></i>
+                <p class="text-sm text-gray-500 font-medium">Kategori Layanan</p>
+              </div>
+              <p class="text-4xl font-display font-bold text-gray-900">{{ totalKategori }}</p>
+            </div>
           </div>
+
+          <!-- TRANSPARANSI PENYELESAIAN -->
+          <div class="mb-12">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Tingkat Penyelesaian Aduan</h3>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-semibold text-gray-700">{{ totalLaporan > 0 ? Math.round((totalSelesai / totalLaporan) * 100) : 0 }}% Laporan Selesai</span>
+            </div>
+            <div class="w-full bg-gray-100 rounded-full h-3 mb-3">
+              <div class="bg-emerald-500 h-3 rounded-full transition-all duration-1000" :style="{ width: (totalLaporan > 0 ? Math.round((totalSelesai / totalLaporan) * 100) : 0) + '%' }"></div>
+            </div>
+            <p class="text-sm text-gray-600">
+              <strong class="text-gray-900">{{ totalSelesai }}</strong> dari <strong class="text-gray-900">{{ totalLaporan }}</strong> laporan masyarakat yang masuk telah diselesaikan.
+            </p>
+          </div>
+
+          <!-- KATEGORI LAYANAN -->
           <div>
-            <p class="text-2xl font-display font-bold 
-                      text-gray-900 leading-tight">
-              {{ totalDiproses }}
-            </p>
-            <p class="text-xs text-gray-500 mt-0.5">
-              Sedang Diproses
-            </p>
+            <h3 class="text-lg font-bold text-gray-900 mb-6">Distribusi Kategori Laporan</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <button v-for="kategori in listKategori" :key="kategori.id"
+                      @click="filterByCategory(kategori)"
+                      class="flex items-center justify-between px-5 py-4 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 transition-colors text-left group">
+                <div class="flex items-center gap-3">
+                  <i :class="iconKategori(kategori.name)" :style="{ color: warnaKategoriIcon(kategori.name) }" class="text-xl"></i>
+                  <span class="text-sm font-semibold text-gray-800">{{ kategori.name }}</span>
+                </div>
+                <span class="text-xs font-medium bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md group-hover:bg-blue-50 group-hover:text-blue-700 transition-colors">
+                  {{ allReports.filter(r => r.category_id == kategori.id).length }} laporan
+                </span>
+              </button>
+            </div>
           </div>
+
+          <!-- INFORMASI UPDATE -->
+          <div class="mt-12 text-right border-t border-gray-100 pt-6">
+            <p class="text-xs text-gray-400">Terakhir diperbarui {{ formatDate(new Date()) }} • {{ jamSekarang }} WIB</p>
+          </div>
+
         </div>
-
-        <div class="flex items-center gap-3 
-                    px-4 py-4 group">
-          <div class="w-12 h-12 rounded-xl 
-                      bg-emerald-50 flex items-center 
-                      justify-center flex-shrink-0 
-                      transition-transform duration-200 
-                      group-hover:scale-110">
-            <i class="ti ti-circle-check 
-                      text-emerald-600" 
-               style="font-size: 22px;"></i>
-          </div>
-          <div>
-            <p class="text-2xl font-display font-bold 
-                      text-gray-900 leading-tight">
-              {{ totalSelesai }}
-            </p>
-            <p class="text-xs text-gray-500 mt-0.5">
-              Telah Selesai
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 
-                    px-4 py-4 group">
-          <div class="w-12 h-12 rounded-xl 
-                      bg-violet-50 flex items-center 
-                      justify-center flex-shrink-0 
-                      transition-transform duration-200 
-                      group-hover:scale-110">
-            <i class="ti ti-tag text-violet-600" 
-               style="font-size: 22px;"></i>
-          </div>
-          <div>
-            <p class="text-2xl font-display font-bold 
-                      text-gray-900 leading-tight">
-              {{ totalKategori }}
-            </p>
-            <p class="text-xs text-gray-500 mt-0.5">
-              Kategori Layanan
-            </p>
-          </div>
-        </div>
-
       </div>
-
-      <!-- DIVIDER -->
-      <div class="border-t border-gray-100 mb-5">
-      </div>
-
-      <!-- BADGE KATEGORI INTERAKTIF -->
-      <p class="text-xs text-gray-400 mb-3">
-        Klik kategori untuk filter laporan
-      </p>
-      <div class="grid grid-cols-2 md:grid-cols-3 
-                  gap-3">
-        <button v-for="kategori in listKategori" 
-                :key="kategori.id"
-                @click="filterByCategory(kategori)"
-                class="flex items-center gap-3 px-4 
-                       py-3 rounded-xl border 
-                       border-gray-100 bg-gray-50 
-                       transition-all duration-200 
-                       hover:border-blue-200 
-                       hover:bg-blue-50 
-                       hover:shadow-sm 
-                       hover:-translate-y-0.5 
-                       cursor-pointer text-left w-full">
-          <div class="w-9 h-9 rounded-lg bg-white 
-                      flex items-center justify-center 
-                      flex-shrink-0 shadow-sm">
-            <i :class="iconKategori(kategori.name)"
-               :style="{ color: warnaKategoriIcon(kategori.name) }"
-               style="font-size: 18px;"></i>
-          </div>
-          <span class="text-sm font-medium 
-                       text-gray-700 flex-1">
-            {{ kategori.name }}
-          </span>
-          <i class="ti ti-chevron-right text-gray-300 
-                    flex-shrink-0" 
-             style="font-size: 14px;"></i>
-        </button>
-      </div>
-
-    </div>
-  </div>
-</section>
+    </section>
 
     <!-- LAPORAN TERBARU SECTION -->
     <section id="laporan-section" class="bg-slate-50 py-12 md:py-16 border-y border-slate-200 fade-in-section scroll-mt-20">
