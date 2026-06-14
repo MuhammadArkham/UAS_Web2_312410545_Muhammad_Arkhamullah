@@ -804,23 +804,13 @@ const Home = Vue.defineComponent({
     <!-- FOOTER -->
     <footer id="kontak" class="bg-slate-50 border-t border-slate-200 py-16">
       <div class="container mx-auto px-8 max-w-[1200px]">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           <div class="md:col-span-1">
             <div class="flex items-center gap-3 mb-6">
                <img src="assets/logo_uas.png" alt="Logo SiLapor" class="w-10 h-10 object-contain drop-shadow-sm" />
                <h2 class="text-xl font-bold text-slate-900 tracking-tight">SiLapor</h2>
             </div>
             <p class="text-slate-500 text-sm leading-relaxed">SiLapor: Platform pelaporan digital untuk menjembatani aspirasi masyarakat dengan instansi pemerintah.</p>
-          </div>
-          
-          <div>
-            <h4 class="font-bold text-slate-900 text-sm mb-6 uppercase tracking-wider">Tautan</h4>
-            <ul class="space-y-4 text-sm font-medium">
-              <li><a href="#hero-section" @click.prevent="scrollToSection('hero-section')" class="text-gray-500 hover:text-blue-600 transition-colors">Beranda</a></li>
-              <li><a href="#cara-kerja-section" @click.prevent="scrollToSection('cara-kerja-section')" class="text-gray-500 hover:text-blue-600 transition-colors">Cara Kerja</a></li>
-              <li><a href="#laporan-section" @click.prevent="scrollToSection('laporan-section')" class="text-gray-500 hover:text-blue-600 transition-colors">Laporan Publik</a></li>
-              <li><a href="#tentang-section" @click.prevent="scrollToSection('tentang-section')" class="text-gray-500 hover:text-blue-600 transition-colors">Tentang Kami</a></li>
-            </ul>
           </div>
           
           <div>
@@ -837,16 +827,20 @@ const Home = Vue.defineComponent({
             <h4 class="font-bold text-slate-900 text-sm mb-6 uppercase tracking-wider">Pengembang</h4>
             <ul class="space-y-4 text-sm font-medium text-slate-500">
               <li class="flex items-start gap-3">
-                 <svg class="w-5 h-5 shrink-0 mt-0.5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                 <span>Muhammad Arkhamullah<br>NPM: 312410545</span>
+                 <i class="ti ti-user text-blue-600 text-xl mt-0.5"></i>
+                 <span>Muhammad Arkhamullah<br>NIM: 312410545<br>Kelas: I241E</span>
               </li>
               <li class="flex items-center gap-3">
-                 <svg class="w-5 h-5 shrink-0 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                 <span>UAS Pemrograman Web 2</span>
+                 <i class="ti ti-brand-github text-blue-600 text-xl"></i>
+                 <a href="https://github.com/MuhammadArkham" target="_blank" class="hover:text-blue-600 transition-colors">MuhammadArkham</a>
               </li>
               <li class="flex items-center gap-3">
-                 <svg class="w-5 h-5 shrink-0 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                 <a href="https://github.com/MuhammadArkham" target="_blank" class="hover:text-blue-600 transition-colors">github.com/MuhammadArkham</a>
+                 <i class="ti ti-brand-linkedin text-blue-600 text-xl"></i>
+                 <a href="https://linkedin.com/in/muhammad-arkhamullah" target="_blank" class="hover:text-blue-600 transition-colors">Muhammad Arkhamullah</a>
+              </li>
+              <li class="flex items-center gap-3">
+                 <i class="ti ti-mail text-blue-600 text-xl"></i>
+                 <a href="mailto:muhammadarkhamullah@gmail.com" class="hover:text-blue-600 transition-colors">muhammadarkhamullah@gmail.com</a>
               </li>
             </ul>
           </div>
