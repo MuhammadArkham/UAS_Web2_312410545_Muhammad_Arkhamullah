@@ -322,7 +322,7 @@ const Home = Vue.defineComponent({
 
           <!-- Right: 55% -->
           <div class="w-full lg:w-[55%] flex justify-end items-center" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
-            <img src="assets/gambar_desain.png?v=10" alt="Hero Illustration" class="w-full max-w-[550px] h-auto object-cover bg-white p-1 rounded-[2rem] shadow-2xl transform hover:-translate-y-2 transition-transform duration-500">
+            <img src="assets/gambar_desain.png?v=11" alt="Hero Illustration" class="w-full max-w-[550px] h-auto object-cover bg-white p-1 rounded-[2rem] shadow-2xl transform hover:-translate-y-2 transition-transform duration-500">
           </div>
         </div>
       </div>
@@ -824,39 +824,39 @@ const Home = Vue.defineComponent({
           </div>
           
           <div>
-            <h4 class="font-bold text-slate-900 text-sm mb-6 uppercase tracking-wider">Informasi</h4>
+            <h4 class="font-bold text-slate-900 text-sm mb-6 uppercase tracking-wider">Tech Stack</h4>
             <ul class="space-y-4 text-sm font-medium">
-              <li><a href="#" class="text-slate-500 hover:text-blue-600 transition-colors">Kebijakan Privasi</a></li>
-              <li><a href="#" class="text-slate-500 hover:text-blue-600 transition-colors">Syarat Ketentuan</a></li>
-              <li><a href="#" class="text-slate-500 hover:text-blue-600 transition-colors">Bantuan FAQ</a></li>
+              <li class="flex items-center gap-2 text-slate-500"><i class="ti ti-brand-vue text-blue-600 text-lg"></i> Vue.js (Frontend SPA)</li>
+              <li class="flex items-center gap-2 text-slate-500"><i class="ti ti-brand-tailwind text-blue-600 text-lg"></i> Tailwind CSS (Styling)</li>
+              <li class="flex items-center gap-2 text-slate-500"><i class="ti ti-brand-php text-blue-600 text-lg"></i> PHP (Backend API)</li>
+              <li class="flex items-center gap-2 text-slate-500"><i class="ti ti-database text-blue-600 text-lg"></i> MySQL (Database)</li>
             </ul>
           </div>
 
           <div>
-            <h4 class="font-bold text-slate-900 text-sm mb-6 uppercase tracking-wider">Kontak</h4>
+            <h4 class="font-bold text-slate-900 text-sm mb-6 uppercase tracking-wider">Pengembang</h4>
             <ul class="space-y-4 text-sm font-medium text-slate-500">
               <li class="flex items-start gap-3">
-                 <svg class="w-5 h-5 shrink-0 mt-0.5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                 <span>Kantor Layanan Publik<br>Jl. Sudirman 123, Jakarta</span>
+                 <svg class="w-5 h-5 shrink-0 mt-0.5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                 <span>Muhammad Arkhamullah<br>NPM: 312410545</span>
               </li>
               <li class="flex items-center gap-3">
-                 <svg class="w-5 h-5 shrink-0 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                 <span>+62 21 555 1234</span>
+                 <svg class="w-5 h-5 shrink-0 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                 <span>UAS Pemrograman Web 2</span>
               </li>
               <li class="flex items-center gap-3">
-                 <svg class="w-5 h-5 shrink-0 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-                 <a href="mailto:support@silapor.go.id" class="hover:text-blue-600 transition-colors">support@silapor.go.id</a>
+                 <svg class="w-5 h-5 shrink-0 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                 <a href="https://github.com/MuhammadArkham" target="_blank" class="hover:text-blue-600 transition-colors">github.com/MuhammadArkham</a>
               </li>
             </ul>
           </div>
         </div>
         
         <div class="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 font-medium">
-          <div>&copy; 2026 SiLapor &mdash; Sistem Pengaduan Masyarakat.</div>
+          <div>&copy; 2026 Muhammad Arkhamullah (312410545). All rights reserved.</div>
           <div class="flex gap-6">
-            <span>Otoritas</span>
-            <span>Transparansi</span>
-            <span>Integritas</span>
+            <span>UAS Web 2</span>
+            <span>Teknik Informatika</span>
           </div>
         </div>
       </div>
