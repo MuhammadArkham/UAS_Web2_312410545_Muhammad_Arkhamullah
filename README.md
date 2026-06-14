@@ -1,14 +1,16 @@
 # Sistem Informasi SiLapor (Pengaduan Layanan Masyarakat Terpadu)
 
-## Informasi Mahasiswa
-- **Nama Mahasiswa:** Muhammad Arkhamullah
-- **NIM:** 312410545
-- **Mata Kuliah:** Pemrograman Web 2
-- **Tugas:** Ujian Akhir Semester (UAS)
+**Nama Mahasiswa:** Muhammad Arkhamullah R.A
+
+**NIM:** 312410545
+
+**Mata Kuliah:** Pemrograman Web 2
+
+**Tugas:** Ujian Akhir Semester (UAS)
 
 ---
 
-## 1. Tema Studi Kasus
+## 1. Tema Studi
 Proyek ini adalah "Sistem Pelaporan Pengaduan Layanan Masyarakat (SiLapor)". Sistem ini dikembangkan menggunakan arsitektur web modern yang Terpisah (*Decoupled*). Bagian *backend* dikembangkan sebagai REST API menggunakan CodeIgniter 4, sedangkan bagian *frontend* dikembangkan sebagai *Single Page Application* (SPA) interaktif menggunakan Vue.js 3 dan TailwindCSS.
 
 ## 2. Skema Relasi Tabel Database
