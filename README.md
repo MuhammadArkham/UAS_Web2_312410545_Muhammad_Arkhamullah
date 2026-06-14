@@ -17,26 +17,32 @@ Proyek ini adalah "Sistem Pelaporan Pengaduan Layanan Masyarakat (SiLapor)". Sis
 Berikut adalah struktur relasi tabel database yang diambil dari Desainer phpMyAdmin:
 
 ![Skema Relasi Tabel Database](screenshots/relasi_tabel.png)
+*Gambar di atas mengilustrasikan relasi terstruktur antar entitas dalam sistem. Tabel `laporan` memiliki relasi **Foreign Key** dengan tabel `pengguna` (mengidentifikasi identitas pelapor) dan tabel `kategori` (mengelompokkan jenis pelaporan). Tabel `komentar` terhubung dengan laporan terkait dan admin yang memberikan tanggapan. Desain skema ini memastikan integritas data (referential integrity) terjaga, sehingga setiap data laporan selalu memiliki referensi yang valid ke pemilik dan kategorinya.*
 
 ## 3. Uji Coba Tembak API Gagal (Error 401 Unauthorized)
 Berikut adalah hasil pengujian keamanan endpoint REST API melalui aplikasi Postman. Pengujian dilakukan dengan mengakses endpoint yang diproteksi tanpa menyertakan *Bearer Token* yang valid, sehingga sistem mengembalikan status *Error 401 Unauthorized*.
 
-![Error 401 Postman](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah/blob/master/Screenshots/SS%20postman%20401.png?raw=true)
+![Error 401 Postman](screenshots/postman_error_401.png)
+*Tangkapan layar di atas membuktikan bahwa sistem keamanan berbasis **JSON Web Token (JWT)** telah beroperasi. Klien yang mencoba mengambil data dari endpoint API sensitif tanpa menyertakan header otorisasi secara otomatis ditolak oleh fitur Filter CodeIgniter 4 demi mencegah kebocoran data. Hasil pengujian ini menunjukkan bahwa mekanisme proteksi API telah berhasil diimplementasikan sesuai dengan standar keamanan RESTful API.*
 
 ## 4. Antarmuka Aplikasi (User Interface)
 Berikut adalah dokumentasi antarmuka pengguna dari sistem SiLapor:
 
 ### Halaman Login
 ![Halaman Login](screenshots/login.png)
+*Halaman autentikasi yang menjadi gerbang masuk sistem. Antarmuka ini dibangun menggunakan komponen Vue.js dengan tata letak minimalis dan bersih untuk memudahkan proses input kredensial pengguna.*
 
 ### Halaman Dashboard Admin
 ![Dashboard Admin](screenshots/dashboard.png)
+*Pusat kendali Administrator yang menampilkan rekapitulasi pelaporan. Desain analitik yang disajikan menonjolkan visual yang responsif berkat pemanfaatan sistem grid dan utility dari kerangka kerja TailwindCSS.*
 
 ### Tampilan Form Modal Tambah/Edit Data
 ![Form Modal Data](screenshots/form_modal.png)
+*Implementasi form modal interaktif (pop-up) untuk proses input data. Modal ini beroperasi secara asinkronus (SPA) sehingga proses tambah dan edit data dapat dilakukan instan tanpa memerlukan pemuatan ulang (reload) halaman web secara penuh.*
 
 ### Visualisasi Data Tabel (TailwindCSS)
 ![Visualisasi Data Tabel](screenshots/tabel_data.png)
+*Tabel manajemen data yang merender kumpulan data JSON dari backend REST API. Tabel ini didesain secara khusus menggunakan komponen TailwindCSS untuk mencapai tingkat keterbacaan (readability) data yang tinggi bagi administrator.*
 
 ## 5. Petunjuk Instalasi Proyek Lokal
 Ikuti panduan instalasi berikut untuk menjalankan proyek pada *localhost*:
