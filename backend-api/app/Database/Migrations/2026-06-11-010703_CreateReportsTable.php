@@ -54,13 +54,13 @@ class CreateReportsTable extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('category_id', 'categories', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('reports');
+        $this->forge->addForeignKey('user_id', 'pengguna', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('category_id', 'kategori', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('laporan');
     }
 
     public function down()
     {
-        $this->forge->dropTable('reports');
+        $this->forge->dropTable('laporan');
     }
 }

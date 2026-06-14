@@ -31,13 +31,13 @@ class CreateCommentsTable extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('report_id', 'reports', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('admin_id', 'users', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('comments');
+        $this->forge->addForeignKey('report_id', 'laporan', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('admin_id', 'pengguna', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('komentar');
     }
 
     public function down()
     {
-        $this->forge->dropTable('comments');
+        $this->forge->dropTable('komentar');
     }
 }

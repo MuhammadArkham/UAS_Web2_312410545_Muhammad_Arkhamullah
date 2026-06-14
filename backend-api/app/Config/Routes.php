@@ -12,22 +12,20 @@ $routes->group('api', function($routes) {
     // Public routes
     $routes->post('auth/login', 'Api\Auth::login');
     $routes->post('auth/register', 'Api\Auth::register');
-    $routes->get('categories', 'Categories::index');
-    $routes->get('reports', 'Reports::index');
-    $routes->get('reports/(:num)', 'Reports::show/$1');
+    
+    // Public RESTful read-only routes
+    $routes->resource('categories', ['only' => ['index', 'show']]);
+    $routes->resource('reports', ['only' => ['index', 'show']]);
 
     // Protected routes
     $routes->group('', ['filter' => 'auth'], function($routes) {
         $routes->get('dashboard', 'Dashboard::index');
-        $routes->post('categories', 'Categories::create');
-        $routes->put('categories/(:num)', 'Categories::update/$1');
-        $routes->delete('categories/(:num)', 'Categories::delete/$1');
         
-        $routes->post('reports', 'Reports::create');
+        // Protected RESTful write routes
+        $routes->resource('categories', ['only' => ['create', 'update', 'delete']]);
+        $routes->resource('reports', ['only' => ['create', 'update', 'delete']]);
         
-        $routes->put('reports/(:num)', 'Reports::update/$1');
-        $routes->delete('reports/(:num)', 'Reports::delete/$1');
-        
+        // Comments
         $routes->post('reports/(:num)/comments', 'Comments::create/$1');
         $routes->delete('comments/(:num)', 'Comments::delete/$1');
     });

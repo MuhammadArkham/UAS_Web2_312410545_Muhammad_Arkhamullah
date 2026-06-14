@@ -1,5 +1,5 @@
 const { createApp } = Vue;
-const { createRouter, createWebHashHistory } = VueRouter;
+const { createRouter, createWebHistory } = VueRouter;
 
 // --- AXIOS CONFIGURATION ---
 window.api = axios.create({
@@ -23,10 +23,10 @@ window.api.interceptors.response.use(response => {
 }, error => {
     if (error.response && error.response.status === 401) {
         // If not on login page, alert and redirect
-        if (window.location.hash !== '#/login') {
+        if (window.location.pathname !== '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/login') {
             alert('Sesi Anda telah habis. Silakan login kembali.');
             localStorage.clear();
-            window.location.hash = '#/login';
+            window.location.href = '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/login';
         }
     }
     return Promise.reject(error);
@@ -45,7 +45,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory('/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/'),
     routes,
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
