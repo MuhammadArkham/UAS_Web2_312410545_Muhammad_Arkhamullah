@@ -322,7 +322,7 @@ const Home = Vue.defineComponent({
 
           <!-- Right: 55% -->
           <div class="w-full lg:w-[55%] flex justify-end items-center" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
-            <img src="assets/gambar_desain.png?v=9" alt="Hero Illustration" class="w-full max-w-[550px] h-auto object-cover bg-white p-2 rounded-[2rem] shadow-2xl transform hover:-translate-y-2 transition-transform duration-500">
+            <img src="assets/gambar_desain.png?v=10" alt="Hero Illustration" class="w-full max-w-[550px] h-auto object-cover bg-white p-1 rounded-[2rem] shadow-2xl transform hover:-translate-y-2 transition-transform duration-500">
           </div>
         </div>
       </div>
