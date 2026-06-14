@@ -291,7 +291,7 @@ const Home = Vue.defineComponent({
 
     <!-- HERO SECTION -->
     <header id="hero-section" class="bg-[#0B3EA8] py-20 relative fade-in-section scroll-mt-20">
-      <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row items-center gap-12">
           <!-- Left: 45% -->
           <div class="w-full lg:w-[45%]" data-aos="fade-right" data-aos-duration="1000">
@@ -328,7 +328,7 @@ const Home = Vue.defineComponent({
 
     <!-- TENTANG KAMI SECTION -->
     <section id="tentang-section" class="bg-white py-12 md:py-16 fade-in-section scroll-mt-20">
-      <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-start">
           
@@ -428,7 +428,7 @@ const Home = Vue.defineComponent({
     <section id="statistik-section" 
              class="bg-slate-50 border-y border-slate-200 py-12 md:py-16 fade-in-section 
                     scroll-mt-20">
-      <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
 
     <div class="text-center mb-8 md:mb-10">
       <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
@@ -597,7 +597,7 @@ const Home = Vue.defineComponent({
 
     <!-- PROCESS SECTION -->
     <section id="cara-kerja-section" class="bg-white py-12 md:py-16 fade-in-section scroll-mt-20">
-      <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div class="text-center mb-8 md:mb-10" data-aos="fade-down">
           <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
             Alur Penyelesaian Laporan
@@ -665,7 +665,7 @@ const Home = Vue.defineComponent({
 
     <!-- LAPORAN TERBARU SECTION -->
     <section id="laporan-section" class="bg-slate-50 py-12 md:py-16 border-y border-slate-200 fade-in-section scroll-mt-20">
-      <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div class="mb-12 text-left" data-aos="fade-right">
           <div class="mb-8 md:mb-10">
             <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
