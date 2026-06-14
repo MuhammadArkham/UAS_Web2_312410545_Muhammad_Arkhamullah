@@ -271,6 +271,25 @@ const Dashboard = Vue.defineComponent({
           </tbody>
         </table>
       </div>
+      <!-- Pagination / Footer Table -->
+      <div v-if="allReports.length > 0" class="px-6 py-4 border-t border-[#E2E8F0] flex flex-col md:flex-row gap-4 items-center justify-between text-sm text-[#64748B] bg-white">
+         <div class="text-slate-500">Menampilkan <span class="font-semibold text-slate-700">{{ startIndex }}</span> hingga <span class="font-semibold text-slate-700">{{ endIndex }}</span> dari total <span class="font-semibold text-slate-700">{{ allReports.length }}</span> laporan</div>
+         <div class="flex items-center gap-2">
+            <button @click="prevPage" :disabled="currentPage === 1" class="w-8 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><i class="ti ti-chevron-left"></i></button>
+            
+            <template v-for="page in totalPages" :key="page">
+              <button v-if="page === currentPage || page === currentPage - 1 || page === currentPage + 1 || page === 1 || page === totalPages" 
+                      @click="goToPage(page)" 
+                      class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs transition-colors"
+                      :class="page === currentPage ? 'bg-[#2563EB] text-white shadow-sm' : 'border border-[#E2E8F0] bg-white text-[#64748B] hover:bg-slate-50'">
+                {{ page }}
+              </button>
+              <span v-else-if="page === currentPage - 2 || page === currentPage + 2" class="px-1 text-[#64748B]">...</span>
+            </template>
+
+            <button @click="nextPage" :disabled="currentPage === totalPages" class="w-8 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><i class="ti ti-chevron-right"></i></button>
+         </div>
+      </div>
     </div>
   </AdminLayout>
   `
