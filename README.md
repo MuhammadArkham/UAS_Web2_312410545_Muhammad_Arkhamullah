@@ -14,7 +14,7 @@
 ## 2. Uji Coba Tembak API Gagal (Error 401 Unauthorized)
 *(Screenshot saat melakukan pengujian endpoint yang dilindungi menggunakan Postman tanpa menyertakan Bearer Token yang valid)*
 
-![Error 401 Postman](screenshots/postman_error_401.png)
+![Error 401 Postman](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah/blob/master/Screenshots/SS%20postman%20401.png?raw=true)
 
 ---
 
