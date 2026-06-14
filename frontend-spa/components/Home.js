@@ -720,7 +720,7 @@ const Home = Vue.defineComponent({
            </div>
         </div>
         <div v-else-if="laporanFiltered.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div v-for="(laporan, index) in laporanFiltered" :key="laporan.id" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-md group flex flex-col" :data-aos="'fade-up'" :data-aos-delay="index * 150">
+          <div v-for="(laporan, index) in laporanFiltered" :key="laporan.id" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-md group flex flex-col animate-[fade-in_0.5s_ease-out]">
             <!-- Image Area -->
             <div class="h-40 w-full relative bg-slate-100 overflow-hidden border-b border-slate-100">
                <img v-if="laporan.image" :src="getImageUrl(laporan.image)" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Lampiran Laporan">
