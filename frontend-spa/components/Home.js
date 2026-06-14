@@ -17,8 +17,12 @@ const Home = Vue.defineComponent({
       activeSection: 'hero',
       mobileMenuOpen: false,
       filterKategori: '',
+      debouncedFilterKategori: '',
       searchQuery: '',
+      debouncedSearchQuery: '',
       filterStatus: '',
+      debouncedFilterStatus: '',
+      searchTimer: null,
       statusBadgeClass: {
         pending: 'bg-red-50 text-red-700',
         diproses: 'bg-amber-50 text-amber-700',
@@ -41,14 +45,19 @@ const Home = Vue.defineComponent({
     listKategori() { return this.allCategories; },
     laporanFiltered() {
       return this.allReports.filter(l => {
-        const matchSearch = !this.searchQuery || 
-          l.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          (l.location && l.location.toLowerCase().includes(this.searchQuery.toLowerCase()));
-        const matchKategori = !this.filterKategori || l.category_id == this.filterKategori;
-        const matchStatus = !this.filterStatus || l.status === this.filterStatus;
+        const matchSearch = !this.debouncedSearchQuery || 
+          l.title.toLowerCase().includes(this.debouncedSearchQuery.toLowerCase()) ||
+          (l.location && l.location.toLowerCase().includes(this.debouncedSearchQuery.toLowerCase()));
+        const matchKategori = !this.debouncedFilterKategori || l.category_id == this.debouncedFilterKategori;
+        const matchStatus = !this.debouncedFilterStatus || l.status === this.debouncedFilterStatus;
         return matchSearch && matchKategori && matchStatus;
       });
     }
+  },
+  watch: {
+    searchQuery() { this.applyDebounce(); },
+    filterKategori() { this.applyDebounce(); },
+    filterStatus() { this.applyDebounce(); }
   },
   methods: {
     getBadgeClass(status) {
@@ -169,6 +178,19 @@ const Home = Vue.defineComponent({
       if (lower.includes('pendidikan')) return '#f97316'; // orange-500
       if (lower.includes('sosial')) return '#9333ea'; // purple-600
       return '#64748b'; // slate-500
+    },
+    applyDebounce() {
+      clearTimeout(this.searchTimer);
+      this.searchTimer = setTimeout(() => {
+        this.debouncedSearchQuery = this.searchQuery;
+        this.debouncedFilterKategori = this.filterKategori;
+        this.debouncedFilterStatus = this.filterStatus;
+        
+        // Reset scroll position of slider when filter changes
+        if (this.$refs.reportsSlider) {
+          this.$refs.reportsSlider.scrollTo({ left: 0, behavior: 'smooth' });
+        }
+      }, 500);
     },
     resetFilter() {
       this.searchQuery = '';
