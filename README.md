@@ -10,6 +10,21 @@
   </p>
 </div>
 
+<br>
+
+<div align="center">
+
+| Informasi | Detail |
+| :--- | :--- |
+| **Nama Mahasiswa** | Muhammad Arkhamullah |
+| **NIM** | 312410545 |
+| **Mata Kuliah** | Pemrograman Web 2 |
+| **Tugas** | Ujian Akhir Semester (UAS) |
+
+</div>
+
+<br>
+
 ---
 
 **Tema Studi Kasus:** Sistem Pelaporan Pengaduan Layanan Masyarakat (SiLapor) dirancang menggunakan arsitektur web modern yang **Decoupled** (Terpisah sepenuhnya). Backend ditenagai oleh REST API tangguh menggunakan **CodeIgniter 4**, sedangkan antarmuka (Frontend) berjalan sebagai *Single Page Application* (SPA) interaktif dengan **Vue.js 3** dan desain responsif bertenaga **TailwindCSS**.
