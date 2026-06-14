@@ -330,16 +330,24 @@ const Home = Vue.defineComponent({
     <section id="tentang-section" class="bg-white py-12 md:py-16 fade-in-section scroll-mt-20">
       <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         
+        <!-- SECTION HEADING (Centered) -->
+        <div class="text-center mb-12 md:mb-16" data-aos="fade-down">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
+            Tentang Aplikasi SiLapor
+          </h2>
+          <div class="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-3"></div>
+          <p class="text-sm text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            Platform pengaduan digital inovatif untuk menyalurkan aspirasi dan memudahkan warga memantau status penanganan laporan secara transparan.
+          </p>
+        </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-start">
           
           <!-- Left Content -->
           <div class="lg:col-span-5" data-aos="fade-right">
-            <div class="mb-6">
-              <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
-                Membangun Sinergi antara Masyarakat & Pemerintah
-              </h2>
-              <div class="w-12 h-1 bg-blue-600 rounded-full mb-4"></div>
-            </div>
+            <h3 class="font-display font-bold text-xl md:text-2xl text-gray-900 leading-tight mb-6">
+              Membangun Sinergi antara Masyarakat & Pemerintah
+            </h3>
             
             <p class="text-slate-600 text-lg leading-relaxed mb-6">
               <strong class="text-slate-900">SiLapor</strong> adalah platform pengaduan digital inovatif yang dirancang untuk memudahkan warga memantau status penanganan laporan terkait <span class="text-blue-600 font-semibold">infrastruktur</span>, <span class="text-blue-600 font-semibold">lingkungan</span>, <span class="text-blue-600 font-semibold">keamanan</span>, dan pelayanan publik lainnya.
