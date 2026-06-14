@@ -350,7 +350,7 @@ const Home = Vue.defineComponent({
             </h3>
             
             <p class="text-slate-600 text-lg leading-relaxed mb-6">
-              <strong class="text-slate-900">SiLapor</strong> hadir sebagai ruang aman dan terpercaya bagi masyarakat untuk dengan mudah menyuarakan aspirasi, kritik, serta melaporkan masalah di sekitar seperti kerusakan <span class="text-blue-600 font-semibold">infrastruktur</span>, isu <span class="text-blue-600 font-semibold">lingkungan</span>, hingga gangguan <span class="text-blue-600 font-semibold">keamanan</span>.
+              <strong class="text-slate-900">SiLapor</strong> hadir sebagai ruang aman dan terpercaya bagi masyarakat untuk dengan mudah menyuarakan aspirasi, kritik, serta melaporkan masalah di sekitar seperti kerusakan infrastruktur, isu lingkungan, hingga gangguan keamanan.
             </p>
             
             <p class="text-slate-600 text-lg leading-relaxed mb-8">
