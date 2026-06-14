@@ -310,11 +310,9 @@ const Home = Vue.defineComponent({
             
             <div class="flex flex-wrap gap-4">
               <button @click="scrollToSection('laporan-section')" class="bg-white text-[#0B3EA8] px-8 py-3.5 rounded-xl font-bold text-base hover:bg-slate-50 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center">
-                <i class="ti ti-search mr-2 text-xl"></i>
                 Lihat Laporan
               </button>
               <button @click="scrollToSection('cara-kerja-section')" class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center">
-                <i class="ti ti-bulb mr-2 text-xl text-amber-300 drop-shadow-md"></i>
                 Cara Kerja
               </button>
             </div>
@@ -326,16 +324,10 @@ const Home = Vue.defineComponent({
           </div>
         </div>
       </div>
-      <!-- Wave divider di bawah hero -->
-      <div class="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none" class="w-full h-12 md:h-16">
-          <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#ffffff"/>
-        </svg>
-      </div>
     </header>
 
     <!-- TENTANG KAMI SECTION -->
-    <section id="tentang-section" class="bg-white py-24 fade-in-section scroll-mt-20">
+    <section id="tentang-section" class="bg-white py-12 md:py-16 fade-in-section scroll-mt-20">
       <div class="max-w-7xl mx-auto px-6 md:px-8">
         
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-start">
