@@ -67,15 +67,19 @@ const Categories = Vue.defineComponent({
   template: `
   <AdminLayout title="Kategori Laporan" subtitle="Kelola daftar kategori yang dapat digunakan oleh masyarakat untuk melaporkan aduan.">
     <!-- Header Section -->
-    <div class="flex justify-end mb-8">
-       <button @click="openModal()" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-primaryHover transition-colors shadow-sm">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+    <div class="bg-white rounded-t-2xl border border-slate-200 shadow-sm px-6 py-5 flex flex-col md:flex-row items-center justify-between border-b-0 gap-4">
+       <div>
+         <h3 class="text-lg font-semibold text-slate-900">Daftar Kategori Laporan</h3>
+         <p class="text-sm text-slate-500">Kelola daftar kategori yang tersedia di sistem.</p>
+       </div>
+       <button @click="openModal()" class="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors shadow-sm shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
           Tambah Kategori
        </button>
     </div>
 
     <!-- Table Section -->
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+    <div class="bg-white rounded-b-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
       <div class="overflow-x-auto min-h-[300px]">
         <table class="w-full text-left border-collapse">
           <thead>
