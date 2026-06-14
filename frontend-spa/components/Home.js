@@ -704,9 +704,9 @@ const Home = Vue.defineComponent({
           </p>
         </div>
 
-        <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-2 gap-8">
            <!-- Skeletons -->
-           <div v-for="i in 3" :key="i" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col h-[380px]">
+           <div v-for="i in 2" :key="i" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col h-[380px]">
              <div class="h-40 w-full bg-slate-200 animate-pulse"></div>
              <div class="p-6 flex-1 flex flex-col gap-4">
                <div class="h-6 bg-slate-200 rounded animate-pulse w-3/4"></div>
@@ -717,7 +717,7 @@ const Home = Vue.defineComponent({
              </div>
            </div>
         </div>
-        <div v-else-if="laporanFiltered.length > 0" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div v-else-if="laporanFiltered.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div v-for="(laporan, index) in laporanFiltered" :key="laporan.id" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-md group flex flex-col" :data-aos="'fade-up'" :data-aos-delay="index * 150">
             <!-- Image Area -->
             <div class="h-40 w-full relative bg-slate-100 overflow-hidden border-b border-slate-100">
@@ -757,8 +757,7 @@ const Home = Vue.defineComponent({
           </div>
         </div>
         
-        <div v-if="laporanFiltered.length === 0" 
-             class="text-center py-16">
+        <div v-else class="text-center py-16">
           <i class="ti ti-search-off block mx-auto mb-3 
                     text-gray-300" 
              style="font-size: 40px;"></i>
