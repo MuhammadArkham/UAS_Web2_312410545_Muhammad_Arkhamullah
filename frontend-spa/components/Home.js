@@ -338,7 +338,7 @@ const Home = Vue.defineComponent({
     <section id="tentang-section" class="bg-white py-24 fade-in-section scroll-mt-20">
       <div class="max-w-7xl mx-auto px-6 md:px-8">
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-start">
           
           <!-- Left Content -->
           <div class="lg:col-span-5" data-aos="fade-right">
@@ -376,45 +376,58 @@ const Home = Vue.defineComponent({
           </div>
 
           <!-- Right Content: Cards -->
-          <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 relative" data-aos="fade-left">
+          <div class="lg:col-span-7 relative" data-aos="fade-left">
             <!-- Background Decoration -->
             <div class="absolute -top-10 -right-10 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50 z-0"></div>
             
-            <!-- Card 1: Transparan (Spans 1 col, pushed down slightly) -->
-            <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 relative z-10 md:mt-12 h-fit">
-               <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mb-6">
-                 <i class="ti ti-eye text-blue-600 text-[28px]"></i>
-               </div>
-               <h3 class="font-display font-bold text-xl text-slate-900 mb-3">Transparan</h3>
-               <p class="text-slate-600 leading-relaxed">
-                 Semua proses penanganan dari awal hingga akhir dapat dilihat dan diawasi secara terbuka oleh seluruh elemen masyarakat tanpa ada yang ditutupi.
-               </p>
-            </div>
-
-            <div class="space-y-6 relative z-10">
-              <!-- Card 2: Responsif -->
-              <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
-                 <div class="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center mb-6">
-                   <i class="ti ti-bolt text-amber-600 text-[28px]"></i>
-                 </div>
-                 <h3 class="font-display font-bold text-xl text-slate-900 mb-3">Responsif</h3>
-                 <p class="text-slate-600 leading-relaxed">
-                   Setiap aduan langsung diarahkan ke instansi terkait agar mendapatkan tindakan perbaikan dan penyelesaian dalam waktu yang sesingkat-singkatnya.
-                 </p>
+            <div class="flex flex-col gap-6 relative z-10 bg-white border border-slate-100 rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+              
+              <!-- Item 1: Transparan -->
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <i class="ti ti-eye text-blue-600" style="font-size: 22px;"></i>
+                </div>
+                <div>
+                  <h4 class="font-display font-semibold text-gray-900 mb-1">
+                    Transparan
+                  </h4>
+                  <p class="text-sm text-gray-600 leading-relaxed">
+                    Semua proses penanganan dapat dipantau secara terbuka oleh seluruh masyarakat.
+                  </p>
+                </div>
               </div>
 
-              <!-- Card 3: Akuntabel -->
-              <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
-                 <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center mb-6">
-                   <i class="ti ti-clipboard-check text-emerald-600 text-[28px]"></i>
-                 </div>
-                 <h3 class="font-display font-bold text-xl text-slate-900 mb-3">Akuntabel</h3>
-                 <p class="text-slate-600 leading-relaxed">
-                   Seluruh laporan tercatat secara digital dan permanen, memberikan jejak audit yang jelas serta sistem pertanggungjawaban yang valid bagi publik.
-                 </p>
+              <!-- Item 2: Responsif -->
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <i class="ti ti-bolt text-blue-600" style="font-size: 22px;"></i>
+                </div>
+                <div>
+                  <h4 class="font-display font-semibold text-gray-900 mb-1">
+                    Responsif
+                  </h4>
+                  <p class="text-sm text-gray-600 leading-relaxed">
+                    Setiap aduan diarahkan ke instansi terkait untuk penyelesaian sesingkat-singkatnya.
+                  </p>
+                </div>
               </div>
-            </div>
 
+              <!-- Item 3: Akuntabel -->
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                  <i class="ti ti-clipboard-check text-emerald-600" style="font-size: 22px;"></i>
+                </div>
+                <div>
+                  <h4 class="font-display font-semibold text-gray-900 mb-1">
+                    Akuntabel
+                  </h4>
+                  <p class="text-sm text-gray-600 leading-relaxed">
+                    Seluruh laporan tercatat secara digital dengan jejak audit yang jelas dan valid.
+                  </p>
+                </div>
+              </div>
+
+            </div>
           </div>
 
         </div>
