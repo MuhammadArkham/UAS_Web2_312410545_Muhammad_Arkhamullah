@@ -88,14 +88,11 @@ const CreateReport = Vue.defineComponent({
            {{ error }}
         </div>
 
-        <!-- Section 1: Informasi Utama -->
-        <div class="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] overflow-hidden">
-          <div class="bg-slate-50/50 px-6 py-4 border-b border-[#E2E8F0]">
-            <h3 class="text-base font-bold text-[#0F172A] flex items-center gap-2">
-              <i class="ti ti-info-circle text-blue-600 text-lg"></i> Informasi Utama
-            </h3>
-          </div>
-          <div class="p-6">
+        <!-- Single Unified Form Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] overflow-hidden p-6 md:p-8">
+          <div class="space-y-8">
+            
+            <!-- Title & Category Row -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div class="md:col-span-2">
                 <label class="block text-sm font-bold text-[#0F172A] mb-2">Judul Laporan</label>
@@ -120,17 +117,8 @@ const CreateReport = Vue.defineComponent({
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Section 2: Detail Kejadian -->
-        <div class="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] overflow-hidden">
-          <div class="bg-slate-50/50 px-6 py-4 border-b border-[#E2E8F0]">
-            <h3 class="text-base font-bold text-[#0F172A] flex items-center gap-2">
-              <i class="ti ti-map-2 text-blue-600 text-lg"></i> Detail Kejadian
-            </h3>
-          </div>
-          <div class="p-6 space-y-6">
+            <!-- Location -->
             <div>
               <label class="block text-sm font-bold text-[#0F172A] mb-2">Lokasi Kejadian</label>
               <div class="relative">
@@ -141,6 +129,7 @@ const CreateReport = Vue.defineComponent({
               </div>
             </div>
 
+            <!-- Description -->
             <div>
               <label class="block text-sm font-bold text-[#0F172A] mb-2">Deskripsi Lengkap</label>
               <div class="relative">
@@ -150,54 +139,46 @@ const CreateReport = Vue.defineComponent({
                 <textarea v-model="form.description" required rows="5" class="w-full pl-11 pr-4 py-3 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#2563EB] transition-all text-sm text-[#0F172A] placeholder-[#94A3B8] resize-y" placeholder="Jelaskan kronologi, waktu kejadian, atau kondisi secara lengkap..."></textarea>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Section 3: Lampiran Foto -->
-        <div class="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] overflow-hidden">
-          <div class="bg-slate-50/50 px-6 py-4 border-b border-[#E2E8F0]">
-            <h3 class="text-base font-bold text-[#0F172A] flex items-center gap-2">
-              <i class="ti ti-camera text-blue-600 text-lg"></i> Lampiran Bukti
-            </h3>
-          </div>
-          <div class="p-6">
-            <label class="block text-sm font-bold text-[#0F172A] mb-2">Unggah Foto Bukti (Opsional)</label>
-            
-            <div class="relative w-full overflow-hidden border-2 border-[#E2E8F0] border-dashed rounded-xl transition-all" 
-                 :class="imagePreview ? 'border-transparent shadow-md' : 'hover:border-[#2563EB] hover:bg-blue-50/30 bg-[#F8FAFC]'">
-                 
-              <!-- Kondisi Kosong (Dropzone) -->
-              <div v-if="!imagePreview" class="flex flex-col items-center justify-center py-10 px-6">
-                <div class="w-16 h-16 bg-blue-100/50 rounded-full flex items-center justify-center mb-4">
-                   <i class="ti ti-cloud-upload text-3xl text-blue-600"></i>
+            <!-- Image Upload -->
+            <div>
+              <label class="block text-sm font-bold text-[#0F172A] mb-2">Unggah Foto Bukti (Opsional)</label>
+              <div class="relative w-full overflow-hidden border-2 border-[#E2E8F0] border-dashed rounded-xl transition-all" 
+                   :class="imagePreview ? 'border-transparent shadow-md' : 'hover:border-[#2563EB] hover:bg-blue-50/30 bg-[#F8FAFC]'">
+                   
+                <!-- Kondisi Kosong (Dropzone) -->
+                <div v-if="!imagePreview" class="flex flex-col items-center justify-center py-10 px-6">
+                  <div class="w-16 h-16 bg-blue-100/50 rounded-full flex items-center justify-center mb-4">
+                     <i class="ti ti-cloud-upload text-3xl text-blue-600"></i>
+                  </div>
+                  <div class="flex text-sm text-[#64748B] justify-center gap-1 mb-1">
+                    <label class="relative cursor-pointer bg-transparent rounded-md font-bold text-[#2563EB] hover:text-[#1D4ED8] focus-within:outline-none">
+                      <span>Pilih file gambar</span>
+                      <input ref="fileInput" @change="handleFileChange" type="file" class="sr-only" accept="image/*">
+                    </label>
+                    <p>atau seret dan lepas di sini</p>
+                  </div>
+                  <p class="text-xs text-[#94A3B8] font-medium">Mendukung format PNG, JPG, JPEG (Maks. 2MB)</p>
                 </div>
-                <div class="flex text-sm text-[#64748B] justify-center gap-1 mb-1">
-                  <label class="relative cursor-pointer bg-transparent rounded-md font-bold text-[#2563EB] hover:text-[#1D4ED8] focus-within:outline-none">
-                    <span>Pilih file gambar</span>
-                    <input ref="fileInput" @change="handleFileChange" type="file" class="sr-only" accept="image/*">
-                  </label>
-                  <p>atau seret dan lepas di sini</p>
-                </div>
-                <p class="text-xs text-[#94A3B8] font-medium">Mendukung format PNG, JPG, JPEG (Maks. 2MB)</p>
-              </div>
 
-              <!-- Kondisi Terisi (Preview) -->
-              <div v-if="imagePreview" class="relative w-full h-[300px] group bg-slate-900">
-                <img :src="imagePreview" class="w-full h-full object-contain">
-                <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3 backdrop-blur-sm">
-                   <p class="text-white font-medium text-sm">Gambar berhasil dilampirkan</p>
-                   <button type="button" @click="removeImage" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg font-bold shadow-lg transition-transform hover:scale-105 flex items-center gap-2">
-                      <i class="ti ti-trash text-lg"></i> Hapus & Ganti Foto
-                   </button>
+                <!-- Kondisi Terisi (Preview) -->
+                <div v-if="imagePreview" class="relative w-full h-[300px] group bg-slate-900">
+                  <img :src="imagePreview" class="w-full h-full object-contain">
+                  <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3 backdrop-blur-sm">
+                     <p class="text-white font-medium text-sm">Gambar berhasil dilampirkan</p>
+                     <button type="button" @click="removeImage" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg font-bold shadow-lg transition-transform hover:scale-105 flex items-center gap-2">
+                        <i class="ti ti-trash text-lg"></i> Hapus & Ganti Foto
+                     </button>
+                  </div>
                 </div>
               </div>
-
             </div>
+
           </div>
         </div>
 
         <!-- Footer Actions -->
-        <div class="flex items-center justify-end gap-3 pt-4">
+        <div class="flex items-center justify-end gap-3 pt-2">
            <router-link to="/reports" class="px-6 py-3 text-sm font-bold text-[#64748B] bg-white border border-[#E2E8F0] hover:bg-slate-50 hover:text-[#0F172A] rounded-xl transition-colors shadow-sm">Batal</router-link>
            <button type="submit" :disabled="loading" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-8 py-3 rounded-xl text-sm font-bold transition-all shadow-sm flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
               <i v-if="loading" class="ti ti-loader animate-spin text-lg"></i>
