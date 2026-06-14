@@ -119,6 +119,19 @@ Ikuti panduan instalasi berikut untuk menjalankan proyek pada *localhost*:
 2. Buka URL berikut pada browser untuk mengakses aplikasi:  
    `http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/`
 
-## 6. Tautan Proyek Akademik
-- **Link Demo Aplikasi:** [Masukkan Link Demo Di Sini]
-- **Link Video Presentasi:** [Masukkan Link Video Di Sini]
+## 6. Akses Demo Aplikasi Lokal
+Untuk memudahkan proses penilaian dan demo aplikasi secara lokal (XAMPP), silakan gunakan tautan dan kredensial berikut:
+
+- **Tautan Akses Frontend (Aplikasi Utama):**  
+  [http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/](http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/)
+  
+- **Tautan Akses Backend (Hanya API/JSON):**  
+  [http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/](http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/)
+
+### Akun Administrator (Untuk Login)
+Gunakan kredensial berikut untuk masuk ke Dashboard Admin dan mengelola data pelaporan:
+- **Email:** `admin@silapor.com`
+- **Password:** `password123`
+
+---
+*Catatan: Pastikan Anda telah mengimpor database `database_silapor.sql` dan menyesuaikan `.env` seperti pada panduan instalasi di atas sebelum mencoba melakukan Login.*
