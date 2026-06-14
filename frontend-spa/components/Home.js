@@ -280,7 +280,7 @@ const Home = Vue.defineComponent({
     </nav>
 
     <!-- HERO SECTION -->
-    <header id="hero-section" class="bg-[#0B3EA8] py-20 fade-in-section scroll-mt-20">
+    <header id="hero-section" class="bg-[#0B3EA8] py-20 relative fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="flex flex-col lg:flex-row items-center gap-12">
           <!-- Left: 45% -->
