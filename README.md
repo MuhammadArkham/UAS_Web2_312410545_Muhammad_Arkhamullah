@@ -135,3 +135,10 @@ Gunakan kredensial berikut untuk masuk ke Dashboard Admin dan mengelola data pel
 
 ---
 *Catatan: Pastikan Anda telah mengimpor database `database_silapor.sql` dan menyesuaikan `.env` seperti pada panduan instalasi di atas sebelum mencoba melakukan Login.*
+
+## 7. Tautan Penilaian Akademik
+Berikut adalah tautan-tautan penting yang menjadi syarat penilaian akhir UAS:
+
+- **Link Video Presentasi / Demo Aplikasi:** `[Tautkan URL YouTube atau Google Drive Video Anda Di Sini]`
+- **Link Repositori GitHub:** [https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah)
+- **Link Live Demo Frontend (GitHub Pages):** `[Tautkan URL GitHub Pages Anda Di Sini Jika Diaktifkan]`
