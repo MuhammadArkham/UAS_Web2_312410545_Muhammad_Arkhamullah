@@ -89,8 +89,8 @@ const CreateReport = Vue.defineComponent({
         </div>
 
         <!-- Single Unified Form Card -->
-        <div class="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] overflow-hidden p-6 md:p-8">
-          <div class="space-y-8">
+        <div class="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] overflow-hidden">
+          <div class="p-6 md:p-8 space-y-8">
             
             <!-- Title & Category Row -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -175,16 +175,16 @@ const CreateReport = Vue.defineComponent({
             </div>
 
           </div>
-        </div>
 
-        <!-- Footer Actions -->
-        <div class="flex items-center justify-end gap-3 pt-2">
-           <router-link to="/reports" class="px-6 py-3 text-sm font-bold text-[#64748B] bg-white border border-[#E2E8F0] hover:bg-slate-50 hover:text-[#0F172A] rounded-xl transition-colors shadow-sm">Batal</router-link>
-           <button type="submit" :disabled="loading" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-8 py-3 rounded-xl text-sm font-bold transition-all shadow-sm flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
-              <i v-if="loading" class="ti ti-loader animate-spin text-lg"></i>
-              <i v-else class="ti ti-send text-lg"></i>
-              <span>{{ loading ? 'Memproses Laporan...' : 'Kirim Laporan Sekarang' }}</span>
-           </button>
+          <!-- Footer Actions -->
+          <div class="px-6 md:px-8 py-5 border-t border-[#E2E8F0] bg-slate-50 flex items-center justify-end gap-3">
+             <router-link to="/reports" class="px-6 py-2.5 text-sm font-bold text-[#64748B] bg-white border border-[#E2E8F0] hover:bg-slate-50 hover:text-[#0F172A] rounded-xl transition-colors shadow-sm">Batal</router-link>
+             <button type="submit" :disabled="loading" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-8 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
+                <i v-if="loading" class="ti ti-loader animate-spin text-lg"></i>
+                <i v-else class="ti ti-send text-lg"></i>
+                <span>{{ loading ? 'Memproses Laporan...' : 'Kirim Laporan Sekarang' }}</span>
+             </button>
+          </div>
         </div>
       </form>
     </div>
