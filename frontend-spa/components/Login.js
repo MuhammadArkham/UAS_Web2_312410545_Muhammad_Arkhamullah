@@ -28,6 +28,9 @@ const Login = Vue.defineComponent({
       } finally {
         this.loading = false;
       }
+    },
+    forgotPassword() {
+      alert('Fitur reset sandi mandiri belum aktif. Silakan hubungi Administrator IT (admin@silapor.com) untuk mendapatkan akses kembali.');
     }
   },
   template: `
@@ -100,14 +103,14 @@ const Login = Vue.defineComponent({
                   <path stroke-linecap="round" stroke-linejoin="round" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                 </svg>
               </div>
-              <input id="email" type="email" v-model="email" required placeholder="petugas@daerah.go.id" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
+              <input id="email" type="email" v-model="email" required placeholder="admin@silapor.com" class="block w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all">
             </div>
           </div>
 
           <div>
             <div class="flex justify-between items-center mb-2">
               <label for="password" class="block text-sm font-bold text-slate-700">Kata Sandi</label>
-              <a href="#" class="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">Lupa Sandi?</a>
+              <a href="#" @click.prevent="forgotPassword" class="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">Lupa Sandi?</a>
             </div>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
