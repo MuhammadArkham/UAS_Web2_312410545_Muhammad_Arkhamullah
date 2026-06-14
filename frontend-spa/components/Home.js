@@ -861,26 +861,6 @@ const Home = Vue.defineComponent({
       </div>
     </section>
 
-    <!-- CONTACT / HELPDESK SECTION -->
-    <section class="bg-white py-20 fade-in-section">
-      <div class="container mx-auto px-8 max-w-[1200px]">
-        <div class="bg-slate-900 rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10" data-aos="zoom-in">
-          <div class="md:w-2/3 text-left">
-            <h2 class="text-3xl font-display font-bold text-white mb-4">Pusat Layanan & Bantuan</h2>
-            <p class="text-slate-400 text-lg leading-relaxed max-w-xl">
-              Butuh panduan teknis atau ingin menanyakan status penanganan laporan Anda secara langsung? Silakan hubungi tim layanan kami.
-            </p>
-          </div>
-          <div class="md:w-1/3 flex justify-end w-full">
-            <a href="mailto:support@silapor.go.id" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 w-full md:w-auto">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              Hubungi Tim Kami
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
 
 
     <!-- FOOTER -->
