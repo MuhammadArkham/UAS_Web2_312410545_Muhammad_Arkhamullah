@@ -238,11 +238,11 @@ const Home = Vue.defineComponent({
              @click.prevent="scrollToSection('hero-section')">
             Beranda
           </a>
-          <a href="#statistik-section" 
+          <a href="#tentang-section" 
              class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
-             :class="{ 'text-blue-600 after:w-full': activeSection === 'statistik' }"
-             @click.prevent="scrollToSection('statistik-section')">
-            Statistik
+             :class="{ 'text-blue-600 after:w-full': activeSection === 'tentang' }"
+             @click.prevent="scrollToSection('tentang-section')">
+            Tentang
           </a>
           <a href="#cara-kerja-section" 
              class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
@@ -250,17 +250,17 @@ const Home = Vue.defineComponent({
              @click.prevent="scrollToSection('cara-kerja-section')">
             Cara Kerja
           </a>
+          <a href="#statistik-section" 
+             class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
+             :class="{ 'text-blue-600 after:w-full': activeSection === 'statistik' }"
+             @click.prevent="scrollToSection('statistik-section')">
+            Statistik
+          </a>
           <a href="#laporan-section" 
              class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
              :class="{ 'text-blue-600 after:w-full': activeSection === 'laporan' }"
              @click.prevent="scrollToSection('laporan-section')">
             Laporan
-          </a>
-          <a href="#tentang-section" 
-             class="relative text-sm text-gray-600 font-medium transition-colors duration-200 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
-             :class="{ 'text-blue-600 after:w-full': activeSection === 'tentang' }"
-             @click.prevent="scrollToSection('tentang-section')">
-            Tentang
           </a>
         </div>
 
@@ -282,10 +282,10 @@ const Home = Vue.defineComponent({
       <!-- Mobile Dropdown -->
       <div v-show="mobileMenuOpen" class="md:hidden absolute top-full left-0 right-0 bg-white shadow-md flex flex-col p-4 gap-2 border-t border-gray-100">
         <a href="#hero-section" @click.prevent="scrollToSection('hero-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'hero' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Beranda</a>
-        <a href="#statistik-section" @click.prevent="scrollToSection('statistik-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'statistik' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Statistik</a>
-        <a href="#cara-kerja-section" @click.prevent="scrollToSection('cara-kerja-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'cara-kerja' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Cara Kerja</a>
-        <a href="#laporan-section" @click.prevent="scrollToSection('laporan-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'laporan' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Laporan</a>
         <a href="#tentang-section" @click.prevent="scrollToSection('tentang-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'tentang' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Tentang</a>
+        <a href="#cara-kerja-section" @click.prevent="scrollToSection('cara-kerja-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'cara-kerja' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Cara Kerja</a>
+        <a href="#statistik-section" @click.prevent="scrollToSection('statistik-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'statistik' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Statistik</a>
+        <a href="#laporan-section" @click.prevent="scrollToSection('laporan-section')" class="text-sm font-medium p-3 rounded-lg transition-colors" :class="activeSection === 'laporan' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">Laporan</a>
       </div>
     </nav>
 
@@ -432,9 +432,77 @@ const Home = Vue.defineComponent({
       </div>
     </section>
 
+    <!-- PROCESS SECTION -->
+    <section id="cara-kerja-section" class="bg-slate-50 border-y border-slate-200 py-12 md:py-16 fade-in-section scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+        <div class="text-center mb-8 md:mb-10" data-aos="fade-down">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
+            Alur Penyelesaian Laporan
+          </h2>
+          <div class="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-3"></div>
+          <p class="text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
+            Setiap laporan yang masuk ditangani melalui proses yang terstruktur dan dapat dipantau
+          </p>
+        </div>
+        
+        <div class="relative max-w-4xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Step 1 -->
+            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="100">
+              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
+                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"/></svg>
+              </div>
+              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
+                <div class="flex-grow h-[2px] bg-slate-300"></div>
+                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
+              </div>
+              
+              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">1. Pencatatan</h3>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Warga melaporkan masalah atau usulan di lingkungan sekitar melalui sistem.</p>
+            </div>
+            <!-- Step 2 -->
+            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="200">
+              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
+                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              </div>
+              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
+                <div class="flex-grow h-[2px] bg-slate-300"></div>
+                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
+              </div>
+              
+              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">2. Verifikasi</h3>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Petugas mengecek kejelasan informasi dan lokasi pasti dari laporan yang masuk.</p>
+            </div>
+            <!-- Step 3 -->
+            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="300">
+              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
+                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
+                <div class="flex-grow h-[2px] bg-slate-300"></div>
+                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
+              </div>
+              
+              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">3. Tindak Lanjut</h3>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Laporan diteruskan ke dinas atau petugas lapangan agar segera dibereskan.</p>
+            </div>
+            <!-- Step 4 -->
+            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="400">
+              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
+                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <!-- No dashed line for the last step -->
+              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">4. Selesai</h3>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Laporan ditandai selesai dan status dapat dipantau langsung oleh masyarakat.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- STATISTICS & DISTRIBUTION SECTION -->
     <section id="statistik-section" 
-             class="bg-slate-50 border-y border-slate-200 py-12 md:py-16 fade-in-section 
+             class="bg-white py-12 md:py-16 fade-in-section 
                     scroll-mt-20">
       <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
 
@@ -602,74 +670,6 @@ const Home = Vue.defineComponent({
     </div>
   </div>
 </section>
-
-    <!-- PROCESS SECTION -->
-    <section id="cara-kerja-section" class="bg-white py-12 md:py-16 fade-in-section scroll-mt-20">
-      <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-        <div class="text-center mb-8 md:mb-10" data-aos="fade-down">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
-            Alur Penyelesaian Laporan
-          </h2>
-          <div class="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-3"></div>
-          <p class="text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
-            Setiap laporan yang masuk ditangani melalui proses yang terstruktur dan dapat dipantau
-          </p>
-        </div>
-        
-        <div class="relative max-w-4xl mx-auto">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <!-- Step 1 -->
-            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="100">
-              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
-                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"/></svg>
-              </div>
-              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
-                <div class="flex-grow h-[2px] bg-slate-300"></div>
-                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
-              </div>
-              
-              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">1. Pencatatan</h3>
-              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Warga melaporkan masalah atau usulan di lingkungan sekitar melalui sistem.</p>
-            </div>
-            <!-- Step 2 -->
-            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="200">
-              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
-                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              </div>
-              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
-                <div class="flex-grow h-[2px] bg-slate-300"></div>
-                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
-              </div>
-              
-              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">2. Verifikasi</h3>
-              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Petugas mengecek kejelasan informasi dan lokasi pasti dari laporan yang masuk.</p>
-            </div>
-            <!-- Step 3 -->
-            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="300">
-              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
-                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-              </div>
-              <div class="hidden md:flex absolute top-[40px] -translate-y-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] items-center z-0 px-3">
-                <div class="flex-grow h-[2px] bg-slate-300"></div>
-                <div class="w-0 h-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-slate-300 ml-[-1px]"></div>
-              </div>
-              
-              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">3. Tindak Lanjut</h3>
-              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Laporan diteruskan ke dinas atau petugas lapangan agar segera dibereskan.</p>
-            </div>
-            <!-- Step 4 -->
-            <div class="relative flex flex-col items-center text-center w-full" data-aos="fade-up" data-aos-delay="400">
-              <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-200 border border-transparent text-blue-600 relative z-10 group">
-                 <svg class="w-10 h-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
-              </div>
-              <!-- No dashed line for the last step -->
-              <h3 class="font-display font-semibold text-base mb-1 text-slate-900">4. Selesai</h3>
-              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Laporan ditandai selesai dan status dapat dipantau langsung oleh masyarakat.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- LAPORAN TERBARU SECTION -->
     <section id="laporan-section" class="bg-slate-50 py-12 md:py-16 border-y border-slate-200 fade-in-section scroll-mt-20">
