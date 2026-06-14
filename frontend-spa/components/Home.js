@@ -334,14 +334,12 @@ const Home = Vue.defineComponent({
           
           <!-- Left Content -->
           <div class="lg:col-span-5" data-aos="fade-right">
-            <div class="inline-flex items-center gap-2 text-blue-600 font-bold text-sm mb-6 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full">
-              <i class="ti ti-info-circle"></i>
-              <span>Tentang Aplikasi SiLapor</span>
+            <div class="mb-6">
+              <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
+                Membangun Sinergi antara Masyarakat & Pemerintah
+              </h2>
+              <div class="w-12 h-1 bg-blue-600 rounded-full mb-4"></div>
             </div>
-            
-            <h2 class="font-display font-bold text-3xl md:text-4xl text-slate-900 mb-6 leading-tight">
-              Membangun Sinergi antara Masyarakat & Pemerintah
-            </h2>
             
             <p class="text-slate-600 text-lg leading-relaxed mb-6">
               <strong class="text-slate-900">SiLapor</strong> adalah platform pengaduan digital inovatif yang dirancang untuk memudahkan warga memantau status penanganan laporan terkait <span class="text-blue-600 font-semibold">infrastruktur</span>, <span class="text-blue-600 font-semibold">lingkungan</span>, <span class="text-blue-600 font-semibold">keamanan</span>, dan pelayanan publik lainnya.
@@ -432,16 +430,13 @@ const Home = Vue.defineComponent({
                     scroll-mt-20">
   <div class="max-w-4xl mx-auto px-4">
 
-    <div class="text-center mb-6">
-      <h2 class="font-display font-bold text-2xl 
-                 md:text-3xl text-gray-900 mb-2">
+    <div class="text-center mb-8 md:mb-10">
+      <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
         Transparansi Data Pengaduan
       </h2>
-      <div class="w-12 h-1 bg-blue-600 rounded-full 
-                  mx-auto mb-3"></div>
-      <p class="text-sm text-gray-500">
-        Pantau status penanganan laporan masyarakat 
-        secara langsung
+      <div class="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-3"></div>
+      <p class="text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
+        Pantau status penanganan laporan masyarakat secara langsung
       </p>
     </div>
 
@@ -603,8 +598,14 @@ const Home = Vue.defineComponent({
     <!-- PROCESS SECTION -->
     <section id="cara-kerja-section" class="bg-white py-12 md:py-16 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
-        <div class="text-center mb-16" data-aos="fade-down">
-          <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900">Alur Penyelesaian Laporan</h2>
+        <div class="text-center mb-8 md:mb-10" data-aos="fade-down">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
+            Alur Penyelesaian Laporan
+          </h2>
+          <div class="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-3"></div>
+          <p class="text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
+            Setiap laporan yang masuk ditangani melalui proses yang terstruktur dan dapat dipantau
+          </p>
         </div>
         
         <div class="relative max-w-4xl mx-auto">
@@ -665,9 +666,16 @@ const Home = Vue.defineComponent({
     <!-- LAPORAN TERBARU SECTION -->
     <section id="laporan-section" class="bg-slate-50 py-12 md:py-16 border-y border-slate-200 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
-        <div class="mb-12 text-center md:text-left" data-aos="fade-right">
-          <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900 mb-4">Laporan Publik</h2>
-          <p class="text-slate-600 text-lg mb-6">Pantau laporan terkini dari masyarakat.</p>
+        <div class="mb-12 text-left" data-aos="fade-right">
+          <div class="mb-8 md:mb-10">
+            <h2 class="font-display font-bold text-2xl md:text-3xl text-gray-900 leading-tight mb-2">
+              Laporan Publik
+            </h2>
+            <div class="w-12 h-1 bg-blue-600 rounded-full mb-3"></div>
+            <p class="text-sm text-gray-500 leading-relaxed">
+              Pantau laporan terkini dari masyarakat di berbagai wilayah
+            </p>
+          </div>
 
           <div class="flex flex-col sm:flex-row gap-3 mb-6">
             
