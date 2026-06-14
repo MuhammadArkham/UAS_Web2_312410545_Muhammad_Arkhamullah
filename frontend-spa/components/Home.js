@@ -448,158 +448,119 @@ const Home = Vue.defineComponent({
       </p>
     </div>
 
-    <div class="bg-white rounded-2xl border 
-                border-gray-100 shadow-sm p-6 
-                md:p-8 relative">
+    <div class="flex justify-center mb-10" data-aos="fade-down" data-aos-delay="100">
+      <div class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-emerald-50 text-emerald-700 rounded-full text-sm font-bold border border-emerald-200/50 shadow-sm">
+         <span class="relative flex h-3 w-3">
+           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+           <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+         </span>
+         Data Live • Diperbarui {{ jamSekarang }} WIB
+      </div>
+    </div>
 
-      <!-- Live indicator -->
-      <div class="absolute top-4 right-4 flex 
-                  items-center gap-1.5 text-xs 
-                  text-gray-400">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute 
-                       inline-flex h-full w-full 
-                       rounded-full bg-emerald-400 
-                       opacity-75"></span>
-          <span class="relative inline-flex 
-                       rounded-full h-2 w-2 
-                       bg-emerald-500"></span>
-        </span>
-        Diperbarui: {{ jamSekarang }} WIB
+    <!-- 4 Individual Stat Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      
+      <!-- Stat Card 1: Total Laporan -->
+      <div class="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm relative overflow-hidden group hover:-translate-y-2 hover:shadow-xl transition-all duration-500 cursor-default" data-aos="fade-up" data-aos-delay="100">
+         <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-blue-100 to-transparent rounded-full opacity-50 group-hover:scale-150 transition-transform duration-700 ease-out"></div>
+         <div class="relative z-10 flex flex-col h-full">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center mb-6 text-blue-600 border border-blue-100/50 group-hover:scale-110 transition-transform duration-500">
+               <i class="ti ti-file-text text-2xl"></i>
+            </div>
+            <div class="mt-auto">
+               <p class="text-5xl font-display font-black text-slate-900 tracking-tight mb-2">{{ totalLaporan }}</p>
+               <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Total Laporan</p>
+            </div>
+         </div>
       </div>
 
-      <!-- 4 STAT — icon KIRI, angka KANAN -->
-      <div class="grid grid-cols-2 md:grid-cols-4 
-                  divide-x divide-y md:divide-y-0 
-                  divide-gray-100 mb-6">
-
-        <div class="flex items-center gap-3 
-                    px-4 py-4 group">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 
-                      flex items-center justify-center 
-                      flex-shrink-0 transition-transform 
-                      duration-200 
-                      group-hover:scale-110">
-            <i class="ti ti-file-text text-blue-600" 
-               style="font-size: 22px;"></i>
-          </div>
-          <div>
-            <p class="text-2xl font-display font-bold 
-                      text-gray-900 leading-tight">
-              {{ totalLaporan }}
-            </p>
-            <p class="text-xs text-gray-500 mt-0.5">
-              Total Laporan
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 
-                    px-4 py-4 group">
-          <div class="w-12 h-12 rounded-xl 
-                      bg-amber-50 flex items-center 
-                      justify-center flex-shrink-0 
-                      transition-transform duration-200 
-                      group-hover:scale-110">
-            <i class="ti ti-clock text-amber-600" 
-               style="font-size: 22px;"></i>
-          </div>
-          <div>
-            <p class="text-2xl font-display font-bold 
-                      text-gray-900 leading-tight">
-              {{ totalDiproses }}
-            </p>
-            <p class="text-xs text-gray-500 mt-0.5">
-              Sedang Diproses
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 
-                    px-4 py-4 group">
-          <div class="w-12 h-12 rounded-xl 
-                      bg-emerald-50 flex items-center 
-                      justify-center flex-shrink-0 
-                      transition-transform duration-200 
-                      group-hover:scale-110">
-            <i class="ti ti-circle-check 
-                      text-emerald-600" 
-               style="font-size: 22px;"></i>
-          </div>
-          <div>
-            <p class="text-2xl font-display font-bold 
-                      text-gray-900 leading-tight">
-              {{ totalSelesai }}
-            </p>
-            <p class="text-xs text-gray-500 mt-0.5">
-              Telah Selesai
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 
-                    px-4 py-4 group">
-          <div class="w-12 h-12 rounded-xl 
-                      bg-violet-50 flex items-center 
-                      justify-center flex-shrink-0 
-                      transition-transform duration-200 
-                      group-hover:scale-110">
-            <i class="ti ti-tag text-violet-600" 
-               style="font-size: 22px;"></i>
-          </div>
-          <div>
-            <p class="text-2xl font-display font-bold 
-                      text-gray-900 leading-tight">
-              {{ totalKategori }}
-            </p>
-            <p class="text-xs text-gray-500 mt-0.5">
-              Kategori Layanan
-            </p>
-          </div>
-        </div>
-
+      <!-- Stat Card 2: Diproses -->
+      <div class="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm relative overflow-hidden group hover:-translate-y-2 hover:shadow-xl transition-all duration-500 cursor-default" data-aos="fade-up" data-aos-delay="200">
+         <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-amber-100 to-transparent rounded-full opacity-50 group-hover:scale-150 transition-transform duration-700 ease-out"></div>
+         <div class="relative z-10 flex flex-col h-full">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center mb-6 text-amber-600 border border-amber-100/50 group-hover:scale-110 transition-transform duration-500">
+               <i class="ti ti-clock text-2xl"></i>
+            </div>
+            <div class="mt-auto">
+               <p class="text-5xl font-display font-black text-slate-900 tracking-tight mb-2">{{ totalDiproses }}</p>
+               <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Sedang Diproses</p>
+            </div>
+         </div>
       </div>
 
-      <!-- DIVIDER -->
-      <div class="border-t border-gray-100 mb-5">
+      <!-- Stat Card 3: Selesai -->
+      <div class="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm relative overflow-hidden group hover:-translate-y-2 hover:shadow-xl transition-all duration-500 cursor-default" data-aos="fade-up" data-aos-delay="300">
+         <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-emerald-100 to-transparent rounded-full opacity-50 group-hover:scale-150 transition-transform duration-700 ease-out"></div>
+         <div class="relative z-10 flex flex-col h-full">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100 flex items-center justify-center mb-6 text-emerald-600 border border-emerald-100/50 group-hover:scale-110 transition-transform duration-500">
+               <i class="ti ti-circle-check text-2xl"></i>
+            </div>
+            <div class="mt-auto">
+               <p class="text-5xl font-display font-black text-slate-900 tracking-tight mb-2">{{ totalSelesai }}</p>
+               <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Telah Selesai</p>
+            </div>
+         </div>
       </div>
 
-      <!-- BADGE KATEGORI INTERAKTIF -->
-      <p class="text-xs text-gray-400 mb-3">
-        Klik kategori untuk filter laporan
-      </p>
-      <div class="grid grid-cols-2 md:grid-cols-3 
-                  gap-3">
-        <button v-for="kategori in listKategori" 
-                :key="kategori.id"
-                @click="filterByCategory(kategori)"
-                class="flex items-center gap-3 px-4 
-                       py-3 rounded-xl border 
-                       border-gray-100 bg-gray-50 
-                       transition-all duration-200 
-                       hover:border-blue-200 
-                       hover:bg-blue-50 
-                       hover:shadow-sm 
-                       hover:-translate-y-0.5 
-                       cursor-pointer text-left w-full">
-          <div class="w-9 h-9 rounded-lg bg-white 
-                      flex items-center justify-center 
-                      flex-shrink-0 shadow-sm">
-            <i :class="iconKategori(kategori.name)"
-               :style="{ color: warnaKategoriIcon(kategori.name) }"
-               style="font-size: 18px;"></i>
-          </div>
-          <span class="text-sm font-medium 
-                       text-gray-700 flex-1">
-            {{ kategori.name }}
-          </span>
-          <i class="ti ti-chevron-right text-gray-300 
-                    flex-shrink-0" 
-             style="font-size: 14px;"></i>
-        </button>
+      <!-- Stat Card 4: Kategori -->
+      <div class="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm relative overflow-hidden group hover:-translate-y-2 hover:shadow-xl transition-all duration-500 cursor-default" data-aos="fade-up" data-aos-delay="400">
+         <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-violet-100 to-transparent rounded-full opacity-50 group-hover:scale-150 transition-transform duration-700 ease-out"></div>
+         <div class="relative z-10 flex flex-col h-full">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-50 to-violet-100 flex items-center justify-center mb-6 text-violet-600 border border-violet-100/50 group-hover:scale-110 transition-transform duration-500">
+               <i class="ti ti-tag text-2xl"></i>
+            </div>
+            <div class="mt-auto">
+               <p class="text-5xl font-display font-black text-slate-900 tracking-tight mb-2">{{ totalKategori }}</p>
+               <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Kategori Layanan</p>
+            </div>
+         </div>
       </div>
 
     </div>
+
+    <!-- Category Filter Container -->
+    <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm p-8 md:p-10 relative overflow-hidden" data-aos="fade-up" data-aos-delay="500">
+      <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
+      
+      <div class="relative z-10">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+          <div>
+             <h3 class="font-display font-bold text-xl text-slate-900 mb-1">Jelajahi Berdasarkan Kategori</h3>
+             <p class="text-sm text-slate-500">Pilih kategori di bawah untuk memfilter daftar laporan publik secara otomatis.</p>
+          </div>
+          <button @click="scrollToSection('laporan-section')" class="hidden md:flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-6 py-3 rounded-xl transition-colors">
+             Lihat Semua Laporan
+             <i class="ti ti-arrow-right"></i>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <button v-for="kategori in listKategori" 
+                  :key="kategori.id"
+                  @click="filterByCategory(kategori)"
+                  class="group flex items-center justify-between px-5 py-4 rounded-2xl border border-slate-200 bg-slate-50 transition-all duration-300 hover:border-blue-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(37,99,235,0.08)] hover:-translate-y-1 text-left w-full">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                <i :class="iconKategori(kategori.name)"
+                   :style="{ color: warnaKategoriIcon(kategori.name) }"
+                   style="font-size: 22px;"></i>
+              </div>
+              <span class="text-base font-bold text-slate-700 group-hover:text-blue-700 transition-colors">
+                {{ kategori.name }}
+              </span>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center group-hover:bg-blue-50 transition-colors">
+              <i class="ti ti-arrow-right text-slate-500 group-hover:text-blue-600 transition-colors text-sm"></i>
+            </div>
+          </button>
+        </div>
+        
+        <button @click="scrollToSection('laporan-section')" class="mt-6 w-full md:hidden flex items-center justify-center gap-2 text-sm font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 px-5 py-3 rounded-xl transition-colors">
+             Lihat Semua Laporan
+             <i class="ti ti-arrow-right"></i>
+        </button>
+      </div>
   </div>
 </section>
 
