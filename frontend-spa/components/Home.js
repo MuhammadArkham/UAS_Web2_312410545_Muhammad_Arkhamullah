@@ -671,7 +671,7 @@ const Home = Vue.defineComponent({
     </section>
 
     <!-- LAPORAN TERBARU SECTION -->
-    <section id="laporan-section" class="bg-slate-50 py-24 border-y border-slate-200 fade-in-section scroll-mt-20">
+    <section id="laporan-section" class="bg-slate-50 py-12 md:py-16 border-y border-slate-200 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="mb-12 text-center md:text-left" data-aos="fade-right">
           <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900 mb-4">Laporan Publik</h2>
@@ -815,7 +815,7 @@ const Home = Vue.defineComponent({
           <div class="md:w-2/3 text-left">
             <h2 class="text-3xl font-display font-bold text-white mb-4">Pusat Layanan & Bantuan</h2>
             <p class="text-slate-400 text-lg leading-relaxed max-w-xl">
-              Butuh panduan teknis atau ingin menanyakan perkembangan laporan yang bersifat rahasia? Silakan hubungi Call Center resmi kami.
+              Butuh panduan teknis atau ingin menanyakan status penanganan laporan Anda secara langsung? Silakan hubungi tim layanan kami.
             </p>
           </div>
           <div class="md:w-1/3 flex justify-end w-full">
