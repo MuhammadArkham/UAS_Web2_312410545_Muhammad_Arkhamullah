@@ -356,22 +356,28 @@ const Reports = Vue.defineComponent({
       </div>
       
       <!-- Pagination / Footer Table -->
-      <div v-if="filteredReports.length > 0" class="px-6 py-4 border-t border-[#E2E8F0] flex flex-col md:flex-row gap-4 items-center justify-between text-sm text-[#64748B] bg-white">
-         <div class="text-slate-500">Menampilkan <span class="font-semibold text-slate-700">{{ startIndex }}</span> hingga <span class="font-semibold text-slate-700">{{ endIndex }}</span> dari total <span class="font-semibold text-slate-700">{{ filteredReports.length }}</span> data</div>
-         <div class="flex items-center gap-2">
-            <button @click="prevPage" :disabled="currentPage === 1" class="px-3 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center gap-1.5 justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors text-xs font-semibold text-[#64748B]"><i class="ti ti-chevron-left text-sm"></i> <span class="hidden sm:inline">Sebelumnya</span></button>
+      <div v-if="filteredReports.length > 0" class="px-6 py-4 border-t border-[#E2E8F0] flex flex-col md:flex-row gap-4 items-center justify-between bg-white">
+         <div class="flex items-center text-sm text-slate-500">
+           Menampilkan <span class="font-medium text-slate-900 mx-1">{{ startIndex }}</span> - <span class="font-medium text-slate-900 mx-1">{{ endIndex }}</span> dari <span class="font-medium text-slate-900 mx-1">{{ filteredReports.length }}</span> data
+         </div>
+         <div class="flex items-center gap-1">
+            <button @click="prevPage" :disabled="currentPage === 1" class="w-8 h-8 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900 disabled:opacity-30 disabled:hover:bg-transparent transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
             
             <template v-for="(page, index) in visiblePages" :key="index">
               <button v-if="page !== '...'" 
                       @click="goToPage(page)" 
-                      class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs transition-colors"
-                      :class="page === currentPage ? 'bg-[#2563EB] text-white shadow-sm border-transparent' : 'border border-[#E2E8F0] bg-white text-[#64748B] hover:bg-slate-50 hover:text-[#0F172A]'">
+                      class="w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium transition-colors"
+                      :class="page === currentPage ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'">
                 {{ page }}
               </button>
-              <span v-else class="px-1 text-[#64748B] text-xs font-bold tracking-widest">...</span>
+              <span v-else class="w-8 h-8 flex items-center justify-center text-slate-400">...</span>
             </template>
 
-            <button @click="nextPage" :disabled="currentPage === totalPages" class="px-3 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center gap-1.5 justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors text-xs font-semibold text-[#64748B]"><span class="hidden sm:inline">Selanjutnya</span> <i class="ti ti-chevron-right text-sm"></i></button>
+            <button @click="nextPage" :disabled="currentPage === totalPages" class="w-8 h-8 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900 disabled:opacity-30 disabled:hover:bg-transparent transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
          </div>
       </div>
     </div>
