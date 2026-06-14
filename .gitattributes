@@ -1,0 +1,7 @@
+# Abaikan folder bawaan CodeIgniter 4 agar tidak dihitung oleh GitHub Linguist
+backend-api/system/** linguist-vendored
+backend-api/vendor/** linguist-vendored
+backend-api/tests/** linguist-vendored
+
+# (Opsional) Abaikan library frontend pihak ketiga jika ada
+# frontend-spa/assets/vendor/** linguist-vendored
