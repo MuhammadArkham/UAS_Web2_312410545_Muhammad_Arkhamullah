@@ -304,12 +304,15 @@ const Dashboard = Vue.defineComponent({
           <!-- Right: Rows Per Page -->
           <div class="flex items-center gap-2 text-sm font-medium text-[#475569]">
             <label for="itemsPerPageDashboard">Baris per halaman:</label>
-            <select id="itemsPerPageDashboard" v-model="itemsPerPage" class="h-8 px-2 py-1 rounded-md border border-[#E5E7EB] bg-white text-slate-900 font-medium focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
-              <option :value="5">5</option>
-              <option :value="10">10</option>
-              <option :value="25">25</option>
-              <option :value="50">50</option>
-            </select>
+            <div class="relative">
+              <select id="itemsPerPageDashboard" v-model="itemsPerPage" class="h-8 pl-2 pr-6 py-1 rounded-md border border-[#E5E7EB] bg-white text-slate-900 font-medium focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 cursor-pointer appearance-none">
+                <option :value="5">5</option>
+                <option :value="10">10</option>
+                <option :value="25">25</option>
+                <option :value="50">50</option>
+              </select>
+              <i class="ti ti-chevron-down absolute right-2 top-1/2 -translate-y-1/2 -mt-[1px] text-[#64748B] pointer-events-none text-sm"></i>
+            </div>
           </div>
         </div>
 
