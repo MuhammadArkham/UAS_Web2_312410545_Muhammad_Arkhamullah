@@ -161,23 +161,33 @@ const Home = Vue.defineComponent({
     },
     iconKategori(catName) {
       const lower = catName.toLowerCase();
-      if (lower.includes('infrastruktur') || lower.includes('jalan')) return 'ti ti-road';
+      if (lower.includes('infrastruktur') || lower.includes('jalan')) return 'ti ti-building';
+      if (lower.includes('keamanan') || lower.includes('kriminal')) return 'ti ti-shield-check';
       if (lower.includes('lingkungan') || lower.includes('sampah')) return 'ti ti-leaf';
-      if (lower.includes('keamanan') || lower.includes('kriminal')) return 'ti ti-shield';
       if (lower.includes('kesehatan')) return 'ti ti-heartbeat';
       if (lower.includes('pendidikan')) return 'ti ti-school';
       if (lower.includes('sosial')) return 'ti ti-users';
-      return 'ti ti-tag';
+      return 'ti ti-tags';
     },
-    warnaKategoriIcon(catName) {
+    getKategoriBgClass(catName) {
       const lower = catName.toLowerCase();
-      if (lower.includes('infrastruktur') || lower.includes('jalan')) return '#2563eb'; // blue-600
-      if (lower.includes('lingkungan') || lower.includes('sampah')) return '#16a34a'; // green-600
-      if (lower.includes('keamanan') || lower.includes('kriminal')) return '#4f46e5'; // indigo-600
-      if (lower.includes('kesehatan')) return '#ef4444'; // red-500
-      if (lower.includes('pendidikan')) return '#f97316'; // orange-500
-      if (lower.includes('sosial')) return '#9333ea'; // purple-600
-      return '#64748b'; // slate-500
+      if (lower.includes('infrastruktur') || lower.includes('jalan')) return 'bg-blue-50';
+      if (lower.includes('keamanan') || lower.includes('kriminal')) return 'bg-indigo-50';
+      if (lower.includes('lingkungan') || lower.includes('sampah')) return 'bg-emerald-50';
+      if (lower.includes('kesehatan')) return 'bg-rose-50';
+      if (lower.includes('pendidikan')) return 'bg-amber-50';
+      if (lower.includes('sosial')) return 'bg-violet-50';
+      return 'bg-slate-50';
+    },
+    getKategoriTextClass(catName) {
+      const lower = catName.toLowerCase();
+      if (lower.includes('infrastruktur') || lower.includes('jalan')) return 'text-blue-600';
+      if (lower.includes('keamanan') || lower.includes('kriminal')) return 'text-indigo-600';
+      if (lower.includes('lingkungan') || lower.includes('sampah')) return 'text-emerald-600';
+      if (lower.includes('kesehatan')) return 'text-rose-500';
+      if (lower.includes('pendidikan')) return 'text-amber-600';
+      if (lower.includes('sosial')) return 'text-violet-600';
+      return 'text-slate-600';
     },
     applyDebounce() {
       clearTimeout(this.searchTimer);
