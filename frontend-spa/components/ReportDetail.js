@@ -166,17 +166,28 @@ const ReportDetail = Vue.defineComponent({
         <!-- Footer (Add Comment Form) -->
         <div class="bg-slate-50 border-t border-slate-200 px-6 md:px-8 py-6">
             <form @submit.prevent="addComment" class="flex gap-4 items-start">
-                <div class="hidden md:flex w-12 h-12 rounded-full bg-[#2563EB] text-white items-center justify-center font-bold shrink-0 shadow-sm border-2 border-white ring-2 ring-slate-100">
+                <!-- Avatar -->
+                <div class="hidden md:flex mt-1 w-10 h-10 rounded-full bg-[#2563EB] text-white items-center justify-center font-bold shrink-0 shadow-sm border-2 border-white ring-1 ring-slate-200">
                     {{ user?.name ? user.name.charAt(0).toUpperCase() : 'A' }}
                 </div>
-                <div class="flex-1 flex flex-col">
-                    <div class="relative">
-                       <textarea v-model="newComment" required rows="3" class="w-full px-5 py-4 border border-[#E2E8F0] rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#2563EB] text-sm bg-white transition-all placeholder-[#94A3B8] resize-y shadow-sm" placeholder="Ketik tanggapan resmi atau instruksi tindak lanjut di sini..."></textarea>
-                    </div>
-                    <div class="flex justify-end mt-4">
-                        <button type="submit" class="h-11 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-8 rounded-xl text-sm font-bold shadow-sm transition-colors flex items-center justify-center gap-2">
-                            <i class="ti ti-send text-lg"></i>
-                            Kirim Tanggapan
+                
+                <!-- Unified Editor Box -->
+                <div class="flex-1 flex flex-col bg-white border border-[#E2E8F0] rounded-2xl overflow-hidden focus-within:border-[#2563EB] focus-within:ring-1 focus-within:ring-[#2563EB] transition-all shadow-sm">
+                    
+                    <!-- Textarea Area -->
+                    <textarea v-model="newComment" required rows="3" class="w-full px-5 py-4 border-0 focus:ring-0 text-sm bg-transparent placeholder-[#94A3B8] resize-y outline-none" placeholder="Ketik tanggapan resmi atau instruksi tindak lanjut di sini..."></textarea>
+                    
+                    <!-- Toolbar Area -->
+                    <div class="px-4 py-3 border-t border-[#F1F5F9] flex items-center justify-between bg-[#F8FAFC]">
+                        <div class="flex items-center gap-1">
+                           <button type="button" title="Format Teks" class="w-8 h-8 flex items-center justify-center rounded text-[#64748B] hover:bg-slate-200/50 hover:text-[#0F172A] transition-colors"><i class="ti ti-bold text-lg"></i></button>
+                           <button type="button" title="Sisipkan Link" class="w-8 h-8 flex items-center justify-center rounded text-[#64748B] hover:bg-slate-200/50 hover:text-[#0F172A] transition-colors"><i class="ti ti-link text-lg"></i></button>
+                           <button type="button" title="Lampirkan File" class="w-8 h-8 flex items-center justify-center rounded text-[#64748B] hover:bg-slate-200/50 hover:text-[#0F172A] transition-colors"><i class="ti ti-paperclip text-lg"></i></button>
+                        </div>
+                        
+                        <button type="submit" class="h-9 px-5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center justify-center gap-2">
+                            <i class="ti ti-send text-base"></i>
+                            Kirim
                         </button>
                     </div>
                 </div>
