@@ -366,46 +366,18 @@ const Reports = Vue.defineComponent({
         </table>
       </div>
       
-      <!-- Pagination / Footer Table -->
       <!-- Pagination Footer -->
-      <div v-if="filteredReports.length > 0" class="px-6 py-4 border-t border-[#E5E7EB] bg-white flex flex-col gap-4">
-        
-        <!-- Top Row: Info and Page Size -->
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <!-- Left: Info -->
-          <div class="text-sm font-medium text-[#475569]">
-            <div>Menampilkan <span class="font-semibold text-slate-900">{{ startIndex }}</span>–<span class="font-semibold text-slate-900">{{ endIndex }}</span> dari <span class="font-semibold text-slate-900">{{ filteredReports.length }}</span> laporan</div>
-            <div class="text-xs text-slate-500 mt-0.5">Halaman {{ currentPage }} dari {{ totalPages }}</div>
-          </div>
-          
-          <!-- Right: Rows Per Page -->
-          <div class="flex items-center gap-2 text-sm font-medium text-[#475569]">
-            <label for="itemsPerPageReports">Baris per halaman:</label>
-            <div class="relative">
-              <select id="itemsPerPageReports" v-model="itemsPerPage" class="h-8 pl-2 pr-6 py-1 rounded-md border border-[#E5E7EB] bg-white text-slate-900 font-medium focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 cursor-pointer appearance-none">
-                <option :value="5">5</option>
-                <option :value="10">10</option>
-                <option :value="25">25</option>
-                <option :value="50">50</option>
-              </select>
-              <i class="ti ti-chevron-down absolute right-2 top-1/2 -translate-y-1/2 -mt-[1px] text-[#64748B] pointer-events-none text-sm"></i>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bottom Row: Navigation Controls -->
-        <div class="flex items-center justify-center sm:justify-end gap-1 border-t border-dashed border-slate-200 pt-4 sm:border-none sm:pt-0">
-          
+      <div v-if="filteredReports.length > 0" class="px-6 py-3 border-t border-[#E5E7EB] bg-white flex justify-end">
+        <div class="flex items-center gap-1">
           <!-- Prev Button -->
           <button @click="prevPage" :disabled="currentPage === 1" 
-                  class="h-8 px-3 flex items-center gap-1 rounded-md bg-transparent text-sm font-medium text-[#475569] hover:bg-[#F8FAFC] hover:text-slate-900 disabled:opacity-50 disabled:hover:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none">
-            <span class="text-lg leading-none">&lsaquo;</span>
-            <span>Sebelumnya</span>
+                  class="h-8 w-8 flex items-center justify-center rounded-md bg-transparent text-[22px] leading-none pb-[2px] text-[#64748B] hover:bg-[#F1F5F9] hover:text-[#0F172A] disabled:opacity-50 disabled:hover:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none">
+            &lsaquo;
           </button>
 
           <!-- Mobile Page Indicator -->
-          <div class="sm:hidden h-8 px-3 flex items-center justify-center text-sm font-medium text-slate-900">
-            Halaman {{ currentPage }} dari {{ totalPages }}
+          <div class="sm:hidden h-8 px-2 flex items-center justify-center text-[14px] font-medium text-[#64748B]">
+            {{ currentPage }} / {{ totalPages }}
           </div>
 
           <!-- Desktop Page Numbers -->
@@ -413,19 +385,18 @@ const Reports = Vue.defineComponent({
             <template v-for="(page, index) in visiblePages" :key="index">
               <button v-if="page !== '...'" 
                       @click="goToPage(page)" 
-                      class="min-w-[32px] h-8 px-2 flex items-center justify-center rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none"
-                      :class="page === currentPage ? 'bg-[#2563EB] text-white font-semibold' : 'bg-transparent text-[#475569] font-medium hover:bg-[#F8FAFC] hover:text-slate-900'">
+                      class="min-w-[32px] h-8 px-1.5 flex items-center justify-center rounded-md text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none"
+                      :class="page === currentPage ? 'bg-[#2563EB] text-white font-semibold' : 'bg-transparent text-[#64748B] font-medium hover:bg-[#F1F5F9] hover:text-[#0F172A]'">
                 {{ page }}
               </button>
-              <span v-else class="w-8 h-8 flex items-center justify-center text-[#475569] font-medium">...</span>
+              <span v-else class="w-8 h-8 flex items-center justify-center text-[#64748B] font-medium text-[14px]">...</span>
             </template>
           </div>
 
           <!-- Next Button -->
           <button @click="nextPage" :disabled="currentPage === totalPages" 
-                  class="h-8 px-3 flex items-center gap-1 rounded-md bg-transparent text-sm font-medium text-[#475569] hover:bg-[#F8FAFC] hover:text-slate-900 disabled:opacity-50 disabled:hover:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none">
-            <span>Selanjutnya</span>
-            <span class="text-lg leading-none">&rsaquo;</span>
+                  class="h-8 w-8 flex items-center justify-center rounded-md bg-transparent text-[22px] leading-none pb-[2px] text-[#64748B] hover:bg-[#F1F5F9] hover:text-[#0F172A] disabled:opacity-50 disabled:hover:bg-transparent disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none">
+            &rsaquo;
           </button>
         </div>
       </div>
