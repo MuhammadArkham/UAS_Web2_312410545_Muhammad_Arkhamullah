@@ -26,6 +26,20 @@ const Dashboard = Vue.defineComponent({
     endIndex() {
       const end = this.currentPage * this.itemsPerPage;
       return end > this.allReports.length ? this.allReports.length : end;
+    },
+    visiblePages() {
+      const current = this.currentPage;
+      const total = this.totalPages;
+      if (total <= 5) {
+        return Array.from({ length: total }, (_, i) => i + 1);
+      }
+      if (current <= 3) {
+        return [1, 2, 3, 4, '...', total];
+      }
+      if (current >= total - 2) {
+        return [1, '...', total - 3, total - 2, total - 1, total];
+      }
+      return [1, '...', current - 1, current, current + 1, '...', total];
     }
   },
   methods: {
@@ -275,19 +289,19 @@ const Dashboard = Vue.defineComponent({
       <div v-if="allReports.length > 0" class="px-6 py-4 border-t border-[#E2E8F0] flex flex-col md:flex-row gap-4 items-center justify-between text-sm text-[#64748B] bg-white">
          <div class="text-slate-500">Menampilkan <span class="font-semibold text-slate-700">{{ startIndex }}</span> hingga <span class="font-semibold text-slate-700">{{ endIndex }}</span> dari total <span class="font-semibold text-slate-700">{{ allReports.length }}</span> laporan</div>
          <div class="flex items-center gap-2">
-            <button @click="prevPage" :disabled="currentPage === 1" class="w-8 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><i class="ti ti-chevron-left"></i></button>
+            <button @click="prevPage" :disabled="currentPage === 1" class="px-3 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center gap-1.5 justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors text-xs font-semibold text-[#64748B]"><i class="ti ti-chevron-left text-sm"></i> <span class="hidden sm:inline">Sebelumnya</span></button>
             
-            <template v-for="page in totalPages" :key="page">
-              <button v-if="page === currentPage || page === currentPage - 1 || page === currentPage + 1 || page === 1 || page === totalPages" 
+            <template v-for="(page, index) in visiblePages" :key="index">
+              <button v-if="page !== '...'" 
                       @click="goToPage(page)" 
                       class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs transition-colors"
-                      :class="page === currentPage ? 'bg-[#2563EB] text-white shadow-sm' : 'border border-[#E2E8F0] bg-white text-[#64748B] hover:bg-slate-50'">
+                      :class="page === currentPage ? 'bg-[#2563EB] text-white shadow-sm border-transparent' : 'border border-[#E2E8F0] bg-white text-[#64748B] hover:bg-slate-50 hover:text-[#0F172A]'">
                 {{ page }}
               </button>
-              <span v-else-if="page === currentPage - 2 || page === currentPage + 2" class="px-1 text-[#64748B]">...</span>
+              <span v-else class="px-1 text-[#64748B] text-xs font-bold tracking-widest">...</span>
             </template>
 
-            <button @click="nextPage" :disabled="currentPage === totalPages" class="w-8 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors"><i class="ti ti-chevron-right"></i></button>
+            <button @click="nextPage" :disabled="currentPage === totalPages" class="px-3 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center gap-1.5 justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors text-xs font-semibold text-[#64748B]"><span class="hidden sm:inline">Selanjutnya</span> <i class="ti ti-chevron-right text-sm"></i></button>
          </div>
       </div>
     </div>
