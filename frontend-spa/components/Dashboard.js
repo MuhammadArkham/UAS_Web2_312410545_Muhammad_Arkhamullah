@@ -42,6 +42,11 @@ const Dashboard = Vue.defineComponent({
       return [1, '...', current - 1, current, current + 1, '...', total];
     }
   },
+  watch: {
+    itemsPerPage() {
+      this.currentPage = 1;
+    }
+  },
   methods: {
     animateCounter(targetObj, key, finalValue, duration = 800) {
       if (finalValue === 0) {
@@ -285,24 +290,62 @@ const Dashboard = Vue.defineComponent({
           </tbody>
         </table>
       </div>
-      <!-- Pagination / Footer Table -->
-      <div v-if="allReports.length > 0" class="px-6 py-4 border-t border-[#E2E8F0] flex flex-col md:flex-row gap-4 items-center justify-between text-sm text-[#64748B] bg-white">
-         <div class="text-slate-500">Menampilkan <span class="font-semibold text-slate-700">{{ startIndex }}</span> hingga <span class="font-semibold text-slate-700">{{ endIndex }}</span> dari total <span class="font-semibold text-slate-700">{{ allReports.length }}</span> laporan</div>
-         <div class="flex items-center gap-2">
-            <button @click="prevPage" :disabled="currentPage === 1" class="px-3 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center gap-1.5 justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors text-xs font-semibold text-[#64748B]"><i class="ti ti-chevron-left text-sm"></i> <span class="hidden sm:inline">Sebelumnya</span></button>
-            
-            <template v-for="(page, index) in visiblePages" :key="index">
-              <button v-if="page !== '...'" 
-                      @click="goToPage(page)" 
-                      class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs transition-colors"
-                      :class="page === currentPage ? 'bg-[#2563EB] text-white shadow-sm border-transparent' : 'border border-[#E2E8F0] bg-white text-[#64748B] hover:bg-slate-50 hover:text-[#0F172A]'">
-                {{ page }}
-              </button>
-              <span v-else class="px-1 text-[#64748B] text-xs font-bold tracking-widest">...</span>
-            </template>
+      <!-- Pagination Footer -->
+      <div v-if="allReports.length > 0" class="px-6 py-4 border-t border-[#E5E7EB] bg-white flex flex-col xl:flex-row gap-4 items-center justify-between">
+        <!-- Left: Info -->
+        <div class="text-[14px] font-medium text-[#64748B]">
+          Menampilkan <span class="font-semibold text-slate-900">{{ startIndex }}</span>–<span class="font-semibold text-slate-900">{{ endIndex }}</span> dari <span class="font-semibold text-slate-900">{{ allReports.length }}</span> laporan
+        </div>
+        
+        <!-- Right Container: Rows Per Page & Pagination -->
+        <div class="flex flex-col sm:flex-row items-center gap-6">
+          
+          <!-- Rows Per Page -->
+          <div class="flex items-center gap-2 text-[14px] font-medium text-[#64748B]">
+            <span>Baris per halaman:</span>
+            <select v-model="itemsPerPage" class="h-[36px] px-3 rounded-[10px] border border-[#E5E7EB] bg-white text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer appearance-none">
+              <option :value="5">5</option>
+              <option :value="10">10</option>
+              <option :value="25">25</option>
+              <option :value="50">50</option>
+            </select>
+          </div>
 
-            <button @click="nextPage" :disabled="currentPage === totalPages" class="px-3 h-8 rounded-lg border border-[#E2E8F0] bg-white flex items-center gap-1.5 justify-center hover:bg-slate-50 disabled:opacity-50 transition-colors text-xs font-semibold text-[#64748B]"><span class="hidden sm:inline">Selanjutnya</span> <i class="ti ti-chevron-right text-sm"></i></button>
-         </div>
+          <!-- Pagination Controls -->
+          <div class="flex items-center gap-1.5">
+            <!-- Prev Button -->
+            <button @click="prevPage" :disabled="currentPage === 1" 
+                    class="h-[36px] px-3.5 flex items-center gap-1.5 justify-center rounded-[10px] bg-white text-[14px] font-semibold text-[#64748B] hover:bg-[#F8FAFC] hover:text-slate-900 hover:-translate-y-[1px] transition-all duration-200 ease-out disabled:opacity-50 disabled:hover:bg-white disabled:hover:translate-y-0 disabled:cursor-not-allowed">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+              <span class="hidden sm:inline">Sebelumnya</span>
+            </button>
+
+            <!-- Mobile Page Indicator -->
+            <div class="sm:hidden h-[36px] px-3 flex items-center justify-center rounded-[10px] bg-white text-[14px] font-semibold text-slate-900 border border-[#E5E7EB]">
+              {{ currentPage }} / {{ totalPages }}
+            </div>
+
+            <!-- Desktop Page Numbers -->
+            <div class="hidden sm:flex items-center gap-1.5">
+              <template v-for="(page, index) in visiblePages" :key="index">
+                <button v-if="page !== '...'" 
+                        @click="goToPage(page)" 
+                        class="min-w-[36px] h-[36px] px-2 flex items-center justify-center rounded-[10px] text-[14px] font-semibold transition-all duration-200 ease-out"
+                        :class="page === currentPage ? 'bg-[#2563EB] text-white shadow-[0_4px_12px_rgba(37,99,235,0.25)]' : 'bg-transparent text-[#64748B] hover:bg-[#F8FAFC] hover:text-slate-900 hover:-translate-y-[1px]'">
+                  {{ page }}
+                </button>
+                <span v-else class="w-[36px] h-[36px] flex items-center justify-center text-[#64748B] font-semibold">...</span>
+              </template>
+            </div>
+
+            <!-- Next Button -->
+            <button @click="nextPage" :disabled="currentPage === totalPages" 
+                    class="h-[36px] px-3.5 flex items-center gap-1.5 justify-center rounded-[10px] bg-white text-[14px] font-semibold text-[#64748B] hover:bg-[#F8FAFC] hover:text-slate-900 hover:-translate-y-[1px] transition-all duration-200 ease-out disabled:opacity-50 disabled:hover:bg-white disabled:hover:translate-y-0 disabled:cursor-not-allowed">
+              <span class="hidden sm:inline">Selanjutnya</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </AdminLayout>
