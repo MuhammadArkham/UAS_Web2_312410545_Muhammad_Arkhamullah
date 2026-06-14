@@ -51,7 +51,7 @@ const AdminLayout = Vue.defineComponent({
           </button>
           
           <div class="pt-6 mt-6 border-t border-white/10">
-            <button @click="logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-blue-100 hover:bg-white/10 hover:text-white transition-colors">
+            <button @click="logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-blue-100 hover:bg-rose-600 hover:text-white transition-colors">
               <i class="ti ti-logout text-[24px] shrink-0" style="-webkit-text-stroke: 0.5px;"></i>
               Logout
             </button>
