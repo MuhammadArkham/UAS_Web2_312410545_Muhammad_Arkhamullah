@@ -5,8 +5,7 @@ const AdminLayout = Vue.defineComponent({
   },
   data() {
     return {
-      user: null,
-      showDropdown: false
+      user: null
     }
   },
   methods: {
@@ -70,12 +69,9 @@ const AdminLayout = Vue.defineComponent({
         <div>
            <h2 class="text-xl font-semibold text-slate-900 tracking-tight">{{ title }}</h2>
         </div>
-        <div class="relative flex items-center gap-5 cursor-pointer z-40">
-           <!-- Overlay to close dropdown when clicking outside -->
-           <div v-if="showDropdown" @click="showDropdown = false" class="fixed inset-0 z-40"></div>
-
-           <!-- Profile Pill Button -->
-           <button @click="showDropdown = !showDropdown" class="relative z-50 flex items-center gap-3 border border-[#E2E8F0] rounded-full py-1 pl-1 pr-3 md:pr-4 shadow-sm bg-white hover:bg-slate-50 hover:border-blue-300 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+        <div class="flex items-center gap-5">
+           <!-- Static Profile Pill -->
+           <div class="flex items-center gap-3 border border-[#E2E8F0] rounded-full py-1.5 pl-1.5 pr-5 shadow-sm bg-white">
               <div class="w-9 h-9 rounded-full bg-[#2563EB] text-white flex items-center justify-center font-bold text-sm shadow-inner ring-2 ring-white">
                 {{ user?.name ? user.name.charAt(0).toUpperCase() : 'A' }}
               </div>
@@ -83,32 +79,6 @@ const AdminLayout = Vue.defineComponent({
                  <div class="text-sm font-bold text-slate-800 leading-none mb-1">{{ user?.name || 'Administrator' }}</div>
                  <div class="text-[11px] font-semibold text-slate-500 leading-none">{{ user?.email || 'admin@silapor.com' }}</div>
               </div>
-              <div class="ml-1 text-slate-400">
-                <i class="ti ti-chevron-down text-lg transition-transform duration-200" :class="{'rotate-180': showDropdown}"></i>
-              </div>
-           </button>
-
-           <!-- Dropdown Menu -->
-           <div v-if="showDropdown" class="absolute top-[calc(100%+8px)] right-0 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden z-50 transform origin-top-right transition-all">
-               <!-- Mobile User Info Header -->
-               <div class="p-4 border-b border-slate-100 bg-slate-50 md:hidden">
-                   <div class="text-sm font-bold text-slate-800">{{ user?.name || 'Administrator' }}</div>
-                   <div class="text-xs text-slate-500">{{ user?.email || 'admin@silapor.com' }}</div>
-               </div>
-               <!-- Menu Items -->
-               <div class="p-2">
-                   <button class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-[#2563EB] transition-colors">
-                       <i class="ti ti-user text-lg"></i> Profil Saya
-                   </button>
-                   <button class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-[#2563EB] transition-colors">
-                       <i class="ti ti-settings text-lg"></i> Pengaturan
-                   </button>
-               </div>
-               <div class="p-2 border-t border-slate-100">
-                   <button @click="logout" class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-rose-600 hover:bg-rose-50 hover:text-rose-700 transition-colors">
-                       <i class="ti ti-logout text-lg"></i> Keluar Aplikasi
-                   </button>
-               </div>
            </div>
         </div>
       </header>
