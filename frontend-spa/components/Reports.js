@@ -6,6 +6,8 @@ const Reports = Vue.defineComponent({
       categories: [],
       filterCategory: '',
       searchQuery: '',
+      debouncedSearchQuery: '',
+      searchTimer: null,
       currentPage: 1,
       itemsPerPage: 10,
       editingStatusId: null,
@@ -25,8 +27,10 @@ const Reports = Vue.defineComponent({
   computed: {
     filteredReports() {
       let result = this.reports;
-      if (this.searchQuery) {
-        result = result.filter(r => r.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
+      if (this.debouncedSearchQuery) {
+        result = result.filter(r => r.title.toLowerCase().includes(this.debouncedSearchQuery.toLowerCase()) || 
+                                    r.pelapor?.toLowerCase().includes(this.debouncedSearchQuery.toLowerCase()) || 
+                                    r.location?.toLowerCase().includes(this.debouncedSearchQuery.toLowerCase()));
       }
       return result;
     },
@@ -65,8 +69,12 @@ const Reports = Vue.defineComponent({
       this.fetchReports();
       this.currentPage = 1;
     },
-    searchQuery() {
-      this.currentPage = 1;
+    searchQuery(newVal) {
+      if (this.searchTimer) clearTimeout(this.searchTimer);
+      this.searchTimer = setTimeout(() => {
+        this.debouncedSearchQuery = newVal;
+        this.currentPage = 1;
+      }, 300);
     },
     filterStatus() {
       this.fetchReports();
