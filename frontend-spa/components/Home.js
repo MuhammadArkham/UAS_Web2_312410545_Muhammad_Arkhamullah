@@ -309,10 +309,12 @@ const Home = Vue.defineComponent({
             </p>
             
             <div class="flex flex-wrap gap-4">
-              <button @click="scrollToSection('laporan-section')" class="bg-white text-[#0B3EA8] px-8 py-3.5 rounded-xl font-bold text-base hover:bg-slate-50 shadow-lg transition-colors">
+              <button @click="scrollToSection('laporan-section')" class="bg-white text-[#0B3EA8] px-8 py-3.5 rounded-xl font-bold text-base hover:bg-slate-50 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center">
+                <i class="ti ti-search mr-2 text-xl"></i>
                 Lihat Laporan
               </button>
-              <button @click="scrollToSection('cara-kerja-section')" class="bg-transparent text-white border border-white/30 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-white/10 transition-colors">
+              <button @click="scrollToSection('cara-kerja-section')" class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-3.5 rounded-xl font-bold text-base hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center">
+                <i class="ti ti-bulb mr-2 text-xl text-amber-300 drop-shadow-md"></i>
                 Cara Kerja
               </button>
             </div>
