@@ -335,70 +335,86 @@ const Home = Vue.defineComponent({
     </header>
 
     <!-- TENTANG KAMI SECTION -->
-    <section id="tentang-section" class="bg-white pt-16 pb-24 md:pt-24 md:pb-32 fade-in-section scroll-mt-20">
-      <div class="max-w-5xl mx-auto px-6">
+    <section id="tentang-section" class="bg-white py-24 fade-in-section scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-6 md:px-8">
         
-        <!-- Header -->
-        <div class="text-center mb-10 md:mb-12" data-aos="fade-down">
-          <h2 class="font-display font-bold text-3xl md:text-4xl text-slate-900 mb-4 tracking-tight">
-            Tentang SiLapor
-          </h2>
-          <div class="w-16 h-1.5 bg-blue-600 rounded-full mx-auto mb-6"></div>
-          <p class="text-slate-500 font-semibold text-sm md:text-base tracking-widest uppercase">
-            Platform Digital Pengaduan Terpadu
-          </p>
-        </div>
-
-        <!-- Narrative -->
-        <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 space-y-5" data-aos="fade-up" data-aos-delay="100">
-          <p class="text-base md:text-lg text-slate-700 leading-relaxed md:leading-[1.8]">
-            SiLapor adalah sistem pengaduan masyarakat yang memudahkan warga memantau status penanganan laporan terkait <span class="text-blue-600 font-semibold">infrastruktur</span>, <span class="text-blue-600 font-semibold">lingkungan</span>, <span class="text-blue-600 font-semibold">keamanan</span>, dan pelayanan publik lainnya secara <span class="text-blue-600 font-semibold">transparan</span>.
-          </p>
-          <p class="text-base md:text-lg text-slate-700 leading-relaxed md:leading-[1.8]">
-            Setiap laporan yang masuk akan diverifikasi, ditindaklanjuti, dan dipantau hingga selesai oleh petugas yang berwenang, dengan status yang dapat dilihat secara real-time oleh masyarakat.
-          </p>
-        </div>
-
-        <!-- 3 Values -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 text-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           
-          <!-- Item 1 -->
-          <div class="flex flex-col items-center" data-aos="flip-left" data-aos-delay="100">
-            <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-transform hover:-translate-y-1 duration-300">
-              <i class="ti ti-eye text-blue-600 text-[28px] leading-none"></i>
+          <!-- Left Content -->
+          <div class="lg:col-span-5" data-aos="fade-right">
+            <div class="inline-flex items-center gap-2 text-blue-600 font-bold text-sm mb-6 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full">
+              <i class="ti ti-info-circle"></i>
+              <span>Tentang Aplikasi SiLapor</span>
             </div>
-            <h3 class="font-display font-bold text-lg text-slate-900 mb-2">
-              Transparan
-            </h3>
-            <p class="text-sm md:text-base text-slate-600 leading-relaxed max-w-[240px] mx-auto">
-              Status setiap laporan dapat dipantau secara terbuka oleh masyarakat.
+            
+            <h2 class="font-display font-bold text-3xl md:text-4xl text-slate-900 mb-6 leading-tight">
+              Membangun Sinergi antara Masyarakat & Pemerintah
+            </h2>
+            
+            <p class="text-slate-600 text-lg leading-relaxed mb-6">
+              <strong class="text-slate-900">SiLapor</strong> adalah platform pengaduan digital inovatif yang dirancang untuk memudahkan warga memantau status penanganan laporan terkait <span class="text-blue-600 font-semibold">infrastruktur</span>, <span class="text-blue-600 font-semibold">lingkungan</span>, <span class="text-blue-600 font-semibold">keamanan</span>, dan pelayanan publik lainnya.
             </p>
+            
+            <p class="text-slate-600 text-lg leading-relaxed mb-8">
+              Setiap laporan diverifikasi secara ketat, ditindaklanjuti dengan cepat, dan dipantau hingga tuntas oleh aparat yang berwenang. Lacak progres penyelesaian masalah secara <span class="italic font-medium">real-time</span> dari perangkat Anda.
+            </p>
+
+            <ul class="space-y-4">
+               <li class="flex items-center gap-3">
+                 <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                    <i class="ti ti-check text-sm"></i>
+                 </div>
+                 <span class="text-slate-700 font-medium">Birokrasi yang lebih efisien dan terarah</span>
+               </li>
+               <li class="flex items-center gap-3">
+                 <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                    <i class="ti ti-check text-sm"></i>
+                 </div>
+                 <span class="text-slate-700 font-medium">Keamanan data dan privasi pelapor terjamin</span>
+               </li>
+            </ul>
           </div>
 
-          <!-- Item 2 -->
-          <div class="flex flex-col items-center" data-aos="flip-left" data-aos-delay="200">
-            <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-transform hover:-translate-y-1 duration-300">
-              <i class="ti ti-bolt text-blue-600 text-[28px] leading-none"></i>
+          <!-- Right Content: Cards -->
+          <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 relative" data-aos="fade-left">
+            <!-- Background Decoration -->
+            <div class="absolute -top-10 -right-10 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50 z-0"></div>
+            
+            <!-- Card 1: Transparan (Spans 1 col, pushed down slightly) -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 relative z-10 md:mt-12 h-fit">
+               <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mb-6">
+                 <i class="ti ti-eye text-blue-600 text-[28px]"></i>
+               </div>
+               <h3 class="font-display font-bold text-xl text-slate-900 mb-3">Transparan</h3>
+               <p class="text-slate-600 leading-relaxed">
+                 Semua proses penanganan dari awal hingga akhir dapat dilihat dan diawasi secara terbuka oleh seluruh elemen masyarakat tanpa ada yang ditutupi.
+               </p>
             </div>
-            <h3 class="font-display font-bold text-lg text-slate-900 mb-2">
-              Responsif
-            </h3>
-            <p class="text-sm md:text-base text-slate-600 leading-relaxed max-w-[240px] mx-auto">
-              Laporan ditindaklanjuti secara cepat oleh petugas berwenang terkait.
-            </p>
-          </div>
 
-          <!-- Item 3 -->
-          <div class="flex flex-col items-center" data-aos="flip-left" data-aos-delay="300">
-            <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 transition-transform hover:-translate-y-1 duration-300">
-              <i class="ti ti-clipboard-check text-blue-600 text-[28px] leading-none"></i>
+            <div class="space-y-6 relative z-10">
+              <!-- Card 2: Responsif -->
+              <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
+                 <div class="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center mb-6">
+                   <i class="ti ti-bolt text-amber-600 text-[28px]"></i>
+                 </div>
+                 <h3 class="font-display font-bold text-xl text-slate-900 mb-3">Responsif</h3>
+                 <p class="text-slate-600 leading-relaxed">
+                   Setiap aduan langsung diarahkan ke instansi terkait agar mendapatkan tindakan perbaikan dan penyelesaian dalam waktu yang sesingkat-singkatnya.
+                 </p>
+              </div>
+
+              <!-- Card 3: Akuntabel -->
+              <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
+                 <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center mb-6">
+                   <i class="ti ti-clipboard-check text-emerald-600 text-[28px]"></i>
+                 </div>
+                 <h3 class="font-display font-bold text-xl text-slate-900 mb-3">Akuntabel</h3>
+                 <p class="text-slate-600 leading-relaxed">
+                   Seluruh laporan tercatat secara digital dan permanen, memberikan jejak audit yang jelas serta sistem pertanggungjawaban yang valid bagi publik.
+                 </p>
+              </div>
             </div>
-            <h3 class="font-display font-bold text-lg text-slate-900 mb-2">
-              Akuntabel
-            </h3>
-            <p class="text-sm md:text-base text-slate-600 leading-relaxed max-w-[240px] mx-auto">
-              Setiap tahapan proses tercatat dan dapat dipertanggungjawabkan.
-            </p>
+
           </div>
 
         </div>
