@@ -367,13 +367,7 @@ const Reports = Vue.defineComponent({
       </div>
       
       <!-- Pagination Footer -->
-      <div v-if="filteredReports.length > 0" class="px-6 py-3 border-t border-[#E5E7EB] bg-white flex flex-col sm:flex-row items-center justify-between gap-3">
-        <!-- Left: Total Data -->
-        <div class="text-[13px] font-medium text-[#64748B] w-full sm:w-auto text-center sm:text-left">
-          {{ filteredReports.length }} laporan ditemukan
-        </div>
-        
-        <!-- Right: Navigation -->
+      <div v-if="filteredReports.length > 0" class="px-6 py-3 border-t border-[#E5E7EB] bg-white flex justify-end">
         <div class="flex items-center gap-1">
           <!-- Prev Button -->
           <button @click="prevPage" :disabled="currentPage === 1" 
