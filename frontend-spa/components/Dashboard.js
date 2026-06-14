@@ -290,22 +290,22 @@ const Dashboard = Vue.defineComponent({
          <div class="flex items-center text-sm text-slate-500">
            Menampilkan <span class="font-medium text-slate-900 mx-1">{{ startIndex }}</span> - <span class="font-medium text-slate-900 mx-1">{{ endIndex }}</span> dari <span class="font-medium text-slate-900 mx-1">{{ allReports.length }}</span> data
          </div>
-         <div class="flex items-center gap-1">
-            <button @click="prevPage" :disabled="currentPage === 1" class="w-8 h-8 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900 disabled:opacity-30 disabled:hover:bg-transparent transition-colors">
+         <div class="flex items-center gap-2">
+            <button @click="prevPage" :disabled="currentPage === 1" class="w-8 h-8 flex items-center justify-center rounded-lg border border-[#E2E8F0] text-slate-500 hover:bg-slate-50 hover:text-slate-900 disabled:opacity-30 disabled:hover:bg-transparent transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </button>
             
             <template v-for="(page, index) in visiblePages" :key="index">
               <button v-if="page !== '...'" 
                       @click="goToPage(page)" 
-                      class="w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium transition-colors"
-                      :class="page === currentPage ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'">
+                      class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium transition-colors border"
+                      :class="page === currentPage ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-sm' : 'bg-white text-slate-600 border-[#E2E8F0] hover:bg-slate-50 hover:text-slate-900'">
                 {{ page }}
               </button>
               <span v-else class="w-8 h-8 flex items-center justify-center text-slate-400">...</span>
             </template>
 
-            <button @click="nextPage" :disabled="currentPage === totalPages" class="w-8 h-8 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900 disabled:opacity-30 disabled:hover:bg-transparent transition-colors">
+            <button @click="nextPage" :disabled="currentPage === totalPages" class="w-8 h-8 flex items-center justify-center rounded-lg border border-[#E2E8F0] text-slate-500 hover:bg-slate-50 hover:text-slate-900 disabled:opacity-30 disabled:hover:bg-transparent transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>
          </div>
