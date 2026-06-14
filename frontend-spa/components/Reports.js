@@ -159,6 +159,25 @@ const Reports = Vue.defineComponent({
         console.error('Gagal update laporan:', e);
         alert('Gagal menyimpan perubahan');
       }
+    },
+    exportPDF() {
+      // Temporarily show the print area
+      const printArea = document.getElementById('print-area');
+      printArea.style.display = 'block';
+      
+      const opt = {
+        margin:       1,
+        filename:     'Laporan-SiLapor.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
+      };
+
+      // Generate PDF
+      html2pdf().set(opt).from(printArea).save().then(() => {
+        // Hide print area again
+        printArea.style.display = 'none';
+      });
     }
   },
   mounted() {
@@ -192,10 +211,44 @@ const Reports = Vue.defineComponent({
             <i class="ti ti-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none"></i>
           </div>
        </div>
-       <router-link to="/create" class="inline-flex items-center justify-center gap-2 bg-[#2563EB] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#1D4ED8] transition-colors shadow-sm">
-          <i class="ti ti-plus text-lg"></i>
-          Tambah Laporan
-       </router-link>
+       <div class="flex items-center gap-3">
+         <button @click="exportPDF" class="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-colors shadow-sm">
+            <i class="ti ti-printer text-lg"></i>
+            Cetak PDF
+         </button>
+         <router-link to="/create" class="inline-flex items-center justify-center gap-2 bg-[#2563EB] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#1D4ED8] transition-colors shadow-sm">
+            <i class="ti ti-plus text-lg"></i>
+            Tambah Laporan
+         </router-link>
+       </div>
+    </div>
+
+    <!-- Hidden Print Area -->
+    <div id="print-area" style="display: none; padding: 20px; font-family: Arial, sans-serif;">
+      <h2 style="text-align: center; margin-bottom: 5px;">Data Rekapitulasi Pengaduan Masyarakat</h2>
+      <p style="text-align: center; margin-bottom: 20px; color: #555;">Sistem Pengelolaan Aspirasi Warga (SiLapor)</p>
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+        <thead>
+          <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #ddd; padding: 8px;">No</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Judul Laporan</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Kategori</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Lokasi</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Status</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Tanggal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(r, index) in filteredReports" :key="r.id">
+            <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ index + 1 }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ r.title }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ r.category ? r.category.name : '-' }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ r.location }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px; text-transform: uppercase;">{{ r.status }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ formatDate(r.created_at) }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- Table Section -->
