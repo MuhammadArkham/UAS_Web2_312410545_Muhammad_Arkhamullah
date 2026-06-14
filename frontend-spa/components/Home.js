@@ -346,15 +346,15 @@ const Home = Vue.defineComponent({
           <!-- Left Content -->
           <div class="lg:col-span-5" data-aos="fade-right">
             <h3 class="font-display font-bold text-xl md:text-2xl text-gray-900 leading-tight mb-6">
-              Membangun Sinergi antara Masyarakat & Pemerintah
+              Solusi Tepat untuk Aspirasi Masyarakat
             </h3>
             
             <p class="text-slate-600 text-lg leading-relaxed mb-6">
-              <strong class="text-slate-900">SiLapor</strong> adalah platform pengaduan digital inovatif yang dirancang untuk memudahkan warga memantau status penanganan laporan terkait <span class="text-blue-600 font-semibold">infrastruktur</span>, <span class="text-blue-600 font-semibold">lingkungan</span>, <span class="text-blue-600 font-semibold">keamanan</span>, dan pelayanan publik lainnya.
+              <strong class="text-slate-900">SiLapor</strong> hadir sebagai ruang aman dan terpercaya bagi masyarakat untuk dengan mudah menyuarakan aspirasi, kritik, serta melaporkan masalah di sekitar seperti kerusakan <span class="text-blue-600 font-semibold">infrastruktur</span>, isu <span class="text-blue-600 font-semibold">lingkungan</span>, hingga gangguan <span class="text-blue-600 font-semibold">keamanan</span>.
             </p>
             
             <p class="text-slate-600 text-lg leading-relaxed mb-8">
-              Setiap laporan diverifikasi secara ketat, ditindaklanjuti dengan cepat, dan dipantau hingga tuntas oleh aparat yang berwenang. Lacak progres penyelesaian masalah secara <span class="italic font-medium">real-time</span> dari perangkat Anda.
+              Tidak perlu lagi bingung ke mana harus melapor. Cukup tuliskan keluhan Anda, lampirkan bukti pendukung, dan pantau terus perkembangan penyelesaiannya secara <span class="italic font-medium">real-time</span> langsung dari perangkat genggaman Anda.
             </p>
 
             <ul class="space-y-4">
@@ -362,13 +362,13 @@ const Home = Vue.defineComponent({
                  <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
                     <i class="ti ti-check text-sm"></i>
                  </div>
-                 <span class="text-slate-700 font-medium">Birokrasi yang lebih efisien dan terarah</span>
+                 <span class="text-slate-700 font-medium">Akses pelaporan yang mudah, cepat, dan transparan</span>
                </li>
                <li class="flex items-center gap-3">
                  <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
                     <i class="ti ti-check text-sm"></i>
                  </div>
-                 <span class="text-slate-700 font-medium">Keamanan data dan privasi pelapor terjamin</span>
+                 <span class="text-slate-700 font-medium">Privasi dan keamanan identitas pelapor terjamin</span>
                </li>
             </ul>
           </div>
