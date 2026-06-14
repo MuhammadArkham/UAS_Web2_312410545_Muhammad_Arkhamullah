@@ -10,7 +10,7 @@ Thumbs.db
 # Dependencies (Library yang ukurannya sangat besar)
 # -------------------------------------------------------------------
 node_modules/
-backend-api/vendor/
+vendor/
 
 # -------------------------------------------------------------------
 # Environment & Sensitive Credentials
@@ -22,4 +22,4 @@ backend-api/vendor/
 # -------------------------------------------------------------------
 # Framework Specific (CodeIgniter 4 Cache & Sessions)
 # -------------------------------------------------------------------
-backend-api/writable/
+writable/
