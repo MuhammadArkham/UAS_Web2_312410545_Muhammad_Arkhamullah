@@ -12,7 +12,7 @@
 
 ---
 
-## 1. Tema Studi
+## 1. Tema Project
 Proyek ini adalah "Sistem Pelaporan Pengaduan Layanan Masyarakat (SiLapor)". Sistem ini dikembangkan menggunakan arsitektur web modern yang Terpisah (*Decoupled*). Bagian *backend* dikembangkan sebagai REST API menggunakan CodeIgniter 4, sedangkan bagian *frontend* dikembangkan sebagai *Single Page Application* (SPA) interaktif menggunakan Vue.js 3 dan TailwindCSS.
 
 ## 2. Struktur & Skema Database (Kamus Data)
