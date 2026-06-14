@@ -13,11 +13,56 @@
 ## 1. Tema Studi
 Proyek ini adalah "Sistem Pelaporan Pengaduan Layanan Masyarakat (SiLapor)". Sistem ini dikembangkan menggunakan arsitektur web modern yang Terpisah (*Decoupled*). Bagian *backend* dikembangkan sebagai REST API menggunakan CodeIgniter 4, sedangkan bagian *frontend* dikembangkan sebagai *Single Page Application* (SPA) interaktif menggunakan Vue.js 3 dan TailwindCSS.
 
-## 2. Skema Relasi Tabel Database
-Berikut adalah struktur relasi tabel database yang diambil dari Desainer phpMyAdmin:
+## 2. Struktur & Skema Database (Kamus Data)
+Untuk memberikan representasi arsitektur data yang lebih terstruktur dan rapi, berikut adalah rincian kolom (Kamus Data) dari masing-masing tabel yang digunakan dalam sistem SiLapor:
+
+### A. Tabel `pengguna` (Data Akun)
+| Nama Kolom | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id` | INT(10) | **Primary Key**, Auto Increment |
+| `name` | VARCHAR(100) | Nama lengkap pengguna |
+| `email` | VARCHAR(100) | Alamat email terdaftar (Unique) |
+| `password` | VARCHAR(255) | Kata sandi (Terenkripsi / Hashed) |
+| `role` | ENUM | Peran akses (`admin`, `pelapor`) |
+| `token` | VARCHAR(255) | Token sesi/autentikasi |
+| `created_at` | TIMESTAMP | Tanggal akun dibuat |
+
+### B. Tabel `kategori` (Jenis Aduan)
+| Nama Kolom | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id` | INT(10) | **Primary Key**, Auto Increment |
+| `name` | VARCHAR(100) | Nama kategori (Infrastruktur, Sosial, dll) |
+| `description` | VARCHAR(255) | Penjelasan detail kategori |
+| `created_at` | TIMESTAMP | Tanggal kategori ditambahkan |
+
+### C. Tabel `laporan` (Data Aduan Masyarakat)
+| Nama Kolom | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id` | INT(10) | **Primary Key**, Auto Increment |
+| `user_id` | INT(10) | **Foreign Key** (Relasi ke tabel `pengguna`) |
+| `category_id` | INT(10) | **Foreign Key** (Relasi ke tabel `kategori`) |
+| `title` | VARCHAR(200) | Judul singkat laporan |
+| `description` | TEXT | Isi/detail lengkap kronologi kejadian |
+| `image` | VARCHAR(255) | Direktori path gambar bukti (opsional) |
+| `location` | VARCHAR(255) | Titik lokasi kejadian |
+| `status` | ENUM | Status tindak lanjut (`pending`, `diproses`, `selesai`) |
+| `created_at` | TIMESTAMP | Tanggal laporan direkam sistem |
+| `updated_at` | TIMESTAMP | Tanggal laporan terakhir diperbarui statusnya |
+
+### D. Tabel `komentar` (Tanggapan Administrator)
+| Nama Kolom | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id` | INT(10) | **Primary Key**, Auto Increment |
+| `report_id` | INT(10) | **Foreign Key** (Relasi ke tabel `laporan`) |
+| `admin_id` | INT(10) | **Foreign Key** (Relasi ke tabel `pengguna` berstatus admin) |
+| `body` | TEXT | Isi teks tanggapan atau balasan |
+| `created_at` | TIMESTAMP | Tanggal komentar diterbitkan |
+
+---
+**Representasi Visual Desainer Relasi Database (ERD)**
 
 ![Skema Relasi Tabel Database](screenshots/relasi_tabel.png)
-*Gambar di atas mengilustrasikan relasi terstruktur antar entitas dalam sistem. Tabel `laporan` memiliki relasi **Foreign Key** dengan tabel `pengguna` (mengidentifikasi identitas pelapor) dan tabel `kategori` (mengelompokkan jenis pelaporan). Tabel `komentar` terhubung dengan laporan terkait dan admin yang memberikan tanggapan. Desain skema ini memastikan integritas data (referential integrity) terjaga, sehingga setiap data laporan selalu memiliki referensi yang valid ke pemilik dan kategorinya.*
+*Gambar di atas mengilustrasikan relasi terstruktur antar entitas secara visual. Desain skema ini memastikan integritas data (referential integrity) terjaga kuat menggunakan konstrain Foreign Key.*
 
 ## 3. Uji Coba Tembak API Gagal (Error 401 Unauthorized)
 Berikut adalah hasil pengujian keamanan endpoint REST API melalui aplikasi Postman. Pengujian dilakukan dengan mengakses endpoint yang diproteksi tanpa menyertakan *Bearer Token* yang valid, sehingga sistem mengembalikan status *Error 401 Unauthorized*.
