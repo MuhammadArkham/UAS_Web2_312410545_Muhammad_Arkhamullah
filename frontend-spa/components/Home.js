@@ -322,7 +322,7 @@ const Home = Vue.defineComponent({
 
           <!-- Right: 55% -->
           <div class="w-full lg:w-[55%] flex justify-end" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
-            <img src="assets/gambar_desain_final.png" alt="Hero Illustration" class="w-full max-w-[600px] h-auto object-contain">
+            <img src="assets/gambar_desain.png" alt="Hero Illustration" class="w-full max-w-[600px] h-auto object-contain rounded-[2.5rem] shadow-2xl">
           </div>
         </div>
       </div>
