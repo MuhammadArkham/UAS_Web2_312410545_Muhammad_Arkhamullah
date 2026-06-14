@@ -12,32 +12,38 @@ const Home = Vue.defineComponent({
         selesai: 0,
         totalKategori: 0
       },
+      lastUpdated: null,
       isScrolled: false,
       activeSection: 'hero',
-      mobileMenuOpen: false
+      mobileMenuOpen: false,
+      filterKategori: '',
+      searchQuery: '',
+      statusBadgeClass: {
+        pending: 'bg-red-50 text-red-700',
+        diproses: 'bg-amber-50 text-amber-700',
+        selesai: 'bg-emerald-50 text-emerald-700',
+        ditolak: 'bg-gray-100 text-gray-600'
+      }
     }
   },
   computed: {
-    distribusiKategori() {
-      const counts = {};
-      this.allReports.forEach(report => {
-        const nama = report.category?.name || 'Lainnya';
-        counts[nama] = (counts[nama] || 0) + 1;
+    jamSekarang() {
+      if (!this.lastUpdated) return '--:--';
+      return this.lastUpdated.toLocaleTimeString('id-ID', {
+        hour: '2-digit', minute: '2-digit'
       });
-      const total = this.allReports.length;
-      return Object.entries(counts)
-        .map(([nama, jumlah]) => ({
-          nama,
-          jumlah,
-          persen: total > 0 ? Math.round((jumlah / total) * 100) : 0
-        }))
-        .sort((a, b) => b.jumlah - a.jumlah);
     },
-    resolutionRate() {
-      const total = this.allReports.length;
-      if (total === 0) return 0;
-      const selesai = this.allReports.filter(r => r.status === 'selesai').length;
-      return Math.round((selesai / total) * 100);
+    totalLaporan() { return this.stats.total; },
+    totalDiproses() { return this.stats.diproses; },
+    totalSelesai() { return this.stats.selesai; },
+    totalKategori() { return this.stats.totalKategori; },
+    listKategori() { return this.allCategories; },
+    laporanFiltered() {
+      return this.allReports.filter(l => {
+        const matchKategori = !this.filterKategori || l.category_id == this.filterKategori;
+        const matchSearch = !this.searchQuery || l.title.toLowerCase().includes(this.searchQuery.toLowerCase());
+        return matchKategori && matchSearch;
+      });
     }
   },
   methods: {
@@ -100,7 +106,7 @@ const Home = Vue.defineComponent({
         this.animateCounter(this.stats, 'totalKategori', totalKategori);
 
         this.$nextTick(() => {
-          this.renderChart();
+          this.lastUpdated = new Date();
           if (typeof AOS !== 'undefined') {
             AOS.refreshHard();
           }
@@ -114,6 +120,11 @@ const Home = Vue.defineComponent({
     formatDate(dateString) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(dateString).toLocaleDateString('id-ID', options);
+    },
+    formatTanggal(dateStr) {
+      return new Date(dateStr).toLocaleDateString('id-ID', { 
+        day: 'numeric', month: 'short', year: 'numeric' 
+      });
     },
     handleScroll() {
       this.isScrolled = window.scrollY > 10;
@@ -135,69 +146,28 @@ const Home = Vue.defineComponent({
       if (path.startsWith('http')) return path;
       return window.APP_CONFIG.IMAGE_BASE_URL + path;
     },
-    renderChart() {
-      if (this.chartInstance) {
-        this.chartInstance.destroy();
-      }
-      const ctx = document.getElementById('kategoriChart');
-      if (!ctx) return;
-
-      const labels = this.distribusiKategori.map(item => item.nama);
-      const data = this.distribusiKategori.map(item => item.jumlah);
-      
-      const backgroundColors = [
-        '#1e40af', // blue-800
-        '#2563eb', // blue-600
-        '#3b82f6', // blue-500
-        '#60a5fa', // blue-400
-        '#93c5fd', // blue-300
-        '#bfdbfe'  // blue-200
-      ];
-
-      this.chartInstance = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: labels,
-          datasets: [{
-            data: data,
-            backgroundColor: backgroundColors,
-            borderWidth: 2,
-            borderColor: '#ffffff',
-            hoverOffset: 4
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              backgroundColor: '#0f172a',
-              padding: 12,
-              titleFont: { family: "'Inter', sans-serif", size: 13 },
-              bodyFont: { family: "'Inter', sans-serif", size: 13 },
-              cornerRadius: 8,
-              displayColors: true,
-              callbacks: {
-                label: function(context) {
-                  const label = context.label || '';
-                  const value = context.parsed || 0;
-                  const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
-                  const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-                  return ` ${label}: ${value} Laporan (${percentage}%)`;
-                }
-              }
-            }
-          },
-          cutout: '75%'
-        }
-      });
+    iconKategori(catName) {
+      const lower = catName.toLowerCase();
+      if (lower.includes('infrastruktur') || lower.includes('jalan')) return 'ti ti-road';
+      if (lower.includes('lingkungan') || lower.includes('sampah')) return 'ti ti-leaf';
+      if (lower.includes('keamanan') || lower.includes('kriminal')) return 'ti ti-shield';
+      if (lower.includes('kesehatan')) return 'ti ti-heartbeat';
+      if (lower.includes('pendidikan')) return 'ti ti-school';
+      if (lower.includes('sosial')) return 'ti ti-users';
+      return 'ti ti-tag';
     },
-    getChartColor(index) {
-      const colors = ['#1e40af', '#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe'];
-      return colors[index % colors.length];
+    warnaKategoriIcon(catName) {
+      const lower = catName.toLowerCase();
+      if (lower.includes('infrastruktur') || lower.includes('jalan')) return '#2563eb'; // blue-600
+      if (lower.includes('lingkungan') || lower.includes('sampah')) return '#16a34a'; // green-600
+      if (lower.includes('keamanan') || lower.includes('kriminal')) return '#4f46e5'; // indigo-600
+      if (lower.includes('kesehatan')) return '#ef4444'; // red-500
+      if (lower.includes('pendidikan')) return '#f97316'; // orange-500
+      if (lower.includes('sosial')) return '#9333ea'; // purple-600
+      return '#64748b'; // slate-500
+    },
+    filterByCategory(kategori) {
+      this.scrollToSection('laporan-section');
     }
   },
   mounted() {
@@ -234,9 +204,6 @@ const Home = Vue.defineComponent({
   unmounted() {
     window.removeEventListener('scroll', this.handleScroll);
     if (this.navObserver) this.navObserver.disconnect();
-    if (this.chartInstance) {
-      this.chartInstance.destroy();
-    }
   },
   template: `
   <div class="min-h-screen bg-white font-sans text-slate-900">
@@ -347,127 +314,190 @@ const Home = Vue.defineComponent({
           </div>
         </div>
       </div>
+      <!-- Wave divider di bawah hero -->
+      <div class="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none" class="w-full h-12 md:h-16">
+          <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#F9FAFB"/>
+        </svg>
+      </div>
     </header>
 
     <!-- STATISTICS & DISTRIBUTION SECTION -->
-    <section id="statistik-section" class="bg-gray-50 py-12 md:py-16 fade-in-section scroll-mt-20">
-      <div class="max-w-5xl mx-auto px-4 lg:px-8 space-y-6 md:space-y-8">
-        
-        <!-- PUBLIC-FRIENDLY GOVTECH CARD -->
-        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-          
-          <!-- Header Card -->
-          <div class="px-6 py-5 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50">
-             <div>
-               <h3 class="text-xl font-bold text-gray-900">Transparansi Data Pengaduan</h3>
-               <p class="text-sm text-gray-500 mt-1">Pantau status penanganan laporan masyarakat secara langsung.</p>
-             </div>
-             <!-- Status Update Berbahasa Indonesia -->
-             <div class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-sm cursor-help" title="Data statistik ini diperbarui secara otomatis setiap ada laporan baru">
-                <span class="relative flex h-2.5 w-2.5">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                </span>
-                <span class="text-xs font-semibold text-gray-700 tracking-wide">
-                  Diperbarui: <span class="font-bold text-blue-600">{{ new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'}) }}</span> WIB
-                </span>
-             </div>
+<section id="statistik-section" 
+         class="py-12 md:py-16 fade-in-section 
+                scroll-mt-20">
+  <div class="max-w-4xl mx-auto px-4">
+
+    <div class="text-center mb-6">
+      <h2 class="font-display font-bold text-2xl 
+                 md:text-3xl text-gray-900 mb-2">
+        Transparansi Data Pengaduan
+      </h2>
+      <div class="w-12 h-1 bg-blue-600 rounded-full 
+                  mx-auto mb-3"></div>
+      <p class="text-sm text-gray-500">
+        Pantau status penanganan laporan masyarakat 
+        secara langsung
+      </p>
+    </div>
+
+    <div class="bg-white rounded-2xl border 
+                border-gray-100 shadow-sm p-6 
+                md:p-8 relative">
+
+      <!-- Live indicator -->
+      <div class="absolute top-4 right-4 flex 
+                  items-center gap-1.5 text-xs 
+                  text-gray-400">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute 
+                       inline-flex h-full w-full 
+                       rounded-full bg-emerald-400 
+                       opacity-75"></span>
+          <span class="relative inline-flex 
+                       rounded-full h-2 w-2 
+                       bg-emerald-500"></span>
+        </span>
+        Diperbarui: {{ jamSekarang }} WIB
+      </div>
+
+      <!-- 4 STAT — icon KIRI, angka KANAN -->
+      <div class="grid grid-cols-2 md:grid-cols-4 
+                  divide-x divide-y md:divide-y-0 
+                  divide-gray-100 mb-6">
+
+        <div class="flex items-center gap-3 
+                    px-4 py-4 group">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 
+                      flex items-center justify-center 
+                      flex-shrink-0 transition-transform 
+                      duration-200 
+                      group-hover:scale-110">
+            <i class="ti ti-file-text text-blue-600" 
+               style="font-size: 22px;"></i>
           </div>
-
-          <!-- Bagian Angka Statistik (4 Kolom) -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100 border-b border-gray-200">
-             
-             <!-- Total Laporan -->
-             <div class="p-6 flex flex-col items-center text-center sm:items-start sm:text-left hover:bg-slate-50 transition-colors">
-                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </div>
-                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Total Laporan</p>
-                <p v-if="isLoading" class="h-10 w-20 bg-gray-200 rounded animate-pulse"></p>
-                <p v-else class="text-4xl font-extrabold text-gray-900">{{ stats.total }}</p>
-                <p class="text-xs text-gray-400 mt-2">Seluruh laporan masuk</p>
-             </div>
-
-             <!-- Sedang Diproses -->
-             <div class="p-6 flex flex-col items-center text-center sm:items-start sm:text-left hover:bg-slate-50 transition-colors">
-                <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center mb-4">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Sedang Diproses</p>
-                <p v-if="isLoading" class="h-10 w-20 bg-gray-200 rounded animate-pulse"></p>
-                <p v-else class="text-4xl font-extrabold text-gray-900">{{ stats.diproses }}</p>
-                <p class="text-xs text-gray-400 mt-2">Ditindaklanjuti petugas</p>
-             </div>
-
-             <!-- Telah Selesai -->
-             <div class="p-6 flex flex-col items-center text-center sm:items-start sm:text-left hover:bg-slate-50 transition-colors">
-                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Telah Selesai</p>
-                <p v-if="isLoading" class="h-10 w-20 bg-gray-200 rounded animate-pulse"></p>
-                <p v-else class="text-4xl font-extrabold text-gray-900">{{ stats.selesai }}</p>
-                <p class="text-xs text-gray-400 mt-2">Masalah telah terselesaikan</p>
-             </div>
-
-             <!-- Kategori Pengaduan -->
-             <div class="p-6 flex flex-col items-center text-center sm:items-start sm:text-left hover:bg-slate-50 transition-colors">
-                <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
-                </div>
-                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Kategori Layanan</p>
-                <p v-if="isLoading" class="h-10 w-20 bg-gray-200 rounded animate-pulse"></p>
-                <p v-else class="text-4xl font-extrabold text-gray-900">{{ stats.totalKategori }}</p>
-                <p class="text-xs text-gray-400 mt-2">Bidang pelaporan tersedia</p>
-             </div>
-
+          <div>
+            <p class="text-2xl font-display font-bold 
+                      text-gray-900 leading-tight">
+              {{ totalLaporan }}
+            </p>
+            <p class="text-xs text-gray-500 mt-0.5">
+              Total Laporan
+            </p>
           </div>
+        </div>
 
-          <!-- Bagian Visualisasi Grafik & Filter (2 Kolom) -->
-          <div class="grid grid-cols-1 lg:grid-cols-12">
-             
-             <!-- Kiri: Grafik -->
-             <div class="lg:col-span-5 p-8 border-b lg:border-b-0 lg:border-r border-gray-200 flex flex-col items-center">
-                <h4 class="text-base font-bold text-gray-900 mb-6 text-center">Sebaran Kategori Laporan</h4>
-                
-                <div class="relative w-56 h-56 flex-shrink-0 mb-4">
-                   <div v-if="isLoading" class="w-full h-full rounded-full border-8 border-gray-100 animate-pulse"></div>
-                   <canvas v-else id="kategoriChart"></canvas>
-                   
-                   <div v-if="!isLoading" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                      <span class="text-sm font-bold text-emerald-600 mb-1 flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-                        {{ resolutionRate }}%
-                      </span>
-                      <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider text-center leading-tight">Tingkat<br>Penyelesaian</span>
-                   </div>
-                </div>
-             </div>
+        <div class="flex items-center gap-3 
+                    px-4 py-4 group">
+          <div class="w-12 h-12 rounded-xl 
+                      bg-amber-50 flex items-center 
+                      justify-center flex-shrink-0 
+                      transition-transform duration-200 
+                      group-hover:scale-110">
+            <i class="ti ti-clock text-amber-600" 
+               style="font-size: 22px;"></i>
+          </div>
+          <div>
+            <p class="text-2xl font-display font-bold 
+                      text-gray-900 leading-tight">
+              {{ totalDiproses }}
+            </p>
+            <p class="text-xs text-gray-500 mt-0.5">
+              Sedang Diproses
+            </p>
+          </div>
+        </div>
 
-             <!-- Kanan: Penjelasan & Tombol Filter -->
-             <div class="lg:col-span-7 p-8">
-                <h4 class="text-base font-bold text-gray-900 mb-3">Pilih Kategori untuk Melihat Detail</h4>
-                <p class="text-sm text-gray-600 mb-6 leading-relaxed">
-                  Gunakan tombol di bawah ini untuk menyaring dan melihat daftar laporan terbaru berdasarkan bidang spesifik (misalnya: hanya melihat laporan tentang Infrastruktur).
-                </p>
-                
-                <div class="flex flex-wrap gap-3">
-                  <button v-for="(cat, index) in allCategories" :key="cat.id" @click.prevent="scrollToSection('laporan-section')" class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 transition-all shadow-sm flex items-center gap-2 group">
-                    <span class="w-2.5 h-2.5 rounded-full" :style="{ backgroundColor: getChartColor(index) }"></span>
-                    {{ cat.name }}
-                    <svg class="w-4 h-4 text-gray-400 group-hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                  </button>
-                </div>
-             </div>
+        <div class="flex items-center gap-3 
+                    px-4 py-4 group">
+          <div class="w-12 h-12 rounded-xl 
+                      bg-emerald-50 flex items-center 
+                      justify-center flex-shrink-0 
+                      transition-transform duration-200 
+                      group-hover:scale-110">
+            <i class="ti ti-circle-check 
+                      text-emerald-600" 
+               style="font-size: 22px;"></i>
+          </div>
+          <div>
+            <p class="text-2xl font-display font-bold 
+                      text-gray-900 leading-tight">
+              {{ totalSelesai }}
+            </p>
+            <p class="text-xs text-gray-500 mt-0.5">
+              Telah Selesai
+            </p>
+          </div>
+        </div>
 
+        <div class="flex items-center gap-3 
+                    px-4 py-4 group">
+          <div class="w-12 h-12 rounded-xl 
+                      bg-violet-50 flex items-center 
+                      justify-center flex-shrink-0 
+                      transition-transform duration-200 
+                      group-hover:scale-110">
+            <i class="ti ti-tag text-violet-600" 
+               style="font-size: 22px;"></i>
+          </div>
+          <div>
+            <p class="text-2xl font-display font-bold 
+                      text-gray-900 leading-tight">
+              {{ totalKategori }}
+            </p>
+            <p class="text-xs text-gray-500 mt-0.5">
+              Kategori Layanan
+            </p>
           </div>
         </div>
 
       </div>
-    </section>
+
+      <!-- DIVIDER -->
+      <div class="border-t border-gray-100 mb-5">
+      </div>
+
+      <!-- BADGE KATEGORI INTERAKTIF -->
+      <p class="text-xs text-gray-400 mb-3">
+        Klik kategori untuk filter laporan
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-3 
+                  gap-3">
+        <button v-for="kategori in listKategori" 
+                :key="kategori.id"
+                @click="filterByCategory(kategori)"
+                class="flex items-center gap-3 px-4 
+                       py-3 rounded-xl border 
+                       border-gray-100 bg-gray-50 
+                       transition-all duration-200 
+                       hover:border-blue-200 
+                       hover:bg-blue-50 
+                       hover:shadow-sm 
+                       hover:-translate-y-0.5 
+                       cursor-pointer text-left w-full">
+          <div class="w-9 h-9 rounded-lg bg-white 
+                      flex items-center justify-center 
+                      flex-shrink-0 shadow-sm">
+            <i :class="iconKategori(kategori.name)"
+               :style="{ color: warnaKategoriIcon(kategori.name) }"
+               style="font-size: 18px;"></i>
+          </div>
+          <span class="text-sm font-medium 
+                       text-gray-700 flex-1">
+            {{ kategori.name }}
+          </span>
+          <i class="ti ti-chevron-right text-gray-300 
+                    flex-shrink-0" 
+             style="font-size: 14px;"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
 
     <!-- PROCESS SECTION -->
-    <section id="cara-kerja-section" class="bg-white py-24 fade-in-section scroll-mt-20">
+    <section id="cara-kerja-section" class="bg-white py-12 md:py-16 fade-in-section scroll-mt-20">
       <div class="container mx-auto px-8 max-w-[1200px]">
         <div class="text-center mb-16" data-aos="fade-down">
           <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900">Alur Penyelesaian Laporan</h2>
@@ -521,7 +551,7 @@ const Home = Vue.defineComponent({
               </div>
               <!-- No dashed line for the last step -->
               <h3 class="font-display font-semibold text-base mb-1 text-slate-900">4. Selesai</h3>
-              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Masalah telah tuntas tertangani dan warga dapat melihat bukti penyelesaiannya.</p>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">Laporan ditandai selesai dan status dapat dipantau langsung oleh masyarakat.</p>
             </div>
           </div>
         </div>
@@ -529,68 +559,135 @@ const Home = Vue.defineComponent({
     </section>
 
     <!-- LAPORAN TERBARU SECTION -->
-    <section id="laporan-section" class="bg-slate-50 py-24 border-y border-slate-200 fade-in-section scroll-mt-20">
-      <div class="container mx-auto px-8 max-w-[1200px]">
-        <div class="mb-12 text-center md:text-left" data-aos="fade-right">
-          <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900 mb-4">Laporan Publik</h2>
-          <p class="text-slate-600 text-lg">Pantau laporan terkini dari masyarakat.</p>
-        </div>
-
-        <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-           <!-- Skeletons -->
-           <div v-for="i in 3" :key="i" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col h-[380px]">
-             <div class="h-40 w-full bg-slate-200 animate-pulse"></div>
-             <div class="p-6 flex-1 flex flex-col gap-4">
-               <div class="h-6 bg-slate-200 rounded animate-pulse w-3/4"></div>
-               <div class="mt-auto space-y-3">
-                 <div class="h-4 bg-slate-100 rounded animate-pulse w-1/2"></div>
-                 <div class="h-4 bg-slate-100 rounded animate-pulse w-1/3"></div>
-               </div>
-             </div>
-           </div>
-        </div>
-        <div v-else-if="recentReports.length > 0" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div v-for="(report, index) in recentReports" :key="report.id" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-md group flex flex-col" :data-aos="'fade-up'" :data-aos-delay="index * 150">
-            <!-- Image Area -->
-            <div class="h-40 w-full relative bg-slate-100 overflow-hidden border-b border-slate-100">
-               <img v-if="report.image" :src="getImageUrl(report.image)" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Lampiran Laporan">
-               <div v-else class="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                 <svg class="w-10 h-10 mb-2 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-               </div>
-               
-               <!-- Status Badge -->
-               <div class="absolute top-4 right-4">
-                 <span v-if="report.status === 'selesai'" class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider">SELESAI</span>
-                 <span v-else-if="report.status === 'diproses'" class="bg-blue-50 text-blue-600 border border-blue-100 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider">DIPROSES</span>
-                 <span v-else class="bg-slate-50 text-slate-600 border border-slate-200 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider">PENDING</span>
-               </div>
-            </div>
-
-            <!-- Content Area -->
-            <div class="p-6 flex-1 flex flex-col">
-              <div class="inline-flex text-xs font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-md mb-4 uppercase tracking-wider max-w-max">
-                 {{ report.category?.name || 'Umum' }}
-              </div>
-              <h3 class="text-lg font-bold text-slate-900 mb-4 leading-snug line-clamp-2">
-                {{ report.title }}
-              </h3>
-              
-              <div class="mt-auto space-y-2">
-                <div class="flex items-center gap-2 text-sm text-slate-500">
-                   <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                   <span class="line-clamp-1 truncate">{{ report.location }}</span>
-                </div>
-                <div class="flex items-center gap-2 text-sm text-slate-500">
-                   <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                   <span>{{ formatDate(report.created_at) }}</span>
-                </div>
-              </div>
+    <section id="laporan-section" 
+             class="py-12 md:py-16 bg-white 
+                    fade-in-section scroll-mt-20">
+      <div class="max-w-5xl mx-auto px-4">
+        
+        <div class="flex items-center justify-between 
+                    mb-6">
+          <div>
+            <h2 class="font-display font-bold text-xl 
+                       text-gray-900">
+              Laporan Terbaru
+            </h2>
+            <p class="text-sm text-gray-500">
+              Pantau laporan terkini dari masyarakat
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <!-- Filter kategori -->
+            <select v-model="filterKategori" 
+                    class="text-sm border border-gray-200 
+                           rounded-lg px-3 py-2 
+                           text-gray-600 bg-white">
+              <option value="">Semua Kategori</option>
+              <option v-for="kat in listKategori" 
+                      :key="kat.id" :value="kat.id">
+                {{ kat.name }}
+              </option>
+            </select>
+            <!-- Search -->
+            <div class="relative">
+              <i class="ti ti-search absolute left-3 
+                        top-1/2 -translate-y-1/2 
+                        text-gray-400" 
+                 style="font-size: 16px;"></i>
+              <input v-model="searchQuery" 
+                     type="text"
+                     placeholder="Cari laporan..."
+                     class="text-sm border border-gray-200 
+                            rounded-lg pl-9 pr-4 py-2 
+                            w-48 text-gray-600">
             </div>
           </div>
         </div>
-        <div v-else class="text-center py-16 bg-white rounded-2xl border border-slate-200">
-          <p class="text-slate-500 text-lg">Belum ada laporan publik yang terdaftar.</p>
+
+        <!-- Tabel -->
+        <div class="bg-white rounded-2xl border 
+                    border-gray-100 shadow-sm overflow-hidden">
+          <table class="w-full">
+            <thead class="bg-gray-50 border-b 
+                          border-gray-100">
+              <tr>
+                <th class="text-left px-4 py-3 text-xs 
+                           font-semibold text-gray-500 
+                           uppercase tracking-wide">
+                  Tanggal
+                </th>
+                <th class="text-left px-4 py-3 text-xs 
+                           font-semibold text-gray-500 
+                           uppercase tracking-wide">
+                  Judul Laporan
+                </th>
+                <th class="text-left px-4 py-3 text-xs 
+                           font-semibold text-gray-500 
+                           uppercase tracking-wide">
+                  Kategori
+                </th>
+                <th class="text-left px-4 py-3 text-xs 
+                           font-semibold text-gray-500 
+                           uppercase tracking-wide">
+                  Lokasi
+                </th>
+                <th class="text-left px-4 py-3 text-xs 
+                           font-semibold text-gray-500 
+                           uppercase tracking-wide">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              <tr v-for="laporan in laporanFiltered" 
+                  :key="laporan.id"
+                  class="hover:bg-gray-50 transition-colors 
+                         duration-150">
+                <td class="px-4 py-3 text-sm text-gray-500">
+                  {{ formatTanggal(laporan.created_at) }}
+                </td>
+                <td class="px-4 py-3">
+                  <p class="text-sm font-medium 
+                            text-gray-900">
+                    {{ laporan.title }}
+                  </p>
+                </td>
+                <td class="px-4 py-3">
+                  <span class="inline-flex items-center 
+                               px-2.5 py-0.5 rounded-full 
+                               text-xs font-medium 
+                               bg-blue-50 text-blue-700">
+                    {{ laporan.category?.name }}
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-sm 
+                           text-gray-500 max-w-[160px] 
+                           truncate">
+                  {{ laporan.location }}
+                </td>
+                <td class="px-4 py-3">
+                  <span class="inline-flex items-center 
+                               gap-1 px-2.5 py-0.5 
+                               rounded-full text-xs 
+                               font-medium"
+                        :class="statusBadgeClass[laporan.status]">
+                    {{ laporan.status }}
+                  </span>
+                </td>
+              </tr>
+              <!-- Empty state -->
+              <tr v-if="laporanFiltered.length === 0">
+                <td colspan="5" 
+                    class="px-4 py-12 text-center 
+                           text-sm text-gray-400">
+                  <i class="ti ti-inbox block mx-auto mb-2" 
+                     style="font-size: 32px;"></i>
+                  Belum ada laporan yang sesuai
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
       </div>
     </section>
 
