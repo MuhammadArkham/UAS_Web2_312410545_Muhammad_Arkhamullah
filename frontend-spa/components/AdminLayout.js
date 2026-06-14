@@ -76,8 +76,7 @@ const AdminLayout = Vue.defineComponent({
                 {{ user?.name ? user.name.charAt(0).toUpperCase() : 'A' }}
               </div>
               <div class="text-left hidden md:block">
-                 <div class="text-sm font-bold text-slate-800 leading-none mb-1">{{ user?.name || 'Administrator' }}</div>
-                 <div class="text-[11px] font-semibold text-slate-500 leading-none">{{ user?.email || 'admin@silapor.com' }}</div>
+                 <div class="text-sm font-bold text-slate-800 leading-none">{{ user?.name || 'Administrator' }}</div>
               </div>
            </div>
         </div>
