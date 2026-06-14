@@ -318,12 +318,9 @@ const Home = Vue.defineComponent({
             </div>
           </div>
 
-          <!-- Right: 55% (Image with Glowing Blob) -->
-          <div class="w-full lg:w-[55%] flex justify-end relative" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
-            <!-- Glowing Blob Background -->
-            <div class="absolute inset-0 bg-blue-500 rounded-full blur-[100px] opacity-20 transform scale-75 translate-y-10"></div>
-            <!-- Main Transparent Image -->
-            <img src="assets/gambar_desain_final.png" alt="Hero Illustration" class="w-full max-w-[650px] h-auto object-contain relative z-10 drop-shadow-2xl animate-float">
+          <!-- Right: 55% -->
+          <div class="w-full lg:w-[55%] flex justify-end" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+            <img src="assets/gambar_desain_final.png" alt="Hero Illustration" class="w-full max-w-[600px] h-auto object-contain">
           </div>
         </div>
       </div>
