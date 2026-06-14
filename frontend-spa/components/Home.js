@@ -18,6 +18,7 @@ const Home = Vue.defineComponent({
       mobileMenuOpen: false,
       filterKategori: '',
       searchQuery: '',
+      filterStatus: '',
       statusBadgeClass: {
         pending: 'bg-red-50 text-red-700',
         diproses: 'bg-amber-50 text-amber-700',
@@ -40,9 +41,12 @@ const Home = Vue.defineComponent({
     listKategori() { return this.allCategories; },
     laporanFiltered() {
       return this.allReports.filter(l => {
+        const matchSearch = !this.searchQuery || 
+          l.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          (l.location && l.location.toLowerCase().includes(this.searchQuery.toLowerCase()));
         const matchKategori = !this.filterKategori || l.category_id == this.filterKategori;
-        const matchSearch = !this.searchQuery || l.title.toLowerCase().includes(this.searchQuery.toLowerCase());
-        return matchKategori && matchSearch;
+        const matchStatus = !this.filterStatus || l.status === this.filterStatus;
+        return matchSearch && matchKategori && matchStatus;
       });
     }
   },
@@ -166,7 +170,13 @@ const Home = Vue.defineComponent({
       if (lower.includes('sosial')) return '#9333ea'; // purple-600
       return '#64748b'; // slate-500
     },
+    resetFilter() {
+      this.searchQuery = '';
+      this.filterKategori = '';
+      this.filterStatus = '';
+    },
     filterByCategory(kategori) {
+      this.filterKategori = kategori.id;
       this.scrollToSection('laporan-section');
     }
   },
@@ -559,133 +569,139 @@ const Home = Vue.defineComponent({
     </section>
 
     <!-- LAPORAN TERBARU SECTION -->
-    <section id="laporan-section" 
-             class="py-12 md:py-16 bg-white 
-                    fade-in-section scroll-mt-20">
-      <div class="max-w-5xl mx-auto px-4">
-        
-        <div class="flex items-center justify-between 
-                    mb-6">
-          <div>
-            <h2 class="font-display font-bold text-xl 
-                       text-gray-900">
-              Laporan Terbaru
-            </h2>
-            <p class="text-sm text-gray-500">
-              Pantau laporan terkini dari masyarakat
-            </p>
-          </div>
-          <div class="flex items-center gap-3">
-            <!-- Filter kategori -->
-            <select v-model="filterKategori" 
+    <section id="laporan-section" class="bg-slate-50 py-24 border-y border-slate-200 fade-in-section scroll-mt-20">
+      <div class="container mx-auto px-8 max-w-[1200px]">
+        <div class="mb-12 text-center md:text-left" data-aos="fade-right">
+          <h2 class="text-3xl lg:text-4xl font-display font-bold text-slate-900 mb-4">Laporan Publik</h2>
+          <p class="text-slate-600 text-lg mb-6">Pantau laporan terkini dari masyarakat.</p>
+
+          <div class="flex flex-col sm:flex-row gap-3 mb-6">
+            
+            <!-- Search -->
+            <div class="relative flex-1">
+              <i class="ti ti-search absolute left-3 
+                        top-1/2 -translate-y-1/2 
+                        text-gray-400" 
+                 style="font-size: 16px;"></i>
+              <input v-model="searchQuery"
+                     type="text"
+                     placeholder="Cari judul laporan..."
+                     class="w-full pl-9 pr-4 py-2 text-sm 
+                            border border-gray-200 rounded-xl 
+                            bg-white text-gray-700 
+                            focus:outline-none 
+                            focus:border-blue-400 
+                            focus:ring-1 focus:ring-blue-100 
+                            transition-colors duration-150">
+            </div>
+
+            <!-- Filter Kategori -->
+            <select v-model="filterKategori"
                     class="text-sm border border-gray-200 
-                           rounded-lg px-3 py-2 
-                           text-gray-600 bg-white">
+                           rounded-xl px-3 py-2 bg-white 
+                           text-gray-700 focus:outline-none 
+                           focus:border-blue-400 
+                           transition-colors duration-150 
+                           min-w-[160px]">
               <option value="">Semua Kategori</option>
               <option v-for="kat in listKategori" 
                       :key="kat.id" :value="kat.id">
                 {{ kat.name }}
               </option>
             </select>
-            <!-- Search -->
-            <div class="relative">
-              <i class="ti ti-search absolute left-3 
-                        top-1/2 -translate-y-1/2 
-                        text-gray-400" 
-                 style="font-size: 16px;"></i>
-              <input v-model="searchQuery" 
-                     type="text"
-                     placeholder="Cari laporan..."
-                     class="text-sm border border-gray-200 
-                            rounded-lg pl-9 pr-4 py-2 
-                            w-48 text-gray-600">
+
+            <!-- Filter Status -->
+            <select v-model="filterStatus"
+                    class="text-sm border border-gray-200 
+                           rounded-xl px-3 py-2 bg-white 
+                           text-gray-700 focus:outline-none 
+                           focus:border-blue-400 
+                           transition-colors duration-150 
+                           min-w-[140px]">
+              <option value="">Semua Status</option>
+              <option value="pending">Pending</option>
+              <option value="diproses">Diproses</option>
+              <option value="selesai">Selesai</option>
+              <option value="ditolak">Ditolak</option>
+            </select>
+
+          </div>
+
+          <p class="text-xs text-gray-400 mb-4">
+            Menampilkan {{ laporanFiltered.length }} dari 
+            {{ allReports.length }} laporan
+          </p>
+        </div>
+
+        <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+           <!-- Skeletons -->
+           <div v-for="i in 3" :key="i" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col h-[380px]">
+             <div class="h-40 w-full bg-slate-200 animate-pulse"></div>
+             <div class="p-6 flex-1 flex flex-col gap-4">
+               <div class="h-6 bg-slate-200 rounded animate-pulse w-3/4"></div>
+               <div class="mt-auto space-y-3">
+                 <div class="h-4 bg-slate-100 rounded animate-pulse w-1/2"></div>
+                 <div class="h-4 bg-slate-100 rounded animate-pulse w-1/3"></div>
+               </div>
+             </div>
+           </div>
+        </div>
+        <div v-else-if="laporanFiltered.length > 0" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div v-for="(laporan, index) in laporanFiltered" :key="laporan.id" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-md group flex flex-col" :data-aos="'fade-up'" :data-aos-delay="index * 150">
+            <!-- Image Area -->
+            <div class="h-40 w-full relative bg-slate-100 overflow-hidden border-b border-slate-100">
+               <img v-if="laporan.image" :src="getImageUrl(laporan.image)" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Lampiran Laporan">
+               <div v-else class="w-full h-full flex flex-col items-center justify-center text-slate-400">
+                 <svg class="w-10 h-10 mb-2 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+               </div>
+               
+               <!-- Status Badge -->
+               <div class="absolute top-4 right-4">
+                 <span v-if="laporan.status === 'selesai'" class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider">SELESAI</span>
+                 <span v-else-if="laporan.status === 'diproses'" class="bg-blue-50 text-blue-600 border border-blue-100 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider">DIPROSES</span>
+                 <span v-else class="bg-slate-50 text-slate-600 border border-slate-200 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-wider">PENDING</span>
+               </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="inline-flex text-xs font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-md mb-4 uppercase tracking-wider max-w-max">
+                 {{ laporan.category?.name || 'Umum' }}
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mb-4 leading-snug line-clamp-2">
+                {{ laporan.title }}
+              </h3>
+              
+              <div class="mt-auto space-y-2">
+                <div class="flex items-center gap-2 text-sm text-slate-500">
+                   <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                   <span class="line-clamp-1 truncate">{{ laporan.location }}</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-slate-500">
+                   <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                   <span>{{ formatDate(laporan.created_at) }}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <!-- Tabel -->
-        <div class="bg-white rounded-2xl border 
-                    border-gray-100 shadow-sm overflow-hidden">
-          <table class="w-full">
-            <thead class="bg-gray-50 border-b 
-                          border-gray-100">
-              <tr>
-                <th class="text-left px-4 py-3 text-xs 
-                           font-semibold text-gray-500 
-                           uppercase tracking-wide">
-                  Tanggal
-                </th>
-                <th class="text-left px-4 py-3 text-xs 
-                           font-semibold text-gray-500 
-                           uppercase tracking-wide">
-                  Judul Laporan
-                </th>
-                <th class="text-left px-4 py-3 text-xs 
-                           font-semibold text-gray-500 
-                           uppercase tracking-wide">
-                  Kategori
-                </th>
-                <th class="text-left px-4 py-3 text-xs 
-                           font-semibold text-gray-500 
-                           uppercase tracking-wide">
-                  Lokasi
-                </th>
-                <th class="text-left px-4 py-3 text-xs 
-                           font-semibold text-gray-500 
-                           uppercase tracking-wide">
-                  Status
-                </th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-50">
-              <tr v-for="laporan in laporanFiltered" 
-                  :key="laporan.id"
-                  class="hover:bg-gray-50 transition-colors 
-                         duration-150">
-                <td class="px-4 py-3 text-sm text-gray-500">
-                  {{ formatTanggal(laporan.created_at) }}
-                </td>
-                <td class="px-4 py-3">
-                  <p class="text-sm font-medium 
-                            text-gray-900">
-                    {{ laporan.title }}
-                  </p>
-                </td>
-                <td class="px-4 py-3">
-                  <span class="inline-flex items-center 
-                               px-2.5 py-0.5 rounded-full 
-                               text-xs font-medium 
-                               bg-blue-50 text-blue-700">
-                    {{ laporan.category?.name }}
-                  </span>
-                </td>
-                <td class="px-4 py-3 text-sm 
-                           text-gray-500 max-w-[160px] 
-                           truncate">
-                  {{ laporan.location }}
-                </td>
-                <td class="px-4 py-3">
-                  <span class="inline-flex items-center 
-                               gap-1 px-2.5 py-0.5 
-                               rounded-full text-xs 
-                               font-medium"
-                        :class="statusBadgeClass[laporan.status]">
-                    {{ laporan.status }}
-                  </span>
-                </td>
-              </tr>
-              <!-- Empty state -->
-              <tr v-if="laporanFiltered.length === 0">
-                <td colspan="5" 
-                    class="px-4 py-12 text-center 
-                           text-sm text-gray-400">
-                  <i class="ti ti-inbox block mx-auto mb-2" 
-                     style="font-size: 32px;"></i>
-                  Belum ada laporan yang sesuai
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        
+        <div v-if="laporanFiltered.length === 0" 
+             class="text-center py-16">
+          <i class="ti ti-search-off block mx-auto mb-3 
+                    text-gray-300" 
+             style="font-size: 40px;"></i>
+          <p class="text-sm font-medium text-gray-500">
+            Tidak ada laporan ditemukan
+          </p>
+          <p class="text-xs text-gray-400 mt-1">
+            Coba ubah filter atau kata kunci pencarian
+          </p>
+          <button @click="resetFilter"
+                  class="mt-4 text-xs text-blue-600 
+                         hover:underline">
+            Reset filter
+          </button>
         </div>
 
       </div>
