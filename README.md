@@ -1,136 +1,164 @@
 # Sistem Informasi SiLapor (Pengaduan Layanan Masyarakat Terpadu)
 
-**Nama Mahasiswa:** Muhammad Arkhamullah R.A
-
-**NIM:** 312410545
-
-**Kelas:**	I241E
-
-**Mata Kuliah:** Pemrograman Web 2
-
-**Tugas:** Ujian Akhir Semester (UAS)
+**Nama Mahasiswa:** Muhammad Arkhamullah R.A  
+**NIM:** 312410545  
+**Kelas:** I241E  
+**Mata Kuliah:** Pemrograman Web 2  
+**Tugas:** Ujian Akhir Semester (UAS)  
 
 ---
 
-## 1. Tema Project
-Proyek ini adalah "Sistem Pelaporan Pengaduan Layanan Masyarakat (SiLapor)". Sistem ini dikembangkan menggunakan arsitektur web modern yang Terpisah (*Decoupled*). Bagian *backend* dikembangkan sebagai REST API menggunakan CodeIgniter 4, sedangkan bagian *frontend* dikembangkan sebagai *Single Page Application* (SPA) interaktif menggunakan Vue.js 3 dan TailwindCSS.
+## Deskripsi Proyek
 
-## 2. Struktur & Skema Database (Kamus Data)
-Untuk memberikan representasi arsitektur data yang lebih terstruktur dan rapi, berikut adalah rincian kolom (Kamus Data) dari masing-masing tabel yang digunakan dalam sistem SiLapor:
+SiLapor adalah platform pengaduan masyarakat berbasis web yang sengaja didesain untuk menjembatani komunikasi antara warga dan penyedia layanan publik. Biar lebih optimal dan gampang di-maintain, sistem ini dibangun pakai pendekatan *decoupled architecture* (frontend dan backend dipisah total).
 
-### A. Tabel `pengguna` (Data Akun)
-| Nama Kolom | Tipe Data | Keterangan |
+Untuk urusan data dan logika, backend-nya digarap menggunakan **CodeIgniter 4** yang melayani REST API secara eksklusif. Sementara itu, tampilan mukanya (frontend) dibangun murni sebagai *Single Page Application* (SPA) menggunakan **Vue.js 3** dan dirapikan dengan **TailwindCSS**. Hasilnya? Aplikasi terasa lebih mulus dan cepat karena nggak perlu *loading* ulang halaman setiap kali pindah menu.
+
+---
+
+## Struktur Database (Kamus Data)
+
+Sistem ini ditopang oleh empat tabel utama yang saling berelasi dengan rapi. Berikut rinciannya:
+
+### Tabel Pengguna (`pengguna`)
+Tempat nyimpen data akun buat *login*, baik itu akun punya admin maupun pelapor.
+
+| Kolom | Tipe Data | Keterangan |
 | :--- | :--- | :--- |
-| `id` | INT(10) | **Primary Key**, Auto Increment |
+| `id` | INT | Primary Key |
 | `name` | VARCHAR(100) | Nama lengkap pengguna |
-| `email` | VARCHAR(100) | Alamat email terdaftar (Unique) |
-| `password` | VARCHAR(255) | Kata sandi (Terenkripsi / Hashed) |
-| `role` | ENUM | Peran akses (`admin`, `pelapor`) |
-| `token` | VARCHAR(255) | Token sesi/autentikasi |
-| `created_at` | TIMESTAMP | Tanggal akun dibuat |
+| `email` | VARCHAR(100) | Email unik buat identitas login |
+| `password` | VARCHAR(255) | Kata sandi (sudah di-*hash* biar aman) |
+| `role` | ENUM | Pembeda hak akses (`admin` atau `pelapor`) |
+| `token` | VARCHAR(255) | Token untuk sesi autentikasi API |
+| `created_at` | TIMESTAMP | Tanggal akun terdaftar |
 
-### B. Tabel `kategori` (Jenis Aduan)
-| Nama Kolom | Tipe Data | Keterangan |
-| :--- | :--- | :--- |
-| `id` | INT(10) | **Primary Key**, Auto Increment |
-| `name` | VARCHAR(100) | Nama kategori (Infrastruktur, Sosial, dll) |
-| `description` | VARCHAR(255) | Penjelasan detail kategori |
-| `created_at` | TIMESTAMP | Tanggal kategori ditambahkan |
+### Tabel Kategori (`kategori`)
+Biar pengaduan nggak berantakan, kita kelompokkan berdasarkan kategori ini.
 
-### C. Tabel `laporan` (Data Aduan Masyarakat)
-| Nama Kolom | Tipe Data | Keterangan |
+| Kolom | Tipe Data | Keterangan |
 | :--- | :--- | :--- |
-| `id` | INT(10) | **Primary Key**, Auto Increment |
-| `user_id` | INT(10) | **Foreign Key** (Relasi ke tabel `pengguna`) |
-| `category_id` | INT(10) | **Foreign Key** (Relasi ke tabel `kategori`) |
-| `title` | VARCHAR(200) | Judul singkat laporan |
-| `description` | TEXT | Isi/detail lengkap kronologi kejadian |
-| `image` | VARCHAR(255) | Direktori path gambar bukti (opsional) |
-| `location` | VARCHAR(255) | Titik lokasi kejadian |
-| `status` | ENUM | Status tindak lanjut (`pending`, `diproses`, `selesai`) |
-| `created_at` | TIMESTAMP | Tanggal laporan direkam sistem |
-| `updated_at` | TIMESTAMP | Tanggal laporan terakhir diperbarui statusnya |
+| `id` | INT | Primary Key |
+| `name` | VARCHAR(100) | Nama kategori (misal: Infrastruktur, Sosial) |
+| `description` | VARCHAR(255) | Penjelasan singkat kategorinya |
+| `created_at` | TIMESTAMP | Tanggal kategori dibuat |
 
-### D. Tabel `komentar` (Tanggapan Administrator)
-| Nama Kolom | Tipe Data | Keterangan |
+### Tabel Laporan (`laporan`)
+Ini tabel utamanya, tempat semua aspirasi dan keluhan masyarakat ditampung.
+
+| Kolom | Tipe Data | Keterangan |
 | :--- | :--- | :--- |
-| `id` | INT(10) | **Primary Key**, Auto Increment |
-| `report_id` | INT(10) | **Foreign Key** (Relasi ke tabel `laporan`) |
-| `admin_id` | INT(10) | **Foreign Key** (Relasi ke tabel `pengguna` berstatus admin) |
-| `body` | TEXT | Isi teks tanggapan atau balasan |
-| `created_at` | TIMESTAMP | Tanggal komentar diterbitkan |
+| `id` | INT | Primary Key |
+| `user_id` | INT | Relasi ke pelapor (Tabel `pengguna`) |
+| `category_id` | INT | Relasi ke jenis aduan (Tabel `kategori`) |
+| `title` | VARCHAR(200) | Judul laporan |
+| `description` | TEXT | Kronologi atau isi laporan lengkap |
+| `image` | VARCHAR(255) | Path foto bukti kejadian |
+| `location` | VARCHAR(255) | Titik lokasi masalah |
+| `status` | ENUM | Progres penanganan (`pending`, `diproses`, `selesai`) |
+| `created_at` | TIMESTAMP | Waktu laporan dikirim |
+| `updated_at` | TIMESTAMP | Waktu terakhir statusnya diubah |
+
+### Tabel Komentar (`komentar`)
+Kalau admin butuh kasih *feedback* atau *update* info ke laporan warga, masuknya ke sini.
+
+| Kolom | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id` | INT | Primary Key |
+| `report_id` | INT | Relasi ke laporan mana yang dibalas |
+| `admin_id` | INT | Relasi ke admin yang membalas |
+| `body` | TEXT | Isi tanggapannya |
+| `created_at` | TIMESTAMP | Waktu balasan dikirim |
 
 ---
-**Representasi Visual Desainer Relasi Database (ERD)**
 
-![Skema Relasi Tabel Database](Screenshots/Database.png)
-*Gambar di atas mengilustrasikan relasi terstruktur antar entitas secara visual. Desain skema ini memastikan integritas data (referential integrity) terjaga kuat menggunakan konstrain Foreign Key.*
+## Entity Relationship Diagram (ERD)
 
-## 3. Uji Coba Tembak API Gagal (Error 401 Unauthorized)
-Berikut adalah hasil pengujian keamanan endpoint REST API melalui aplikasi Postman. Pengujian dilakukan dengan mengakses endpoint yang diproteksi tanpa menyertakan *Bearer Token* yang valid, sehingga sistem mengembalikan status *Error 401 Unauthorized*.
+![Skema Database](Screenshots/Database.png)
+
+> *Bisa dilihat dari skema di atas, semua tabel sudah disambung pakai Foreign Key. Ini penting banget buat ngejaga supaya datanya nggak ada yang "nyasar" atau terhapus sembarangan (referential integrity).*
+
+---
+
+## Pengujian Keamanan API
 
 ![Error 401 Postman](Screenshots/SS%20postman%20401.png)
-*Tangkapan layar di atas membuktikan bahwa sistem keamanan berbasis **JSON Web Token (JWT)** telah beroperasi. Klien yang mencoba mengambil data dari endpoint API sensitif tanpa menyertakan header otorisasi secara otomatis ditolak oleh fitur Filter CodeIgniter 4 demi mencegah kebocoran data. Hasil pengujian ini menunjukkan bahwa mekanisme proteksi API telah berhasil diimplementasikan sesuai dengan standar keamanan RESTful API.*
 
-## 4. Antarmuka Aplikasi (User Interface)
-Berikut adalah dokumentasi antarmuka pengguna dari sistem SiLapor:
-
-### Halaman Login
-![Halaman Login](Screenshots/Login%20admin.png)
-*Halaman autentikasi yang menjadi gerbang masuk sistem. Antarmuka ini dibangun menggunakan komponen Vue.js dengan tata letak minimalis dan bersih untuk memudahkan proses input kredensial pengguna.*
-
-### Halaman Dashboard Admin
-![Dashboard Admin](Screenshots/Dashboard.png)
-*Pusat kendali Administrator yang menampilkan rekapitulasi pelaporan. Desain analitik yang disajikan menonjolkan visual yang responsif berkat pemanfaatan sistem grid dan utility dari kerangka kerja TailwindCSS.*
-
-### Tampilan Form Modal Tambah/Edit Data
-![Form Modal Tambah Data](Screenshots/Create.png)
-
-![Form Modal Edit Data](Screenshots/Update.png)
-*Implementasi form modal interaktif (pop-up) untuk proses input data. Modal ini beroperasi secara asinkronus (SPA) sehingga proses tambah dan edit data dapat dilakukan instan tanpa memerlukan pemuatan ulang (reload) halaman web secara penuh.*
-
-### Visualisasi Data Tabel (TailwindCSS)
-![Visualisasi Data Tabel](Screenshots/Tabel%20manajemen%20data.png)
-*Tabel manajemen data yang merender kumpulan data JSON dari backend REST API. Tabel ini didesain secara khusus menggunakan komponen TailwindCSS untuk mencapai tingkat keterbacaan (readability) data yang tinggi bagi administrator.*
-
-## 5. Petunjuk Instalasi Proyek Lokal
-Ikuti panduan instalasi berikut untuk menjalankan proyek pada *localhost*:
-
-### A. Konfigurasi Database
-1. Buka phpMyAdmin di browser (`http://localhost/phpmyadmin`).
-2. Buat database baru dengan nama `silapor`.
-3. Lakukan proses import menggunakan file `database_silapor.sql` yang tersedia di direktori *root* proyek.
-
-### B. Menjalankan Backend (CodeIgniter 4 API)
-1. Buka folder `backend-api`.
-2. Ubah nama file konfigurasi `env` menjadi `.env`.
-3. Sesuaikan konfigurasi koneksi database di dalam file `.env`:
-   ```env
-   database.default.hostname = localhost
-   database.default.database = silapor
-   database.default.username = root
-   database.default.password = 
-   ```
-4. Backend API sudah dapat beroperasi melalui server XAMPP di alamat:  
-   `http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/`
-
-### C. Menjalankan Frontend (Vue.js 3 SPA)
-1. Buka folder `frontend-spa`.
-2. Buka URL berikut pada browser untuk mengakses aplikasi:  
-   `http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/`
-
-## 6. Kredensial Akses Aplikasi
-Untuk keperluan demo dan evaluasi sistem, Anda dapat menggunakan akun Administrator berikut untuk masuk ke *Dashboard Admin* dan mengelola seluruh siklus data pelaporan:
-
-- **Email:** `admin@silapor.com`
-- **Password:** `password123`
+> *Gambar ini jadi bukti nyata kalau keamanan REST API-nya nggak cuma pajangan. Pas kita tembak endpoint rahasia tanpa bawa tiket masuk (Bearer Token) yang valid, sistem CodeIgniter langsung tegas nolak dengan respons **401 Unauthorized**.*
 
 ---
-*Catatan: Pastikan Anda telah mengimpor database `database_silapor.sql` dan menyesuaikan `.env` seperti pada panduan instalasi di atas sebelum mencoba melakukan Login.*
 
-## 7. Tautan Penilaian Akademik
-Berikut adalah tautan-tautan penting yang menjadi syarat penilaian akhir UAS:
+## Tampilan Aplikasi
 
-- **Link Video Presentasi / Demo Aplikasi:** `[Tautkan URL YouTube atau Google Drive Video Anda Di Sini]`
-- **Link Repositori GitHub:** [https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah)
-- **Link Live Demo Frontend (GitHub Pages):** `[Tautkan URL GitHub Pages Anda Di Sini Jika Diaktifkan]`
+### Halaman Login
+![Login](Screenshots/Login%20admin.png)
+> *Gerbang utamanya dibikin super simpel dan bersih ala desain modern, biar admin nggak pusing pas mau masuk sistem.*
+
+### Dashboard Admin
+![Dashboard](Screenshots/Dashboard.png)
+> *Di sini admin bisa mantau semua pergerakan data. Tata letaknya responsif banget karena udah disokong penuh sama utility classes dari TailwindCSS.*
+
+### Form Tambah dan Edit Data
+![Tambah Data](Screenshots/Create.png)
+
+![Edit Data](Screenshots/Update.png)
+> *Proses input atau update data nggak butuh loading pindah halaman lagi. Semuanya udah pakai sistem modal pop-up interaktif (ciri khas SPA) biar kerjanya lebih ngebut.*
+
+### Tabel Manajemen Data
+![Tabel Data](Screenshots/Tabel%20manajemen%20data.png)
+> *Tabel ini nangkep raw data JSON dari backend dan meramunya jadi daftar yang gampang dibaca. Lencana (badge) warnanya otomatis menyesuaikan status laporan.*
+
+---
+
+## Cara Menjalankan Project (Panduan Lokal)
+
+### 1. Konfigurasi Database
+1. Buka phpMyAdmin di browser Anda.
+2. Bikin database baru dengan nama `silapor`.
+3. Lakukan *import* menggunakan file `database_silapor.sql` yang ada di folder root proyek ini.
+
+### 2. Menjalankan Backend (API)
+Masuk ke direktori backend:
+```bash
+cd backend-api
+```
+Ubah nama file environment dari `env` menjadi `.env`. Lalu pastikan settingan koneksi databasenya seperti ini:
+```env
+database.default.hostname = localhost
+database.default.database = silapor
+database.default.username = root
+database.default.password =
+```
+Backend API sekarang *standby* dan bisa diakses di:
+```bash
+http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/
+```
+
+### 3. Menjalankan Frontend (SPA)
+Langsung saja buka direktori frontend-nya lewat *browser* di alamat:
+```bash
+http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/
+```
+
+---
+
+## Akun Demo
+Biar nggak perlu repot bongkar database buat nyari password pas mau ngecek aplikasi, silakan pakai akun admin ini:
+
+**Email:**
+```text
+admin@silapor.com
+```
+
+**Password:**
+```text
+password123
+```
+
+---
+
+## Tautan Pendukung (Penilaian)
+
+*   **Video Presentasi:** `[Tambahkan Link Video Presentasi Anda di Sini]`
+*   **Live Demo (Opsional):** `[Tambahkan Link GitHub Pages / Hosting di Sini Jika Ada]`
+*   **Repository GitHub:** [https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah)
