@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => getenv('MYSQLHOST') ?: '127.0.0.1',
-        'username'     => getenv('MYSQLUSER') ?: 'root',
-        'password'     => getenv('MYSQLPASSWORD') ?: '',
-        'database'     => getenv('MYSQLDATABASE') ?: 'silapor',
+        'hostname'     => '127.0.0.1',
+        'username'     => 'root',
+        'password'     => '',
+        'database'     => 'silapor',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -41,7 +41,7 @@ class Database extends Config
         'compress'     => false,
         'strictOn'     => false,
         'failover'     => [],
-        'port'         => getenv('MYSQLPORT') ?: 3306,
+        'port'         => 3306,
         'numberNative' => false,
         'foundRows'    => false,
         'dateFormat'   => [
@@ -199,6 +199,15 @@ class Database extends Config
         // we don't overwrite live data on accident.
         if (ENVIRONMENT === 'testing') {
             $this->defaultGroup = 'tests';
+        }
+
+        // Apply Railway / Environment overrides
+        if (getenv('MYSQLHOST')) {
+            $this->default['hostname'] = getenv('MYSQLHOST');
+            $this->default['username'] = getenv('MYSQLUSER');
+            $this->default['password'] = getenv('MYSQLPASSWORD');
+            $this->default['database'] = getenv('MYSQLDATABASE');
+            $this->default['port']     = getenv('MYSQLPORT') ?: 3306;
         }
     }
 }
