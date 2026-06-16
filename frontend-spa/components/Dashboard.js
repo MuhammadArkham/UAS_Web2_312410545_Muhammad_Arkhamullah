@@ -139,12 +139,12 @@ const Dashboard = Vue.defineComponent({
         <p class="text-sm text-[#64748B]">Pantau dan tindak lanjuti laporan masyarakat secara efisien.</p>
       </div>
       <div class="hidden md:flex items-center gap-3 bg-white border border-[#E2E8F0] px-4 py-2.5 rounded-xl shadow-sm">
-         <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-[#2563EB]">
+         <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-blue-600 border border-blue-100/60 shadow-sm">
            <i class="ti ti-calendar text-xl" style="-webkit-text-stroke: 0.5px;"></i>
          </div>
          <div class="flex flex-col">
            <span class="text-[13px] font-bold text-[#0F172A] leading-tight">{{ currentDate }}</span>
-           <span class="text-[11px] font-bold text-[#2563EB] leading-tight mt-0.5">{{ currentTime }}</span>
+           <span class="text-[11px] font-bold text-blue-600 leading-tight mt-0.5">{{ currentTime }}</span>
          </div>
       </div>
     </div>
@@ -155,7 +155,7 @@ const Dashboard = Vue.defineComponent({
       <!-- Total Laporan -->
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
-           <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center">
+           <div class="w-12 h-12 rounded-xl bg-blue-50/80 text-blue-600 flex items-center justify-center border border-blue-100/60 shadow-sm">
              <i class="ti ti-file-text text-[32px]" style="-webkit-text-stroke: 1px;"></i>
            </div>
         </div>
@@ -181,7 +181,7 @@ const Dashboard = Vue.defineComponent({
       <!-- Diproses -->
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-4">
-           <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center">
+           <div class="w-12 h-12 rounded-xl bg-blue-50/80 text-blue-600 flex items-center justify-center border border-blue-100/60 shadow-sm">
              <i class="ti ti-refresh text-[32px]" style="-webkit-text-stroke: 1px;"></i>
            </div>
         </div>
@@ -214,7 +214,7 @@ const Dashboard = Vue.defineComponent({
            <h3 class="text-lg font-semibold text-[#0F172A]">Daftar Laporan Terbaru</h3>
            <p class="text-sm text-[#64748B]">Laporan yang baru saja masuk</p>
          </div>
-         <router-link to="/reports" class="inline-flex items-center gap-2 bg-[#2563EB] text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-[#1D4ED8] transition-colors shadow-sm">
+         <router-link to="/reports" class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.05)] border border-blue-700/80 ring-1 ring-inset ring-white/10 hover:shadow-md">
             Lihat Semua Laporan
          </router-link>
       </div>
@@ -254,7 +254,7 @@ const Dashboard = Vue.defineComponent({
                  <span class="text-[14px] font-medium text-[#0F172A]">{{ r.title }}</span>
               </td>
               <td class="px-6 py-4 align-middle">
-                 <span class="inline-flex text-[12px] font-medium text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-md">
+                 <span class="inline-flex text-[12px] font-semibold text-blue-700 bg-blue-50 border border-blue-200/60 px-2.5 py-1 rounded-md shadow-sm">
                    {{ r.category?.name || 'Infrastruktur' }}
                  </span>
               </td>
@@ -271,7 +271,7 @@ const Dashboard = Vue.defineComponent({
               </td>
               <td class="px-6 py-4 align-middle text-center">
                  <div class="flex items-center justify-center gap-2">
-                   <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-10 h-10 rounded-lg text-[#64748B] hover:text-[#2563EB] hover:bg-blue-50 flex items-center justify-center transition-colors border border-transparent hover:border-blue-200">
+                   <router-link :to="'/reports/' + r.id" title="Lihat Detail" class="w-10 h-10 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 flex items-center justify-center transition-all border border-transparent hover:border-blue-200 hover:shadow-sm">
                      <i class="ti ti-eye text-xl" style="-webkit-text-stroke: 0.5px;"></i>
                    </router-link>
                  </div>
@@ -309,8 +309,8 @@ const Dashboard = Vue.defineComponent({
             <template v-for="(page, index) in visiblePages" :key="index">
               <button v-if="page !== '...'" 
                       @click="goToPage(page)" 
-                      class="min-w-[32px] h-8 px-1.5 flex items-center justify-center rounded-md text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-none"
-                      :class="page === currentPage ? 'bg-[#2563EB] text-white font-semibold' : 'bg-transparent text-[#64748B] font-medium hover:bg-[#F1F5F9] hover:text-[#0F172A]'">
+                      class="min-w-[32px] h-8 px-1.5 flex items-center justify-center rounded-md text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-none"
+                      :class="page === currentPage ? 'bg-blue-600 text-white font-semibold border border-blue-700 shadow-sm' : 'bg-transparent text-[#64748B] font-medium hover:bg-[#F1F5F9] hover:text-[#0F172A]'">
                 {{ page }}
               </button>
               <span v-else class="w-8 h-8 flex items-center justify-center text-[#64748B] font-medium text-[14px]">...</span>
