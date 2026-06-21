@@ -47,9 +47,9 @@ const routes = [
     { path: '/reports/:id', component: ReportDetail, meta: { requiresAuth: true } }
 ];
 
-const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const isLocalRouter = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 const router = createRouter({
-    history: createWebHistory(isLocal ? '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/' : '/'),
+    history: createWebHistory(isLocalRouter ? '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/' : '/'),
     routes,
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
