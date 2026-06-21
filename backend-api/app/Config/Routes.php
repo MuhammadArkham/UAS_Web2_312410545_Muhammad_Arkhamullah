@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->options('(:any)', 'Home::index'); // Catch-all OPTIONS for CORS preflight
+$routes->get('api/migrate', 'Migrate::index');
 
 $routes->group('api', function($routes) {
     // Public routes
