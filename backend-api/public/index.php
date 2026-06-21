@@ -1,5 +1,17 @@
 <?php
 
+// Fix writable directory permissions for Railway
+$writablePath = __DIR__ . '/../writable';
+if (!is_dir($writablePath)) {
+    mkdir($writablePath, 0777, true);
+}
+foreach (['cache', 'logs', 'session', 'uploads'] as $dir) {
+    $path = $writablePath . '/' . $dir;
+    if (!is_dir($path)) {
+        mkdir($path, 0777, true);
+    }
+}
+
 use CodeIgniter\Boot;
 use Config\Paths;
 
