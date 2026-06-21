@@ -10,65 +10,65 @@
 
 ## Deskripsi Proyek
 
-SiLapor adalah platform pengaduan masyarakat berbasis web yang sengaja didesain untuk menjembatani komunikasi antara warga dan penyedia layanan publik. Biar lebih optimal dan gampang di-maintain, sistem ini dibangun pakai pendekatan *decoupled architecture* (frontend dan backend dipisah total).
+SiLapor merupakan platform pengaduan masyarakat berbasis web yang dirancang untuk menjembatani komunikasi antara masyarakat dan penyedia layanan publik. Sistem ini dikembangkan menggunakan pendekatan decoupled architecture untuk memisahkan logika backend dan antarmuka frontend secara penuh.
 
-Untuk urusan data dan logika, backend-nya digarap menggunakan **CodeIgniter 4** yang melayani REST API secara eksklusif. Sementara itu, tampilan mukanya (frontend) dibangun murni sebagai *Single Page Application* (SPA) menggunakan **Vue.js 3** dan dirapikan dengan **TailwindCSS**. Hasilnya? Aplikasi terasa lebih mulus dan cepat karena nggak perlu *loading* ulang halaman setiap kali pindah menu.
+Pengelolaan data dan logika backend dibangun menggunakan **CodeIgniter 4** yang berfungsi secara eksklusif sebagai penyedia layanan REST API. Antarmuka pengguna (frontend) diimplementasikan sebagai Single Page Application (SPA) menggunakan **Vue.js 3** dan **TailwindCSS**. Pendekatan ini menghasilkan aplikasi yang responsif tanpa memerlukan proses pemuatan ulang (reload) halaman secara keseluruhan saat navigasi antarmenu.
 
 ---
 
 ## Struktur Database (Kamus Data)
 
-Sistem ini ditopang oleh empat tabel utama yang saling berelasi dengan rapi. Berikut rinciannya:
+Sistem basis data terdiri dari empat tabel utama yang saling berelasi sebagai berikut:
 
 ### Tabel Pengguna (`pengguna`)
-Tempat nyimpen data akun buat *login*, baik itu akun punya admin maupun pelapor.
+Menyimpan kredensial otentikasi dan informasi profil untuk entitas administrator maupun pelapor.
 
 | Kolom | Tipe Data | Keterangan |
 | :--- | :--- | :--- |
 | `id` | INT | Primary Key |
 | `name` | VARCHAR(100) | Nama lengkap pengguna |
-| `email` | VARCHAR(100) | Email unik buat identitas login |
-| `password` | VARCHAR(255) | Kata sandi (sudah di-*hash* biar aman) |
-| `role` | ENUM | Pembeda hak akses (`admin` atau `pelapor`) |
+| `email` | VARCHAR(100) | Email unik sebagai identitas masuk (login) |
+| `password` | VARCHAR(255) | Kata sandi yang telah dienkripsi (hash) |
+| `role` | ENUM | Klasifikasi hak akses (`admin` atau `pelapor`) |
 | `token` | VARCHAR(255) | Token untuk sesi autentikasi API |
-| `created_at` | TIMESTAMP | Tanggal akun terdaftar |
+| `created_at` | TIMESTAMP | Stempel waktu pendaftaran akun |
 
 ### Tabel Kategori (`kategori`)
-Biar pengaduan nggak berantakan, kita kelompokkan berdasarkan kategori ini.
+Menyimpan klasifikasi laporan untuk memfasilitasi pengelompokan data pengaduan.
 
 | Kolom | Tipe Data | Keterangan |
 | :--- | :--- | :--- |
 | `id` | INT | Primary Key |
-| `name` | VARCHAR(100) | Nama kategori (misal: Infrastruktur, Sosial) |
-| `description` | VARCHAR(255) | Penjelasan singkat kategorinya |
-| `created_at` | TIMESTAMP | Tanggal kategori dibuat |
+| `name` | VARCHAR(100) | Nama entitas kategori |
+| `description` | VARCHAR(255) | Penjelasan singkat terkait entitas kategori |
+| `created_at` | TIMESTAMP | Stempel waktu pembuatan kategori |
 
 ### Tabel Laporan (`laporan`)
-Ini tabel utamanya, tempat semua aspirasi dan keluhan masyarakat ditampung.
+Berfungsi sebagai entitas utama yang menyimpan seluruh data pengaduan dari masyarakat.
 
 | Kolom | Tipe Data | Keterangan |
 | :--- | :--- | :--- |
 | `id` | INT | Primary Key |
-| `user_id` | INT | Relasi ke pelapor (Tabel `pengguna`) |
-| `category_id` | INT | Relasi ke jenis aduan (Tabel `kategori`) |
-| `title` | VARCHAR(200) | Judul laporan |
-| `description` | TEXT | Kronologi atau isi laporan lengkap |
-| `image` | VARCHAR(255) | Path foto bukti kejadian |
-| `location` | VARCHAR(255) | Titik lokasi masalah |
+| `user_id` | INT | Relasi referensial terhadap pelapor (Tabel `pengguna`) |
+| `category_id` | INT | Relasi referensial terhadap jenis aduan (Tabel `kategori`) |
+| `title` | VARCHAR(200) | Judul spesifik laporan |
+| `description` | TEXT | Rincian lengkap kronologi laporan |
+| `image` | VARCHAR(255) | Direktori berkas foto bukti kejadian |
+| `location` | VARCHAR(255) | Koordinat atau titik lokasi insiden |
 | `status` | ENUM | Progres penanganan (`pending`, `diproses`, `selesai`) |
-| `created_at` | TIMESTAMP | Waktu laporan dikirim |
-| `updated_at` | TIMESTAMP | Waktu terakhir statusnya diubah |
+| `created_at` | TIMESTAMP | Stempel waktu penerimaan laporan |
+| `updated_at` | TIMESTAMP | Stempel waktu modifikasi status terakhir |
 
 ### Tabel Komentar (`komentar`)
-Kalau admin butuh kasih *feedback* atau *update* info ke laporan warga, masuknya ke sini.
+Menyimpan data tanggapan atau pembaruan status laporan yang diberikan oleh administrator.
 
 | Kolom | Tipe Data | Keterangan |
 | :--- | :--- | :--- |
 | `id` | INT | Primary Key |
-| `report_id` | INT | Relasi ke laporan mana yang dibalas |
-| `admin_id` | INT | Relasi ke admin yang membalas |
-| `body` | TEXT | Isi tanggapannya |
-| `created_at` | TIMESTAMP | Waktu balasan dikirim |
+| `report_id` | INT | Relasi referensial terhadap subjek laporan |
+| `admin_id` | INT | Relasi referensial terhadap administrator |
+| `body` | TEXT | Isi lengkap tanggapan |
+| `created_at` | TIMESTAMP | Stempel waktu pengiriman tanggapan |
 
 ---
 
@@ -76,7 +76,7 @@ Kalau admin butuh kasih *feedback* atau *update* info ke laporan warga, masuknya
 
 ![Skema Database](Screenshots/Database.png)
 
-> *Bisa dilihat dari skema di atas, semua tabel sudah disambung pakai Foreign Key. Ini penting banget buat ngejaga supaya datanya nggak ada yang "nyasar" atau terhapus sembarangan (referential integrity).*
+> Skema diagram relasi entitas menunjukkan penerapan Foreign Key pada tabel terkait. Implementasi ini memastikan integritas referensial (referential integrity) untuk mencegah anomali atau penghapusan data secara tidak valid.
 
 ---
 
@@ -84,7 +84,7 @@ Kalau admin butuh kasih *feedback* atau *update* info ke laporan warga, masuknya
 
 ![Error 401 Postman](Screenshots/postman.png)
 
-> *Gambar ini jadi bukti nyata kalau keamanan REST API-nya nggak cuma pajangan. Pas kita tembak endpoint rahasia tanpa bawa tiket masuk (Bearer Token) yang valid, sistem CodeIgniter langsung tegas nolak dengan respons **401 Unauthorized**.*
+> Gambar tersebut mendemonstrasikan implementasi keamanan REST API. Akses terhadap endpoint yang dilindungi tanpa menyertakan Bearer Token yang valid akan ditolak secara otomatis oleh sistem dengan kode status **401 Unauthorized**.
 
 ---
 
@@ -92,50 +92,50 @@ Kalau admin butuh kasih *feedback* atau *update* info ke laporan warga, masuknya
 
 ### Halaman Login
 ![Login](Screenshots/Login%20admin.png)
-> *Gerbang utamanya dibikin super simpel dan bersih ala desain modern, biar admin nggak pusing pas mau masuk sistem.*
+> Antarmuka halaman otentikasi didesain secara minimalis untuk memastikan kemudahan akses administrator.
 
 ### Dashboard Admin
 ![Dashboard](Screenshots/Dashboard.png)
-> *Di sini admin bisa mantau semua pergerakan data. Tata letaknya responsif banget karena udah disokong penuh sama utility classes dari TailwindCSS.*
+> Panel kontrol utama (dashboard) menyajikan ringkasan statistik laporan. Tata letak elemen bersifat responsif berkat pemanfaatan antarmuka pengguna berbasis TailwindCSS.
 
 ### Form Tambah dan Edit Data
 ![Tambah Data](Screenshots/Create.png)
 
 ![Edit Data](Screenshots/Update.png)
-> *Proses input atau update data nggak butuh loading pindah halaman lagi. Semuanya udah pakai sistem modal pop-up interaktif (ciri khas SPA) biar kerjanya lebih ngebut.*
+> Proses penambahan dan modifikasi data diimplementasikan melalui komponen modal interaktif tanpa perpindahan halaman, mengoptimalkan efisiensi alur kerja operasional dalam lingkungan SPA.
 
 ### Tabel Manajemen Data
 ![Tabel Data](Screenshots/Tabel%20manajemen%20data.png)
-> *Tabel ini nangkep raw data JSON dari backend dan meramunya jadi daftar yang gampang dibaca. Lencana (badge) warnanya otomatis menyesuaikan status laporan.*
+> Komponen tabel memproses respons data JSON dari backend untuk disajikan dalam antarmuka terstruktur. Indikator warna pada kolom status disesuaikan secara dinamis.
 
 ---
 
 ## Cara Menjalankan Project (Panduan Lokal)
 
 ### 1. Konfigurasi Database
-1. Buka phpMyAdmin di browser Anda.
-2. Bikin database baru dengan nama `silapor`.
-3. Lakukan *import* menggunakan file `database_silapor.sql` yang ada di folder root proyek ini.
+1. Akses antarmuka phpMyAdmin melalui peramban (browser).
+2. Buat basis data baru dengan nama `silapor`.
+3. Lakukan proses impor struktur dan data menggunakan file `database_silapor.sql` yang terletak pada direktori utama proyek.
 
 ### 2. Menjalankan Backend (API)
-Masuk ke direktori backend:
+Arahkan direktori terminal ke folder backend:
 ```bash
 cd backend-api
 ```
-Ubah nama file environment dari `env` menjadi `.env`. Lalu pastikan settingan koneksi databasenya seperti ini:
+Ubah nama file konfigurasi environment dari env menjadi .env. Pastikan konfigurasi koneksi basis data disesuaikan sebagai berikut:
 ```env
 database.default.hostname = localhost
 database.default.database = silapor
 database.default.username = root
 database.default.password =
 ```
-Backend API sekarang *standby* dan bisa diakses di:
+Layanan Backend API akan aktif dan dapat diakses melalui URL:
 ```bash
 http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/
 ```
 
 ### 3. Menjalankan Frontend (SPA)
-Langsung saja buka direktori frontend-nya lewat *browser* di alamat:
+Akses direktori frontend melalui peramban pada alamat URL berikut:
 ```bash
 http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/
 ```
@@ -143,7 +143,7 @@ http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/
 ---
 
 ## Akun Demo
-Biar nggak perlu repot bongkar database buat nyari password pas mau ngecek aplikasi, silakan pakai akun admin ini:
+Kredensial otentikasi berikut dapat digunakan untuk mengakses panel administrator tanpa perlu melakukan inspeksi basis data secara manual:
 
 **Email:**
 ```text
