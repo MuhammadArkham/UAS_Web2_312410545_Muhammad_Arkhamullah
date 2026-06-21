@@ -88,6 +88,43 @@ Menyimpan data tanggapan atau pembaruan status laporan yang diberikan oleh admin
 
 ---
 
+## Implementasi Axios Interceptors (Otomatisasi Token)
+
+Sistem telah dikonfigurasi untuk mengotomatisasi penyisipan token dan penanganan kesalahan secara global pada sisi frontend (Vue.js) melalui penerapan Axios Interceptors. Berikut adalah cuplikan kode implementasi yang merepresentasikan fungsionalitas tersebut:
+
+```javascript
+// Request Interceptor: Menyuntikkan Bearer token secara otomatis
+window.api.interceptors.request.use(config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+}, error => {
+    return Promise.reject(error);
+});
+
+// Response Interceptor: Menangani error 401 Unauthorized secara global
+window.api.interceptors.response.use(response => {
+    return response;
+}, error => {
+    if (error.response && error.response.status === 401) {
+        if (window.location.pathname !== '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/login') {
+            alert('Sesi Anda telah habis. Silakan login kembali.');
+            localStorage.clear();
+            window.location.href = '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/login';
+        }
+    }
+    return Promise.reject(error);
+});
+```
+
+> Kode di atas mengonfirmasi dua fungsi operasional utama:
+> 1. Request Interceptor bertugas mengekstraksi token dari `localStorage` untuk disematkan secara otomatis pada setiap header permintaan (request) keluar.
+> 2. Response Interceptor bertugas menginterupsi respons dengan status 401 secara global untuk mencabut sesi, memberikan notifikasi peringatan (alert), serta mengarahkan pengguna kembali ke halaman otentikasi.
+
+---
+
 ## Tampilan Aplikasi
 
 ### Halaman Login
