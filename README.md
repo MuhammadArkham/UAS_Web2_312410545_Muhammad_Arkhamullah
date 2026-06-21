@@ -82,7 +82,7 @@ Kalau admin butuh kasih *feedback* atau *update* info ke laporan warga, masuknya
 
 ## Pengujian Keamanan API
 
-![Error 401 Postman](Screenshots/SS%20postman%20401.png)
+![Error 401 Postman](Screenshots/postman.png)
 
 > *Gambar ini jadi bukti nyata kalau keamanan REST API-nya nggak cuma pajangan. Pas kita tembak endpoint rahasia tanpa bawa tiket masuk (Bearer Token) yang valid, sistem CodeIgniter langsung tegas nolak dengan respons **401 Unauthorized**.*
 
