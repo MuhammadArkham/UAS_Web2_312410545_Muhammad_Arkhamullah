@@ -1,0 +1,5 @@
+[phases.setup]
+nixPkgs = ["php82", "php82Packages.composer", "php82Extensions.mysqli", "php82Extensions.intl", "php82Extensions.mbstring"]
+
+[phases.install]
+cmds = ["composer install --no-dev", "chmod -R 777 writable"]
