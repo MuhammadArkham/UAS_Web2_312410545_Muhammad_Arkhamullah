@@ -110,9 +110,18 @@
 
     <!-- Konfigurasi Global Aplikasi -->
     <script>
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        
+        // GANTI URL DI BAWAH INI SETELAH MENDAPATKAN URL RAILWAY ANDA!
+        const RAILWAY_URL = 'https://silapor-backend-production.up.railway.app'; // <--- UBAH INI NANTI
+        
         window.APP_CONFIG = {
-            API_BASE_URL: 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/api',
-            IMAGE_BASE_URL: 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/',
+            API_BASE_URL: isLocal 
+                ? 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/api' 
+                : `${RAILWAY_URL}/api`,
+            IMAGE_BASE_URL: isLocal 
+                ? 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/' 
+                : `${RAILWAY_URL}/`,
             statusBadgeClass: {
                 pending: 'bg-amber-100 text-amber-700',
                 diproses: 'bg-blue-100 text-blue-700',

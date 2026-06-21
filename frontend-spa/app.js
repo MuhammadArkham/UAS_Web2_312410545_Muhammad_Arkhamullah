@@ -23,10 +23,13 @@ window.api.interceptors.response.use(response => {
 }, error => {
     if (error.response && error.response.status === 401) {
         // If not on login page, alert and redirect
-        if (window.location.pathname !== '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/login') {
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const loginPath = isLocal ? '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/login' : '/login';
+        
+        if (window.location.pathname !== loginPath) {
             alert('Sesi Anda telah habis. Silakan login kembali.');
             localStorage.clear();
-            window.location.href = '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/login';
+            window.location.href = loginPath;
         }
     }
     return Promise.reject(error);
@@ -44,8 +47,9 @@ const routes = [
     { path: '/reports/:id', component: ReportDetail, meta: { requiresAuth: true } }
 ];
 
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 const router = createRouter({
-    history: createWebHistory('/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/'),
+    history: createWebHistory(isLocal ? '/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/' : '/'),
     routes,
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {

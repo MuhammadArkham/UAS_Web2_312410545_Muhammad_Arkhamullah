@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => '127.0.0.1',
-        'username'     => 'root',
-        'password'     => '',
-        'database'     => 'silapor',
+        'hostname'     => getenv('MYSQLHOST') ?: '127.0.0.1',
+        'username'     => getenv('MYSQLUSER') ?: 'root',
+        'password'     => getenv('MYSQLPASSWORD') ?: '',
+        'database'     => getenv('MYSQLDATABASE') ?: 'silapor',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -41,7 +41,7 @@ class Database extends Config
         'compress'     => false,
         'strictOn'     => false,
         'failover'     => [],
-        'port'         => 3306,
+        'port'         => getenv('MYSQLPORT') ?: 3306,
         'numberNative' => false,
         'foundRows'    => false,
         'dateFormat'   => [
