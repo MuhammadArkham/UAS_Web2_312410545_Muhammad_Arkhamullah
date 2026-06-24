@@ -67,13 +67,6 @@
     <!-- Chart.js (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!--
-      Catatan Teknis: Blok <style> berikut BUKAN styling UI tradisional.
-      Ini adalah konfigurasi wajib untuk Vue 3 Transition System (<transition> component).
-      Vue Transition memerlukan class CSS (.fade-enter-active, dll) yang tidak dapat
-      digantikan oleh utility class TailwindCSS karena bersifat programatik.
-      Seluruh styling UI/visual komponen 100% menggunakan TailwindCSS utility classes.
-    -->
     <style>
         .fade-enter-active,
         .fade-leave-active {
@@ -116,7 +109,6 @@
             animation: flowLine 2.5s infinite linear;
         }
 
-        /* Hide scrollbar for slider */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -134,10 +126,10 @@
         window.APP_CONFIG = {
             API_BASE_URL: isLocal
                 ? 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/api'
-                : 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/api',
+                : 'https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app/api',
             IMAGE_BASE_URL: isLocal
                 ? 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/'
-                : 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/',
+                : 'https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app/',
             statusBadgeClass: {
                 pending: 'bg-amber-100 text-amber-700',
                 diproses: 'bg-blue-100 text-blue-700',
@@ -170,22 +162,18 @@
     <script src="components/ReportDetail.js?v=146"></script>
 
     <script>
-        // Custom Intersection Observer for fade-in-section
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    // Optional: stop observing once visible for better performance
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
         window.observeFadeSections = function () {
-            // Berikan jeda untuk memastikan Vue telah merender elemen DOM
             setTimeout(() => {
                 document.querySelectorAll('.fade-in-section').forEach(el => {
-                    // Reset visibility status before observing (useful when navigating back)
                     el.classList.remove('is-visible');
                     observer.observe(el);
                 });
@@ -200,7 +188,6 @@
     <!-- AOS Animation JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Init AOS globally, but components can re-init it
         document.addEventListener('DOMContentLoaded', function () {
             AOS.init({
                 once: true,
