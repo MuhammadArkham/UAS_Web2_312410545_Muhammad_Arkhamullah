@@ -1,8 +1,0 @@
-CI_ENVIRONMENT = development
-app.baseURL = 'https://uasweb2312410545muhammadarkhamullah-production.up.railway.app/'
-database.default.hostname = crossover.proxy.rlwy.net
-database.default.database = railway
-database.default.username = root
-database.default.password = pzTEpNNTLwUsqvBFCnKJKIrkSRHzzKRd
-database.default.DBDriver = MySQLi
-database.default.port = 22073
