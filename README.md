@@ -16,6 +16,26 @@ Pengelolaan data dan logika backend dibangun menggunakan **CodeIgniter 4** yang 
 
 ---
 
+## Tautan Pendukung (Penilaian)
+
+*   **Video Presentasi:** `[Tambahkan Link Video Presentasi Anda di Sini]`
+*   **Live Demo (Backend API):** [https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app](https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app)
+*   **Repository GitHub:** [https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah)
+
+---
+
+## Akun Demo
+
+Kredensial otentikasi berikut dapat digunakan untuk mengakses panel administrator tanpa perlu melakukan inspeksi basis data secara manual:
+
+**Email:**
+admin@silapor.com
+
+**Password:**
+password
+
+---
+
 ## Struktur Database (Kamus Data)
 
 Sistem basis data terdiri dari empat tabel utama yang saling berelasi sebagai berikut:
@@ -85,6 +105,10 @@ Menyimpan data tanggapan atau pembaruan status laporan yang diberikan oleh admin
 ![Error 401 Postman](Screenshots/postman.png)
 
 > Gambar tersebut mendemonstrasikan implementasi keamanan REST API. Akses terhadap endpoint yang dilindungi tanpa menyertakan Bearer Token yang valid akan ditolak secara otomatis oleh sistem dengan kode status **401 Unauthorized**.
+
+![Error 401 Railway](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah/blob/master/Screenshots/Screenshot%202026-06-24%20191050.png?raw=true)
+
+> Pengujian dilakukan langsung terhadap endpoint production di Railway. Hasil identik membuktikan proteksi token berjalan konsisten di lingkungan deployment.
 
 ---
 
@@ -167,28 +191,9 @@ database.default.username = root
 database.default.password =
 ```
 Layanan Backend API akan aktif dan dapat diakses melalui URL:
-Layanan Backend API akan aktif dan dapat diakses melalui URL:
 http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/
 
 ### 3. Menjalankan Frontend (SPA)
 Akses direktori frontend melalui peramban pada alamat URL berikut:
 http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/
 
----
-
-## Akun Demo
-Kredensial otentikasi berikut dapat digunakan untuk mengakses panel administrator tanpa perlu melakukan inspeksi basis data secara manual:
-
-**Email:**
-admin@silapor.com
-
-**Password:**
-password
-
----
-
-## Tautan Pendukung (Penilaian)
-
-*   **Video Presentasi:** `[Tambahkan Link Video Presentasi Anda di Sini]`
-*   **Live Demo (Backend API):** [https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app](https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app)
-*   **Repository GitHub:** [https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah)
