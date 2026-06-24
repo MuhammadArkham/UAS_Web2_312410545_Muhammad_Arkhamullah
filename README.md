@@ -167,15 +167,12 @@ database.default.username = root
 database.default.password =
 ```
 Layanan Backend API akan aktif dan dapat diakses melalui URL:
-```bash
+Layanan Backend API akan aktif dan dapat diakses melalui URL:
 http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/
-```
 
 ### 3. Menjalankan Frontend (SPA)
 Akses direktori frontend melalui peramban pada alamat URL berikut:
-```bash
 http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/
-```
 
 ---
 
@@ -183,19 +180,15 @@ http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/
 Kredensial otentikasi berikut dapat digunakan untuk mengakses panel administrator tanpa perlu melakukan inspeksi basis data secara manual:
 
 **Email:**
-```text
 admin@silapor.com
-```
 
 **Password:**
-```text
-password123
-```
+password
 
 ---
 
 ## Tautan Pendukung (Penilaian)
 
 *   **Video Presentasi:** `[Tambahkan Link Video Presentasi Anda di Sini]`
-*   **Live Demo (Opsional):** `[Tambahkan Link GitHub Pages / Hosting di Sini Jika Ada]`
+*   **Live Demo (Backend API):** [https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app](https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app)
 *   **Repository GitHub:** [https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah)
