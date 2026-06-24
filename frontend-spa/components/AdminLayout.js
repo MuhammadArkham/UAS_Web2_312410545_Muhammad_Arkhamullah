@@ -18,12 +18,12 @@ const AdminLayout = Vue.defineComponent({
   },
   mounted() {
     const userData = localStorage.getItem('user');
-    if(userData) this.user = JSON.parse(userData);
+    if (userData) this.user = JSON.parse(userData);
   },
   template: `
   <div class="flex h-screen bg-[#F8FAFC] overflow-hidden text-slate-800 font-sans">
     <!-- Sidebar -->
-    <aside class="w-[240px] bg-[#0F172A] text-white flex flex-col transition-all shrink-0 shadow-lg relative z-20">
+    <aside class="w-[240px] bg-[#1a3a6b] text-white flex flex-col transition-all shrink-0 shadow-lg relative z-20">
       <div class="h-[72px] flex items-center px-6 border-b border-white/5">
         <div class="flex items-center gap-3 w-full">
            <div class="w-[42px] h-[42px] bg-white rounded-xl flex shrink-0 items-center justify-center shadow-sm p-1">
@@ -58,8 +58,6 @@ const AdminLayout = Vue.defineComponent({
           </div>
         </nav>
       </div>
-      
-      <!-- Footer branding removed per request -->
     </aside>
 
     <!-- Main Content -->
