@@ -12,17 +12,17 @@ class Auth extends BaseController
 
     public function login()
     {
-        $rules = [
-            'email'    => 'required|valid_email',
-            'password' => 'required'
-        ];
+        $json = $this->request->getJSON(true);
+        
+        $email    = $json['email'] ?? $this->request->getVar('email');
+        $password = $json['password'] ?? $this->request->getVar('password');
 
-        if (!$this->validate($rules)) {
-            return $this->failValidationErrors($this->validator->getErrors());
+        if (empty($email) || empty($password)) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'Email dan password wajib diisi'
+            ])->setStatusCode(400);
         }
-
-        $email    = $this->request->getVar('email');
-        $password = $this->request->getVar('password');
 
         $userModel = new UserModel();
         $user = $userModel->where('email', $email)->first();
@@ -59,23 +59,26 @@ class Auth extends BaseController
 
     public function register()
     {
-        $rules = [
-            'name'     => 'required|min_length[3]|max_length[100]',
-            'email'    => 'required|valid_email|is_unique[pengguna.email]',
-            'password' => 'required|min_length[6]',
-            'role'     => 'in_list[admin,pelapor]'
-        ];
+        $json = $this->request->getJSON(true);
 
-        if (!$this->validate($rules)) {
-            return $this->failValidationErrors($this->validator->getErrors());
+        $name     = $json['name'] ?? $this->request->getVar('name');
+        $email    = $json['email'] ?? $this->request->getVar('email');
+        $password = $json['password'] ?? $this->request->getVar('password');
+        $role     = $json['role'] ?? $this->request->getVar('role') ?? 'pelapor';
+
+        if (empty($name) || empty($email) || empty($password)) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'Semua field wajib diisi'
+            ])->setStatusCode(400);
         }
 
         $userModel = new UserModel();
         $data = [
-            'name'       => $this->request->getVar('name'),
-            'email'      => $this->request->getVar('email'),
-            'password'   => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT),
-            'role'       => $this->request->getVar('role') ?? 'pelapor',
+            'name'       => $name,
+            'email'      => $email,
+            'password'   => password_hash($password, PASSWORD_BCRYPT),
+            'role'       => $role,
             'created_at' => date('Y-m-d H:i:s')
         ];
 
