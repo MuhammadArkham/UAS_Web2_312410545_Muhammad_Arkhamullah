@@ -1,4 +1,4 @@
-CI_ENVIRONMENT = production
+CI_ENVIRONMENT = development
 app.baseURL = 'https://uasweb2312410545muhammadarkhamullah-production.up.railway.app/'
 database.default.hostname = reseau.proxy.rlwy.net
 database.default.database = railway
