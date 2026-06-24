@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -57,13 +60,13 @@
     <!-- Vue 3 & Vue Router 4 (CDN) -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.prod.js"></script>
-    
+
     <!-- Axios (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Chart.js (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <!--
       Catatan Teknis: Blok <style> berikut BUKAN styling UI tradisional.
       Ini adalah konfigurasi wajib untuk Vue 3 Transition System (<transition> component).
@@ -72,36 +75,52 @@
       Seluruh styling UI/visual komponen 100% menggunakan TailwindCSS utility classes.
     -->
     <style>
-        .fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
-        .fade-enter-from, .fade-leave-to { opacity: 0; }
-        
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 0.2s ease;
+        }
+
+        .fade-enter-from,
+        .fade-leave-to {
+            opacity: 0;
+        }
+
         .fade-in-section {
-          opacity: 0;
-          transform: translateY(30px);
-          visibility: hidden;
-          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 0.8s;
-          will-change: opacity, visibility;
+            opacity: 0;
+            transform: translateY(30px);
+            visibility: hidden;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 0.8s;
+            will-change: opacity, visibility;
         }
+
         .fade-in-section.is-visible {
-          opacity: 1;
-          transform: none;
-          visibility: visible;
-          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 0s;
+            opacity: 1;
+            transform: none;
+            visibility: visible;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 0s;
         }
+
         @keyframes flowLine {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
         }
+
         .animate-flow {
-          background: linear-gradient(90deg, #f1f5f9 0%, #60a5fa 50%, #f1f5f9 100%);
-          background-size: 200% 100%;
-          animation: flowLine 2.5s infinite linear;
+            background: linear-gradient(90deg, #f1f5f9 0%, #60a5fa 50%, #f1f5f9 100%);
+            background-size: 200% 100%;
+            animation: flowLine 2.5s infinite linear;
         }
 
         /* Hide scrollbar for slider */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
+
         .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -111,17 +130,14 @@
     <!-- Konfigurasi Global Aplikasi -->
     <script>
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        
-        // GANTI URL DI BAWAH INI SETELAH MENDAPATKAN URL RAILWAY ANDA!
-        const RAILWAY_URL = 'https://uasweb2312410545muhammadarkhamullah-production.up.railway.app'; // <--- UBAH INI NANTI
-        
+
         window.APP_CONFIG = {
-            API_BASE_URL: isLocal 
-                ? 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/api' 
-                : `${RAILWAY_URL}/api`,
-            IMAGE_BASE_URL: isLocal 
-                ? 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/' 
-                : `${RAILWAY_URL}/`,
+            API_BASE_URL: isLocal
+                ? 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/api'
+                : 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/api',
+            IMAGE_BASE_URL: isLocal
+                ? 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/'
+                : 'http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/',
             statusBadgeClass: {
                 pending: 'bg-amber-100 text-amber-700',
                 diproses: 'bg-blue-100 text-blue-700',
@@ -133,6 +149,7 @@
     <!-- Tabler Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head>
+
 <body class="bg-background text-gray-800 antialiased font-sans">
     <div id="app">
         <router-view v-slot="{ Component, route }">
@@ -151,7 +168,7 @@
     <script src="components/Categories.js?v=146"></script>
     <script src="components/Reports.js?v=146"></script>
     <script src="components/ReportDetail.js?v=146"></script>
-    
+
     <script>
         // Custom Intersection Observer for fade-in-section
         const observer = new IntersectionObserver((entries) => {
@@ -164,7 +181,7 @@
             });
         }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
-        window.observeFadeSections = function() {
+        window.observeFadeSections = function () {
             // Berikan jeda untuk memastikan Vue telah merender elemen DOM
             setTimeout(() => {
                 document.querySelectorAll('.fade-in-section').forEach(el => {
@@ -175,7 +192,7 @@
             }, 50);
         };
     </script>
-    
+
     <!-- App Entry Point -->
     <script src="app.js?v=143"></script>
     <!-- html2pdf for Export PDF -->
@@ -184,7 +201,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Init AOS globally, but components can re-init it
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             AOS.init({
                 once: true,
                 duration: 800,
@@ -194,4 +211,5 @@
         });
     </script>
 </body>
+
 </html>
