@@ -55,21 +55,141 @@ Aplikasi dibangun dengan **Decoupled Architecture** — backend API terpisah pen
 
 ## Skema Relasi Tabel Database
 
+Sistem menggunakan **4 tabel utama** yang saling terhubung melalui foreign key. Berikut struktur dan relasinya:
+
+### 1. Tabel `pengguna` — Data User
+
+| Kolom | Tipe | Keterangan |
+|-------|------|------------|
+| `id` | int(10) unsigned PK | Primary key, auto increment |
+| `name` | varchar(100) | Nama lengkap user |
+| `email` | varchar(100) UNIQUE | Email login (unik) |
+| `password` | varchar(255) | Hash bcrypt |
+| `role` | enum('admin','pelapor') | Hak akses — admin kelola sistem, pelapor buat laporan |
+| `token` | varchar(255) | Token Bearer (diisi saat login) |
+| `created_at` | timestamp | Waktu registrasi |
+
+### 2. Tabel `kategori` — Jenis Aduan
+
+| Kolom | Tipe | Keterangan |
+|-------|------|------------|
+| `id` | int(10) unsigned PK | Primary key |
+| `name` | varchar(100) | Nama kategori (contoh: Infrastruktur, Keamanan) |
+| `description` | varchar(255) | Deskripsi kategori |
+| `created_at` | timestamp | Waktu dibuat |
+
+**Data awal:** Infrastruktur, Keamanan, Lingkungan, Kesehatan, Pendidikan, Sosial.
+
+### 3. Tabel `laporan` — Isi Pengaduan
+
+| Kolom | Tipe | Keterangan |
+|-------|------|------------|
+| `id` | int(10) unsigned PK | Primary key |
+| `user_id` | int(10) unsigned FK | Foreign key ke `pengguna.id` — siapa yang melapor |
+| `category_id` | int(10) unsigned FK | Foreign key ke `kategori.id` — jenis aduan |
+| `title` | varchar(200) | Judul laporan |
+| `description` | text | Deskripsi lengkap |
+| `image` | varchar(255) | Path bukti gambar (nullable) |
+| `location` | varchar(255) | Lokasi kejadian |
+| `status` | enum('pending','diproses','selesai') | Status penanganan |
+| `created_at` / `updated_at` | timestamp | Waktu dibuat & diupdate |
+
+### 4. Tabel `komentar` — Tanggapan Admin
+
+| Kolom | Tipe | Keterangan |
+|-------|------|------------|
+| `id` | int(10) unsigned PK | Primary key |
+| `report_id` | int(10) unsigned FK | Foreign key ke `laporan.id` — komentar milik laporan mana |
+| `admin_id` | int(10) unsigned FK | Foreign key ke `pengguna.id` — siapa admin yang komen |
+| `body` | text | Isi komentar |
+| `created_at` | timestamp | Waktu komen |
+
+### Relasi Antar Tabel
+
+```
+pengguna (1) ──< (N) laporan (N) >── (1) kategori
+                  │
+                  │ (1)
+                  │
+                  ▼
+              komentar (N) >── (1) pengguna (admin)
+```
+
+Penjelasan:
+- **pengguna → laporan:** Satu user bisa membuat banyak laporan (`user_id` FK)
+- **kategori → laporan:** Satu kategori bisa dipakai banyak laporan (`category_id` FK)
+- **laporan → komentar:** Satu laporan bisa punya banyak komentar (`report_id` FK)
+- **pengguna → komentar:** Satu admin bisa menulis banyak komentar (`admin_id` FK)
+
+Semua foreign key menggunakan **ON DELETE CASCADE** — jika data induk dihapus, data anak ikut terhapus.
+
 ![Skema Database](Screenshots/Database.png)
-> Entity Relationship Diagram (ERD) dari database designer phpMyAdmin — memperlihatkan relasi antar tabel dan foreign key.
+> ERD dari database designer phpMyAdmin — visualisasi relasi foreign key antar 4 tabel.
 
 ![Relasi Tabel](Screenshots/tabel%20relasi.png)
-> Tampilan designer phpMyAdmin — hubungan foreign key antar 4 tabel: `pengguna`, `kategori`, `laporan`, `komentar`.
+> Tampilan designer phpMyAdmin — garis penghubung menunjukkan foreign key constraints.
 
 ---
 
 ## Pengujian Keamanan API (Error 401)
 
+### Cara Kerja Proteksi Token (AuthFilter)
+
+Backend menggunakan **CodeIgniter Filter** bernama `AuthFilter` untuk melindungi endpoint yang membutuhkan otorisasi. Logikanya:
+
+```
+[Request] → Cek header "Authorization: Bearer <token>"
+           ↓
+    Token ada?  ──Tidak──→  Return 401 Unauthorized
+           ↓ Ya
+    Cari token di tabel `pengguna`
+           ↓
+    Token valid? ──Tidak──→  Return 401 Unauthorized
+           ↓ Ya
+    → Request diteruskan ke Controller
+```
+
+File `app/Filters/AuthFilter.php` menjalankan langkah:
+1. Ambil header `Authorization` dari request HTTP
+2. Pakai regex `Bearer\s(\S+)` untuk ekstrak token
+3. Query ke tabel `pengguna` — cari baris dengan token tsb
+4. Jika token null atau tidak ditemukan → return JSON `{"status":"error", "message":"Token tidak valid atau sudah kedaluwarsa"}` dengan status code **401**
+5. Jika cocok → request lanjut ke controller
+
+### Pembagian Route Public vs Protected
+
+Di `app/Config/Routes.php`, route API dibagi dua grup:
+
+**Public (tanpa token):**
+| Method | Endpoint | Fungsi |
+|--------|----------|--------|
+| POST | `/api/auth/login` | Login — dapat token |
+| POST | `/api/auth/register` | Daftar akun baru |
+| GET | `/api/categories` | Lihat daftar kategori |
+| GET | `/api/categories/{id}` | Detail kategori |
+| GET | `/api/reports` | Lihat daftar laporan |
+| GET | `/api/reports/{id}` | Detail laporan |
+
+**Protected (wajib Bearer token — difilter `'auth'`):**
+| Method | Endpoint | Fungsi |
+|--------|----------|--------|
+| GET | `/api/dashboard` | Statistik dashboard |
+| POST | `/api/categories` | Tambah kategori |
+| PUT | `/api/categories/{id}` | Edit kategori |
+| DELETE | `/api/categories/{id}` | Hapus kategori |
+| POST | `/api/reports` | Buat laporan baru |
+| PUT | `/api/reports/{id}` | Edit laporan |
+| DELETE | `/api/reports/{id}` | Hapus laporan |
+| POST | `/api/reports/{id}/comments` | Tambah komentar |
+| DELETE | `/api/comments/{id}` | Hapus komentar |
+
+### Hasil Pengujian Postman
+
 ![Error 401 Postman](Screenshots/postman.png)
-> Endpoint yang dilindungi tanpa Bearer Token — ditolak dengan kode **401 Unauthorized** oleh AuthFilter.
+> **Skenario:** Request GET ke endpoint yang dilindungi (`/api/reports`) tanpa menyertakan header `Authorization: Bearer <token>`. **Hasil:** Server langsung mengembalikan kode **401 Unauthorized** dengan pesan error JSON. Header `WWW-Authenticate: Bearer` ikut dikirim sebagai sinyal ke client bahwa endpoint ini butuh token.
 
 ![Error 401 Railway](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah/blob/master/Screenshots/Screenshot%202026-06-24%20191050.png?raw=true)
-> Pengujian pada endpoint production di Railway — proteksi token konsisten di semua lingkungan (lokal maupun production).
+> **Skenario:** Uji coba yang sama dilakukan terhadap API production yang di-deploy di Railway. **Hasil:** Error 401 tetap muncul — proteksi token konsisten antara lingkungan development (localhost) dan production (Railway), karena logika AuthFilter ada di kode backend yang sama.
 
 ---
 
