@@ -12,9 +12,39 @@ class Reports extends ResourceController
     protected $modelName = 'App\Models\ReportModel';
     protected $format    = 'json';
 
+    private function uploadToCloudinary($imageFile)
+    {
+        $cloudName  = getenv('CLOUDINARY_CLOUD_NAME');
+        $apiKey     = getenv('CLOUDINARY_API_KEY');
+        $apiSecret  = getenv('CLOUDINARY_API_SECRET');
+
+        $timestamp  = time();
+        $signature  = sha1('timestamp=' . $timestamp . $apiSecret);
+        $url        = 'https://api.cloudinary.com/v1_1/' . $cloudName . '/image/upload';
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL            => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => [
+                'file'      => new \CURLFile($imageFile->getTempName(), $imageFile->getMimeType(), $imageFile->getName()),
+                'api_key'   => $apiKey,
+                'timestamp' => $timestamp,
+                'signature' => $signature,
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $result = json_decode($response, true);
+        return $result['secure_url'] ?? null;
+    }
+
     public function index()
     {
-        $status = $this->request->getVar('status');
+        $status     = $this->request->getVar('status');
         $categoryId = $this->request->getVar('category_id');
 
         $query = $this->model->select('laporan.*, kategori.name as category_name, pengguna.name as user_name')
@@ -22,20 +52,15 @@ class Reports extends ResourceController
                              ->join('pengguna', 'pengguna.id = laporan.user_id', 'left')
                              ->orderBy('laporan.created_at', 'DESC');
 
-        if ($status) {
-            $query->where('laporan.status', $status);
-        }
+        if ($status)     $query->where('laporan.status', $status);
+        if ($categoryId) $query->where('laporan.category_id', $categoryId);
 
-        if ($categoryId) {
-            $query->where('laporan.category_id', $categoryId);
-        }
-
-        $data = $query->findAll();
-        
+        $data          = $query->findAll();
         $formattedData = [];
-        foreach($data as $row) {
+
+        foreach ($data as $row) {
             $row['category'] = ['id' => (int)$row['category_id'], 'name' => $row['category_name']];
-            $row['user'] = ['id' => (int)$row['user_id'], 'name' => $row['user_name']];
+            $row['user']     = ['id' => (int)$row['user_id'], 'name' => $row['user_name']];
             unset($row['category_name'], $row['user_name']);
             $formattedData[] = $row;
         }
@@ -50,9 +75,9 @@ class Reports extends ResourceController
     public function show($id = null)
     {
         $row = $this->model->select('laporan.*, kategori.name as category_name, pengguna.name as user_name')
-                             ->join('kategori', 'kategori.id = laporan.category_id', 'left')
-                             ->join('pengguna', 'pengguna.id = laporan.user_id', 'left')
-                             ->find($id);
+                           ->join('kategori', 'kategori.id = laporan.category_id', 'left')
+                           ->join('pengguna', 'pengguna.id = laporan.user_id', 'left')
+                           ->find($id);
 
         if (!$row) {
             return $this->response->setJSON([
@@ -62,22 +87,22 @@ class Reports extends ResourceController
         }
 
         $row['category'] = ['id' => (int)$row['category_id'], 'name' => $row['category_name']];
-        $row['user'] = ['id' => (int)$row['user_id'], 'name' => $row['user_name']];
+        $row['user']     = ['id' => (int)$row['user_id'], 'name' => $row['user_name']];
         unset($row['category_name'], $row['user_name']);
 
         $commentModel = new CommentModel();
-        $comments = $commentModel->select('komentar.*, pengguna.name as admin_name')
-                                 ->join('pengguna', 'pengguna.id = komentar.admin_id', 'left')
-                                 ->where('report_id', $id)
-                                 ->findAll();
-        
+        $comments     = $commentModel->select('komentar.*, pengguna.name as admin_name')
+                                     ->join('pengguna', 'pengguna.id = komentar.admin_id', 'left')
+                                     ->where('report_id', $id)
+                                     ->findAll();
+
         $formattedComments = [];
-        foreach($comments as $c) {
+        foreach ($comments as $c) {
             $c['admin'] = ['id' => (int)$c['admin_id'], 'name' => $c['admin_name']];
             unset($c['admin_name']);
             $formattedComments[] = $c;
         }
-        
+
         $row['comments'] = $formattedComments;
 
         return $this->response->setJSON([
@@ -101,26 +126,16 @@ class Reports extends ResourceController
 
         $imagePath = null;
         $imageFile = $this->request->getFile('image');
-        
+
         if ($imageFile && $imageFile->isValid() && !$imageFile->hasMoved()) {
-            // ensure uploads dir exists
-            if (!is_dir(FCPATH . 'uploads')) {
-                mkdir(FCPATH . 'uploads', 0777, true);
-            }
-            $newName = $imageFile->getRandomName();
-            $imageFile->move(FCPATH . 'uploads', $newName);
-            $imagePath = 'uploads/' . $newName;
+            $imagePath = $this->uploadToCloudinary($imageFile);
         }
 
         $userId = $this->request->getVar('user_id');
         if (!$userId) {
             $userModel = new UserModel();
-            $pelapor = $userModel->where('role', 'pelapor')->first();
-            if ($pelapor) {
-                $userId = $pelapor['id'];
-            } else {
-                $userId = 1; 
-            }
+            $pelapor   = $userModel->where('role', 'pelapor')->first();
+            $userId    = $pelapor ? $pelapor['id'] : 1;
         }
 
         $data = [
@@ -144,25 +159,23 @@ class Reports extends ResourceController
 
     public function update($id = null)
     {
-        $json = $this->request->getJSON();
+        $json  = $this->request->getJSON();
         $input = $this->request->getRawInput();
-        
-        $data = [];
-        $status = $json->status ?? $input['status'] ?? null;
-        $title = $json->title ?? $input['title'] ?? null;
-        $desc = $json->description ?? $input['description'] ?? null;
-        $cat = $json->category_id ?? $input['category_id'] ?? null;
-        $loc = $json->location ?? $input['location'] ?? null;
 
-        if ($status !== null) $data['status'] = $status;
-        if ($title !== null) $data['title'] = $title;
-        if ($desc !== null) $data['description'] = $desc;
-        if ($cat !== null) $data['category_id'] = $cat;
-        if ($loc !== null) $data['location'] = $loc;
+        $data   = [];
+        $status = $json->status      ?? $input['status']      ?? null;
+        $title  = $json->title       ?? $input['title']       ?? null;
+        $desc   = $json->description ?? $input['description'] ?? null;
+        $cat    = $json->category_id ?? $input['category_id'] ?? null;
+        $loc    = $json->location    ?? $input['location']    ?? null;
 
-        if (!empty($data)) {
-            $this->model->update($id, $data);
-        }
+        if ($status !== null) $data['status']      = $status;
+        if ($title  !== null) $data['title']       = $title;
+        if ($desc   !== null) $data['description'] = $desc;
+        if ($cat    !== null) $data['category_id'] = $cat;
+        if ($loc    !== null) $data['location']    = $loc;
+
+        if (!empty($data)) $this->model->update($id, $data);
 
         return $this->response->setJSON([
             'status'  => 'success',
