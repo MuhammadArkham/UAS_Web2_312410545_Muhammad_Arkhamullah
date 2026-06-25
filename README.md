@@ -13,11 +13,11 @@
 
 ## Deskripsi Proyek
 
-SiLapor adalah aplikasi berbasis web untuk pelaporan pengaduan layanan masyarakat. Warga dapat melaporkan permasalahan publik — infrastruktur rusak, keamanan lingkungan, kebersihan — melalui sistem digital yang transparan. Petugas dapat memantau, memproses, dan menindaklanjuti setiap laporan secara terstruktur.
+SiLapor adalah aplikasi berbasis web untuk pelaporan pengaduan layanan masyarakat. Warga dapat melaporkan permasalahan publik infrastruktur rusak, keamanan lingkungan, kebersihan melalui sistem digital yang transparan. Petugas dapat memantau, memproses, dan menindaklanjuti setiap laporan secara terstruktur.
 
-Tema studi kasus: **Sistem Pelaporan Pengaduan Layanan Masyarakat (E-Report)** — mengelola data pelapor, kategori aduan (infrastruktur, keamanan, dll), isi laporan, gambar bukti, dan status penanganan aduan.
+Tema studi kasus: **Sistem Pelaporan Pengaduan Layanan Masyarakat (E-Report)** mengelola data pelapor, kategori aduan (infrastruktur, keamanan, dll), isi laporan, gambar bukti, dan status penanganan aduan.
 
-Aplikasi dibangun dengan **Decoupled Architecture** — backend API terpisah penuh dari frontend SPA.
+Aplikasi dibangun dengan **Decoupled Architecture**  backend API terpisah penuh dari frontend SPA.
 
 | Lapisan | Teknologi |
 |---------|-----------|
