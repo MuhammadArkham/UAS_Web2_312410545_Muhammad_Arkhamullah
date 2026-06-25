@@ -20,7 +20,7 @@ Pengelolaan data dan logika backend dibangun menggunakan **CodeIgniter 4** yang 
 
 *   **Video Presentasi:** `[Tambahkan Link Video Presentasi Anda di Sini]`
 *   **Live Demo (Backend API):** [https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app](https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app)
-*   **Repository GitHub:** [https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah)
+*   **DEMO Aplikasi FrontEnd dan Backend):** (https://uas-web2-312410545-muhammad-arkhamu.vercel.app/)
 
 ---
 
