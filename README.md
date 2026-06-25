@@ -1,94 +1,124 @@
-# Sistem Informasi SiLapor (Pengaduan Layanan Masyarakat Terpadu)
+# Sistem Informasi SiLapor
+### Pengaduan Layanan Masyarakat Terpadu
 
-**Nama Mahasiswa:** Muhammad Arkhamullah R.A  
-**NIM:** 312410545  
-**Kelas:** I241E  
-**Mata Kuliah:** Pemrograman Web 2  
-**Tugas:** Ujian Akhir Semester (UAS)  
+| | |
+|---|---|
+| **Nama** | Muhammad Arkhamullah R.A |
+| **NIM** | 312410545 |
+| **Kelas** | I241E |
+| **Mata Kuliah** | Pemrograman Web 2 |
+| **Tugas** | Ujian Akhir Semester (UAS) |
+
+---
+
+## 📋 Daftar Isi
+
+- [Deskripsi Proyek](#deskripsi-proyek)
+- [Tautan Pendukung](#tautan-pendukung)
+- [Akun Demo](#akun-demo)
+- [Struktur Database](#struktur-database)
+- [Entity Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
+- [Halaman Landing Page](#halaman-landing-page-pengunjung)
+- [Pengujian Keamanan API](#pengujian-keamanan-api)
+- [Implementasi Axios Interceptors](#implementasi-axios-interceptors-otomatisasi-token)
+- [Tampilan Aplikasi](#tampilan-aplikasi)
+- [Cara Menjalankan Project](#cara-menjalankan-project-panduan-lokal)
 
 ---
 
 ## Deskripsi Proyek
 
-SiLapor merupakan platform pengaduan masyarakat berbasis web yang dirancang untuk menjembatani komunikasi antara masyarakat dan penyedia layanan publik. Sistem ini dikembangkan menggunakan pendekatan decoupled architecture untuk memisahkan logika backend dan antarmuka frontend secara penuh.
+SiLapor merupakan platform pengaduan masyarakat berbasis web yang dirancang untuk menjembatani komunikasi antara masyarakat dan penyedia layanan publik. Sistem ini dikembangkan menggunakan pendekatan **decoupled architecture** — memisahkan logika backend dan antarmuka frontend secara penuh.
 
-Pengelolaan data dan logika backend dibangun menggunakan **CodeIgniter 4** yang berfungsi secara eksklusif sebagai penyedia layanan REST API. Antarmuka pengguna (frontend) diimplementasikan sebagai Single Page Application (SPA) menggunakan **Vue.js 3** dan **TailwindCSS**. Pendekatan ini menghasilkan aplikasi yang responsif tanpa memerlukan proses pemuatan ulang (reload) halaman secara keseluruhan saat navigasi antarmenu.
+| Lapisan | Teknologi |
+|---------|-----------|
+| **Backend API** | CodeIgniter 4 (REST API Server) |
+| **Frontend SPA** | Vue.js 3 + Vue Router (CDN) |
+| **UI Framework** | TailwindCSS (CDN) |
+| **Data Transfer** | Axios (HTTP Async) |
+| **Database** | MySQL / MariaDB |
+
+Pendekatan ini menghasilkan aplikasi yang responsif tanpa memerlukan proses pemuatan ulang halaman secara keseluruhan saat navigasi antar-menu.
 
 ---
 
-## Tautan Pendukung (Penilaian)
+## Tautan Pendukung
 
-*   **Video Presentasi:** `[Tambahkan Link Video Presentasi Anda di Sini]`
-*   **Live Demo (Backend API):** [https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app](https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app)
-*   **DEMO Aplikasi FrontEnd dan Backend):** (https://uas-web2-312410545-muhammad-arkhamu.vercel.app/)
+| Link | URL |
+|------|-----|
+| **🎥 Video Presentasi** | `[Isi link YouTube di sini setelah upload]` |
+| **🌐 Demo Frontend** | [https://uas-web2-312410545-muhammad-arkhamu.vercel.app/](https://uas-web2-312410545-muhammad-arkhamu.vercel.app/) |
+| **⚙️ Demo Backend API** | [https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app](https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app) |
+| **📦 Repository GitHub** | [github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah) |
+
+> **Template Link YouTube:** Setelah video diupload, ganti `[Isi link YouTube di sini setelah upload]` dengan URL video, contoh: `https://youtu.be/xxxxxxxxxxx`
 
 ---
 
 ## Akun Demo
 
-Kredensial otentikasi berikut dapat digunakan untuk mengakses panel administrator tanpa perlu melakukan inspeksi basis data secara manual:
+Kredensial berikut dapat digunakan untuk mengakses panel administrator:
 
-**Email:**
-admin@silapor.com
-
-**Password:**
-password
+| Field | Value |
+|-------|-------|
+| **Email** | `admin@silapor.com` |
+| **Password** | `password` |
 
 ---
 
 ## Struktur Database (Kamus Data)
 
-Sistem basis data terdiri dari empat tabel utama yang saling berelasi sebagai berikut:
+Sistem basis data terdiri dari **empat tabel utama** yang saling berelasi:
 
-### Tabel Pengguna (`pengguna`)
-Menyimpan kredensial otentikasi dan informasi profil untuk entitas administrator maupun pelapor.
+### Tabel `pengguna`
+Menyimpan kredensial otentikasi dan informasi profil untuk administrator maupun pelapor.
 
 | Kolom | Tipe Data | Keterangan |
-| :--- | :--- | :--- |
+|:---|:---|:---|
 | `id` | INT | Primary Key |
 | `name` | VARCHAR(100) | Nama lengkap pengguna |
-| `email` | VARCHAR(100) | Email unik sebagai identitas masuk (login) |
-| `password` | VARCHAR(255) | Kata sandi yang telah dienkripsi (hash) |
-| `role` | ENUM | Klasifikasi hak akses (`admin` atau `pelapor`) |
-| `token` | VARCHAR(255) | Token untuk sesi autentikasi API |
-| `created_at` | TIMESTAMP | Stempel waktu pendaftaran akun |
+| `email` | VARCHAR(100) | Email unik sebagai identitas login |
+| `password` | VARCHAR(255) | Kata sandi terenkripsi (hash) |
+| `role` | ENUM | Hak akses: `admin` atau `pelapor` |
+| `token` | VARCHAR(255) | Token sesi autentikasi API |
+| `created_at` | TIMESTAMP | Waktu pendaftaran akun |
 
-### Tabel Kategori (`kategori`)
-Menyimpan klasifikasi laporan untuk memfasilitasi pengelompokan data pengaduan.
-
-| Kolom | Tipe Data | Keterangan |
-| :--- | :--- | :--- |
-| `id` | INT | Primary Key |
-| `name` | VARCHAR(100) | Nama entitas kategori |
-| `description` | VARCHAR(255) | Penjelasan singkat terkait entitas kategori |
-| `created_at` | TIMESTAMP | Stempel waktu pembuatan kategori |
-
-### Tabel Laporan (`laporan`)
-Berfungsi sebagai entitas utama yang menyimpan seluruh data pengaduan dari masyarakat.
+### Tabel `kategori`
+Menyimpan klasifikasi laporan untuk pengelompokan data pengaduan.
 
 | Kolom | Tipe Data | Keterangan |
-| :--- | :--- | :--- |
+|:---|:---|:---|
 | `id` | INT | Primary Key |
-| `user_id` | INT | Relasi referensial terhadap pelapor (Tabel `pengguna`) |
-| `category_id` | INT | Relasi referensial terhadap jenis aduan (Tabel `kategori`) |
-| `title` | VARCHAR(200) | Judul spesifik laporan |
-| `description` | TEXT | Rincian lengkap kronologi laporan |
-| `image` | VARCHAR(255) | Direktori berkas foto bukti kejadian |
-| `location` | VARCHAR(255) | Koordinat atau titik lokasi insiden |
-| `status` | ENUM | Progres penanganan (`pending`, `diproses`, `selesai`) |
-| `created_at` | TIMESTAMP | Stempel waktu penerimaan laporan |
-| `updated_at` | TIMESTAMP | Stempel waktu modifikasi status terakhir |
+| `name` | VARCHAR(100) | Nama kategori |
+| `description` | VARCHAR(255) | Deskripsi kategori |
+| `created_at` | TIMESTAMP | Waktu pembuatan |
 
-### Tabel Komentar (`komentar`)
-Menyimpan data tanggapan atau pembaruan status laporan yang diberikan oleh administrator.
+### Tabel `laporan`
+Entitas utama yang menyimpan seluruh data pengaduan masyarakat.
 
 | Kolom | Tipe Data | Keterangan |
-| :--- | :--- | :--- |
+|:---|:---|:---|
 | `id` | INT | Primary Key |
-| `report_id` | INT | Relasi referensial terhadap subjek laporan |
-| `admin_id` | INT | Relasi referensial terhadap administrator |
-| `body` | TEXT | Isi lengkap tanggapan |
-| `created_at` | TIMESTAMP | Stempel waktu pengiriman tanggapan |
+| `user_id` | INT | Foreign Key → `pengguna(id)` |
+| `category_id` | INT | Foreign Key → `kategori(id)` |
+| `title` | VARCHAR(200) | Judul laporan |
+| `description` | TEXT | Rincian kronologi laporan |
+| `image` | VARCHAR(255) | Path foto bukti |
+| `location` | VARCHAR(255) | Lokasi kejadian |
+| `status` | ENUM | Status: `pending`, `diproses`, `selesai` |
+| `created_at` | TIMESTAMP | Waktu laporan masuk |
+| `updated_at` | TIMESTAMP | Waktu modifikasi terakhir |
+
+### Tabel `komentar`
+Menyimpan tanggapan atau pembaruan status dari administrator.
+
+| Kolom | Tipe Data | Keterangan |
+|:---|:---|:---|
+| `id` | INT | Primary Key |
+| `report_id` | INT | Foreign Key → `laporan(id)` |
+| `admin_id` | INT | Foreign Key → `pengguna(id)` |
+| `body` | TEXT | Isi tanggapan |
+| `created_at` | TIMESTAMP | Waktu pengiriman |
 
 ---
 
@@ -96,11 +126,11 @@ Menyimpan data tanggapan atau pembaruan status laporan yang diberikan oleh admin
 
 ![Skema Database](Screenshots/Database.png)
 
-> Skema diagram relasi entitas menunjukkan penerapan Foreign Key pada tabel terkait. Implementasi ini memastikan integritas referensial (referential integrity) untuk mencegah anomali atau penghapusan data secara tidak valid.
+> Skema ERD menunjukkan penerapan Foreign Key pada tabel terkait. Implementasi ini memastikan integritas referensial untuk mencegah anomali data.
 
 ![Relasi Tabel](Screenshots/tabel%20relasi.png)
 
-> Tampilan relasi antar tabel dari sisi database designer phpMyAdmin. Memperlihatkan hubungan foreign key antara tabel `pengguna`, `kategori`, `laporan`, dan `komentar`.
+> Tampilan relasi antar tabel dari database designer phpMyAdmin. Memperlihatkan hubungan foreign key antara `pengguna`, `kategori`, `laporan`, dan `komentar`.
 
 ---
 
@@ -108,7 +138,7 @@ Menyimpan data tanggapan atau pembaruan status laporan yang diberikan oleh admin
 
 ![Landing Page](Screenshots/landingpage%20pengunjung.png)
 
-> Halaman beranda yang dapat diakses publik tanpa login. Menampilkan informasi umum aplikasi dan ringkasan layanan. Pengunjung yang belum login hanya bisa mengakses halaman ini — sesuai ketentuan hak akses publik pada soal proyek.
+> Halaman beranda yang dapat diakses publik tanpa login. Menampilkan informasi umum aplikasi. Sesuai ketentuan hak akses: pengunjung hanya bisa mengakses halaman ini.
 
 ---
 
@@ -116,20 +146,20 @@ Menyimpan data tanggapan atau pembaruan status laporan yang diberikan oleh admin
 
 ![Error 401 Postman](Screenshots/postman.png)
 
-> Gambar tersebut mendemonstrasikan implementasi keamanan REST API. Akses terhadap endpoint yang dilindungi tanpa menyertakan Bearer Token yang valid akan ditolak secara otomatis oleh sistem dengan kode status **401 Unauthorized**.
+> Endpoint yang dilindungi tanpa Bearer Token akan ditolak dengan kode **401 Unauthorized**.
 
 ![Error 401 Railway](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah/blob/master/Screenshots/Screenshot%202026-06-24%20191050.png?raw=true)
 
-> Pengujian dilakukan langsung terhadap endpoint production di Railway. Hasil identik membuktikan proteksi token berjalan konsisten di lingkungan deployment.
+> Pengujian pada endpoint production di Railway. Proteksi token berjalan konsisten di lingkungan deployment.
 
 ---
 
 ## Implementasi Axios Interceptors (Otomatisasi Token)
 
-Sistem telah dikonfigurasi untuk mengotomatisasi penyisipan token dan penanganan kesalahan secara global pada sisi frontend (Vue.js) melalui penerapan Axios Interceptors. Berikut adalah cuplikan kode implementasi yang merepresentasikan fungsionalitas tersebut:
+Sistem mengotomatisasi penyisipan token dan penanganan kesalahan secara global melalui Axios Interceptors:
 
 ```javascript
-// Request Interceptor: Menyuntikkan Bearer token secara otomatis
+// Request Interceptor: Suntik Bearer token otomatis
 window.api.interceptors.request.use(config => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -140,7 +170,7 @@ window.api.interceptors.request.use(config => {
     return Promise.reject(error);
 });
 
-// Response Interceptor: Menangani error 401 Unauthorized secara global
+// Response Interceptor: Tangani 401 Unauthorized global
 window.api.interceptors.response.use(response => {
     return response;
 }, error => {
@@ -155,57 +185,80 @@ window.api.interceptors.response.use(response => {
 });
 ```
 
-> Kode di atas mengonfirmasi dua fungsi operasional utama:
-> 1. Request Interceptor bertugas mengekstraksi token dari `localStorage` untuk disematkan secara otomatis pada setiap header permintaan (request) keluar.
-> 2. Response Interceptor bertugas menginterupsi respons dengan status 401 secara global untuk mencabut sesi, memberikan notifikasi peringatan (alert), serta mengarahkan pengguna kembali ke halaman otentikasi.
+**Fungsi:**
+1. **Request Interceptor** — Mengekstrak token dari `localStorage` dan menyematkannya ke setiap header request
+2. **Response Interceptor** — Menangkap error 401 global, membersihkan sesi, dan mengarahkan ke halaman login
 
 ---
 
 ## Tampilan Aplikasi
 
 ### Halaman Login
+
 ![Login](Screenshots/Login%20admin.png)
-> Antarmuka halaman otentikasi didesain secara minimalis untuk memastikan kemudahan akses administrator.
+> Antarmuka otentikasi administrator dengan desain minimalis dua kolom.
 
 ### Dashboard Admin
+
 ![Dashboard](Screenshots/Dashboard.png)
-> Panel kontrol utama (dashboard) menyajikan ringkasan statistik laporan. Tata letak elemen bersifat responsif berkat pemanfaatan antarmuka pengguna berbasis TailwindCSS.
+> Panel kontrol utama dengan ringkasan statistik laporan (total, pending, diproses, selesai) dan tabel data terbaru.
 
 ### Form Tambah dan Edit Data
+
 ![Tambah Data](Screenshots/Create.png)
 
 ![Edit Data](Screenshots/Update.png)
-> Proses penambahan dan modifikasi data diimplementasikan melalui komponen modal interaktif tanpa perpindahan halaman, mengoptimalkan efisiensi alur kerja operasional dalam lingkungan SPA.
+> Form modal interaktif tanpa perpindahan halaman — mengoptimalkan efisiensi kerja dalam lingkungan SPA.
 
 ### Tabel Manajemen Data
+
 ![Tabel Data](Screenshots/Tabel%20manajemen%20data.png)
-> Komponen tabel memproses respons data JSON dari backend untuk disajikan dalam antarmuka terstruktur. Indikator warna pada kolom status disesuaikan secara dinamis.
+> Tabel dengan indikator warna status dinamis, pagination, dan desain TailwindCSS.
 
 ---
 
 ## Cara Menjalankan Project (Panduan Lokal)
 
 ### 1. Konfigurasi Database
-1. Akses antarmuka phpMyAdmin melalui peramban (browser).
-2. Buat basis data baru dengan nama `silapor`.
-3. Lakukan proses impor struktur dan data menggunakan file `database_silapor.sql` yang terletak pada direktori utama proyek.
+
+1. Buka phpMyAdmin melalui browser
+2. Buat database baru dengan nama **`silapor`**
+3. Import file `database_silapor.sql` dari direktori utama proyek
 
 ### 2. Menjalankan Backend (API)
-Arahkan direktori terminal ke folder backend:
+
 ```bash
 cd backend-api
 ```
-Ubah nama file konfigurasi environment dari env menjadi .env. Pastikan konfigurasi koneksi basis data disesuaikan sebagai berikut:
+
+Sesuaikan konfigurasi di file `.env`:
+
 ```env
 database.default.hostname = localhost
 database.default.database = silapor
 database.default.username = root
 database.default.password =
 ```
-Layanan Backend API akan aktif dan dapat diakses melalui URL:
+
+Backend API aktif di:
+```
 http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/backend-api/public/
+```
 
 ### 3. Menjalankan Frontend (SPA)
-Akses direktori frontend melalui peramban pada alamat URL berikut:
-http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/
 
+Akses melalui browser:
+```
+http://localhost/UAS_Web2_312410545_Muhammad_Arkhamullah/frontend-spa/
+```
+
+---
+
+### 📝 Template Link YouTube (Copy-paste ke baris Video Presentasi setelah upload)
+
+```markdown
+| **🎥 Video Presentasi** | [https://youtu.be/xxx_isi_link_disini](https://youtu.be/xxx_isi_link_disini) |
+```
+
+---
+*© 2026 SiLapor — UAS Pemrograman Web 2*
