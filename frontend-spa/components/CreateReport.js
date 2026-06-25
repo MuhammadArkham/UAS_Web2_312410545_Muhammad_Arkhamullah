@@ -20,9 +20,12 @@ const CreateReport = Vue.defineComponent({
       try {
         const res = await window.api.get('/categories');
         this.categories = res.data.data;
-      } catch(e) {
+      } catch (e) {
         console.error(e);
       }
+    },
+    triggerFileInput() {
+      this.$refs.fileInput.click();
     },
     handleFileChange(e) {
       const file = e.target.files[0];
@@ -52,7 +55,7 @@ const CreateReport = Vue.defineComponent({
         await window.api.post('/reports', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
-        
+
         this.success = true;
         this.form = { title: '', category_id: '', location: '', description: '' };
         this.removeImage();
@@ -88,7 +91,6 @@ const CreateReport = Vue.defineComponent({
            {{ error }}
         </div>
 
-        <!-- Single Unified Form Card -->
         <div class="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] overflow-hidden">
           <div class="p-6 md:p-8 space-y-8">
             
@@ -143,22 +145,22 @@ const CreateReport = Vue.defineComponent({
             <!-- Image Upload -->
             <div>
               <label class="block text-sm font-bold text-[#0F172A] mb-2">Unggah Foto Bukti (Opsional)</label>
-              <div class="relative w-full overflow-hidden border-2 border-[#E2E8F0] border-dashed rounded-xl transition-all" 
+              <div class="relative w-full overflow-hidden border-2 border-[#E2E8F0] border-dashed rounded-xl transition-all"
                    :class="imagePreview ? 'border-transparent shadow-md' : 'hover:border-[#2563EB] hover:bg-blue-50/30 bg-[#F8FAFC]'">
-                   
+
                 <!-- Kondisi Kosong (Dropzone) -->
-                <div v-if="!imagePreview" class="flex flex-col items-center justify-center py-10 px-6">
+                <div v-if="!imagePreview"
+                     class="flex flex-col items-center justify-center py-10 px-6 cursor-pointer"
+                     @click="triggerFileInput">
                   <div class="w-16 h-16 bg-blue-100/50 rounded-full flex items-center justify-center mb-4">
                      <i class="ti ti-cloud-upload text-3xl text-blue-600"></i>
                   </div>
                   <div class="flex text-sm text-[#64748B] justify-center gap-1 mb-1">
-                    <label class="relative cursor-pointer bg-transparent rounded-md font-bold text-[#2563EB] hover:text-[#1D4ED8] focus-within:outline-none">
-                      <span>Pilih file gambar</span>
-                      <input ref="fileInput" @change="handleFileChange" type="file" class="sr-only" accept="image/*">
-                    </label>
+                    <span class="font-bold text-[#2563EB] hover:text-[#1D4ED8]">Pilih file gambar</span>
                     <p>atau seret dan lepas di sini</p>
                   </div>
                   <p class="text-xs text-[#94A3B8] font-medium">Mendukung format PNG, JPG, JPEG (Maks. 2MB)</p>
+                  <input ref="fileInput" @change="handleFileChange" type="file" class="sr-only" accept="image/*">
                 </div>
 
                 <!-- Kondisi Terisi (Preview) -->
