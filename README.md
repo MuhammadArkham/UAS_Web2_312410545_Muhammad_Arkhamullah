@@ -37,7 +37,7 @@ Aplikasi dibangun dengan **Decoupled Architecture** — backend API terpisah pen
 
 | Link | URL |
 |------|------|
-| Video Presentasi | `[Isi link YouTube di sini setelah upload]` |
+| Video Presentasi | https://youtu.be/9WOmPmGVbdA?si=0Jf-Omq9_EhY0x0G
 |  Demo Aplikasi  | [uas-web2-312410545-muhammad-arkhamu.vercel.app](https://uas-web2-312410545-muhammad-arkhamu.vercel.app/) |
 |  Demo Backend API (Railway) | [uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app](https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app) |
 
