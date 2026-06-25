@@ -31,27 +31,27 @@ const AdminLayout = Vue.defineComponent({
            </div>
            <div class="flex flex-col">
              <div class="text-[20px] font-bold text-white tracking-tight leading-none mb-1">SiLapor</div>
-             <div class="text-[10px] font-medium text-slate-400 leading-[1.3] tracking-wide">Sistem Pelaporan<br>Pengaduan Masyarakat</div>
+             <div class="text-[10px] font-medium leading-[1.3] tracking-wide" style="color: rgba(255,255,255,0.7)">Sistem Pelaporan<br>Pengaduan Masyarakat</div>
            </div>
         </div>
       </div>
       <div class="flex-1 overflow-y-auto py-6">
         <nav class="px-4 space-y-2">
-          <button @click="$router.push('/dashboard')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/dashboard' ? 'bg-blue-600 text-white shadow-sm ring-1 ring-inset ring-white/10' : 'text-slate-400 hover:bg-white/5 hover:text-white'">
+          <button @click="$router.push('/dashboard')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/dashboard' ? 'bg-blue-600 text-white shadow-sm ring-1 ring-inset ring-white/10' : 'sidebar-inactive'">
             <i class="ti ti-layout-dashboard text-[22px] shrink-0" style="-webkit-text-stroke: 0.5px;"></i>
             Dashboard
           </button>
-          <button @click="$router.push('/reports')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/reports' || $route.path === '/create' ? 'bg-blue-600 text-white shadow-sm ring-1 ring-inset ring-white/10' : 'text-slate-400 hover:bg-white/5 hover:text-white'">
+          <button @click="$router.push('/reports')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/reports' || $route.path === '/create' ? 'bg-blue-600 text-white shadow-sm ring-1 ring-inset ring-white/10' : 'sidebar-inactive'">
             <i class="ti ti-file-text text-[22px] shrink-0" style="-webkit-text-stroke: 0.5px;"></i>
             Laporan
           </button>
-          <button @click="$router.push('/categories')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/categories' ? 'bg-blue-600 text-white shadow-sm ring-1 ring-inset ring-white/10' : 'text-slate-400 hover:bg-white/5 hover:text-white'">
+          <button @click="$router.push('/categories')" class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all" :class="$route.path === '/categories' ? 'bg-blue-600 text-white shadow-sm ring-1 ring-inset ring-white/10' : 'sidebar-inactive'">
             <i class="ti ti-folder text-[22px] shrink-0" style="-webkit-text-stroke: 0.5px;"></i>
             Kategori
           </button>
           
           <div class="pt-6 mt-6 border-t border-white/5">
-            <button @click="logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-rose-600 hover:text-white transition-colors group">
+            <button @click="logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-colors group sidebar-logout">
               <i class="ti ti-logout text-[22px] shrink-0 group-hover:scale-110 transition-transform" style="-webkit-text-stroke: 0.5px;"></i>
               Logout
             </button>
