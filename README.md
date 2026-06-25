@@ -121,10 +121,10 @@ Penjelasan:
 
 Semua foreign key menggunakan **ON DELETE CASCADE** — jika data induk dihapus, data anak ikut terhapus.
 
-![Skema Database](Screenshots/Database.png)
+![Skema Database](docs/Screenshots/Database.png)
 > ERD dari database designer phpMyAdmin — visualisasi relasi foreign key antar 4 tabel.
 
-![Relasi Tabel](Screenshots/tabel%20relasi.png)
+![Relasi Tabel](docs/Screenshots/tabel%20relasi.png)
 > Tampilan designer phpMyAdmin — garis penghubung menunjukkan foreign key constraints.
 
 ---
@@ -183,10 +183,10 @@ Di `app/Config/Routes.php`, route API dibagi dua grup:
 
 ### Hasil Pengujian Postman
 
-![Error 401 Postman](Screenshots/postman.png)
+![Error 401 Postman](docs/Screenshots/postman.png)
 > **Skenario:** Request GET ke endpoint yang dilindungi (`/api/reports`) tanpa menyertakan header `Authorization: Bearer <token>`. **Hasil:** Server langsung mengembalikan kode **401 Unauthorized** dengan pesan error JSON. Header `WWW-Authenticate: Bearer` ikut dikirim sebagai sinyal ke client bahwa endpoint ini butuh token.
 
-![Error 401 Railway](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah/blob/master/Screenshots/Screenshot%202026-06-24%20191050.png?raw=true)
+![Error 401 Railway](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah/blob/master/docs/Screenshots/Screenshot%202026-06-24%20191050.png?raw=true)
 > **Skenario:** Uji coba yang sama dilakukan terhadap API production yang di-deploy di Railway. **Hasil:** Error 401 tetap muncul — proteksi token konsisten antara lingkungan development (localhost) dan production (Railway), karena logika AuthFilter ada di kode backend yang sama.
 
 ---
@@ -195,27 +195,27 @@ Di `app/Config/Routes.php`, route API dibagi dua grup:
 
 ### Halaman Login
 
-![Login](Screenshots/Login%20admin.png)
+![Login](docs/Screenshots/Login%20admin.png)
 > Form otentikasi administrator — desain dua kolom dengan TailwindCSS.
 
 ### Halaman Dashboard Admin
 
-![Dashboard](Screenshots/Dashboard.png)
+![Dashboard](docs/Screenshots/Dashboard.png)
 > Panel kontrol utama — statistik laporan (total, pending, diproses, selesai), jam real-time, tabel laporan terbaru.
 
 ### Form Modal Tambah Data
 
-![Tambah Data](Screenshots/Create.png)
+![Tambah Data](docs/Screenshots/Create.png)
 > Modal form tambah laporan baru — tanpa reload halaman (SPA).
 
 ### Form Modal Edit Data
 
-![Edit Data](Screenshots/Update.png)
+![Edit Data](docs/Screenshots/Update.png)
 > Modal form edit laporan yang sudah ada.
 
 ### Tabel Manajemen Data (TailwindCSS)
 
-![Tabel Data](Screenshots/Tabel%20manajemen%20data.png)
+![Tabel Data](docs/Screenshots/Tabel%20manajemen%20data.png)
 > Tabel dengan indikator warna status (pending=diproses=selesai=) dan pagination bertenaga TailwindCSS.
 
 ---
@@ -238,7 +238,7 @@ C:\xampp\htdocs\UAS_Web2_312410545_Muhammad_Arkhamullah\
 1. Nyalakan **Apache** + **MySQL** lewat XAMPP Control Panel
 2. Buka `http://localhost/phpmyadmin`
 3. Buat database baru: **`silapor`** (collation `utf8_general_ci`)
-4. Tab **Import** → pilih **`database_silapor.sql`** → **Go**
+4. Tab **Import** → pilih **`docs/database_silapor.sql`** → **Go**
 5. 4 tabel terbuat: `pengguna`, `kategori`, `laporan`, `komentar`
 
 ### 3. Jalankan Backend (API)
@@ -308,8 +308,10 @@ UAS_Web2_312410545_Muhammad_Arkhamullah/
 │       ├── CreateReport.js         # Form tambah laporan
 │       ├── Categories.js           # Manajemen kategori
 │       └── AdminLayout.js          # Layout sidebar + header
-├── Screenshots/                    # Dokumentasi gambar
-├── database_silapor.sql            # Backup database
+├── docs/
+│   ├── Screenshots/                # Dokumentasi gambar
+│   ├── database_silapor.sql        # Backup database
+│   └── SiLapor_Postman_Collection.json  # Postman collection
 └── README.md
 ```
 
