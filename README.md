@@ -98,6 +98,18 @@ Menyimpan data tanggapan atau pembaruan status laporan yang diberikan oleh admin
 
 > Skema diagram relasi entitas menunjukkan penerapan Foreign Key pada tabel terkait. Implementasi ini memastikan integritas referensial (referential integrity) untuk mencegah anomali atau penghapusan data secara tidak valid.
 
+![Relasi Tabel](Screenshots/tabel%20relasi.png)
+
+> Tampilan relasi antar tabel dari sisi database designer phpMyAdmin. Memperlihatkan hubungan foreign key antara tabel `pengguna`, `kategori`, `laporan`, dan `komentar`.
+
+---
+
+## Halaman Landing Page (Pengunjung)
+
+![Landing Page](Screenshots/landingpage%20pengunjung.png)
+
+> Halaman beranda yang dapat diakses publik tanpa login. Menampilkan informasi umum aplikasi dan ringkasan layanan. Pengunjung yang belum login hanya bisa mengakses halaman ini — sesuai ketentuan hak akses publik pada soal proyek.
+
 ---
 
 ## Pengujian Keamanan API
