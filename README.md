@@ -37,12 +37,10 @@ Aplikasi dibangun dengan **Decoupled Architecture** — backend API terpisah pen
 
 | Link | URL |
 |------|------|
-| **🎥 Video Presentasi** | `[Isi link YouTube di sini setelah upload]` |
-| **🌐 Demo Frontend (Vercel)** | [uas-web2-312410545-muhammad-arkhamu.vercel.app](https://uas-web2-312410545-muhammad-arkhamu.vercel.app/) |
-| **⚙️ Demo Backend API (Railway)** | [uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app](https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app) |
-| **📦 Repository GitHub** | [github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah](https://github.com/MuhammadArkham/UAS_Web2_312410545_Muhammad_Arkhamullah) |
+| Video Presentasi | `[Isi link YouTube di sini setelah upload]` |
+|  Demo Aplikasi  | [uas-web2-312410545-muhammad-arkhamu.vercel.app](https://uas-web2-312410545-muhammad-arkhamu.vercel.app/) |
+|  Demo Backend API (Railway) | [uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app](https://uasweb2312410545muhammadarkhamullah-production-733d.up.railway.app) |
 
-> Setelah upload video, ganti `[Isi link YouTube di sini setelah upload]` dengan URL YouTube.
 
 ### Akun Demo
 
